@@ -1,0 +1,16 @@
+---
+title: "R Small Group: Class 1"
+author: "Amy Allen & Dayne Filer"
+date: "June 10, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction to R
+
+
+
+
