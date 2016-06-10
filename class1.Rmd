@@ -2,7 +2,9 @@
 title: "R Small Group: Class 1"
 author: "Amy Allen & Dayne Filer"
 date: "June 10, 2016"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,50 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Introduction to R
+The most basic introduction to R is through simple math calculations. For example:
+
+```{r}
+3 + 4
+```
+
+Similarly, R can do subtraction, multiplication, and division:
+
+```{r}
+4 - 2
+2*120
+1e3/2
+```
+
+All these calculations are taking place in your global R environment. (Although it is beyond what you need to understand for this class, you can check which environment you are working in by running `environment()`; the result should be: `<environment: R_GlobalEnv>`.) The global R environment can store variables defined by the user.
+
+The `<-` command is used to store variables in R. For example, if we want to store the result of `3 + 4` to use in future calculations, we could do something like the following:
+
+```{r}
+x <- 3 + 4
+```
+
+Notice, code did not return any result. The result is now stored in `x`. In the example above, "x" is the name of the variable. The `<-` operator told R to calculate `3 + 4` and store the results in a variable called `x`. You can now access the variable by typing it into the console:
+
+```{r}
+x
+```
+
+The `x` variable can also be used in calculations and to create new variables.
+
+```{r}
+y <- 2 + x
+y
+```
+
+It can be hard to remember which variables are available. R provides the `ls` function for displaying the variables contained in your environment. Functions have names, in this case `ln`. What happens when you run `ls`? 
+
+```{r}
+ls
+```
 
 
+R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: `ls`. 
+
+Execute your first command! R provides the `ls` function for displaying the variables contained in your environment. 
 
 
