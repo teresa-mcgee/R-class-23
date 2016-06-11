@@ -191,7 +191,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7fdd4bcd8808&gt;
+## &lt;bytecode: 0x7fe28318d208&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -205,6 +205,22 @@ class(x = x)
 <p>Notce the <code>class</code> function requires an input, in this case called “x”. Running <code>class()</code> without any input will give an error message:</p>
 <pre class="r"><code>class()
 ## Error in class(): 0 arguments passed to 'class' which requires 1</code></pre>
+<p>In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let’s expolore data classes further after making some new variables.</p>
+<pre class="r"><code>var1 &lt;- c(1, 2, 3)
+var2 &lt;- c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;)
+var3 &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</code></pre>
+<p>The <code>c</code> function creates a vector – or a string of values. We did not tell R what data class to make the vectors. Run <code>class</code> to see how R interpreted the vectors.</p>
+<pre class="r"><code>class(var1)
+## [1] &quot;numeric&quot;
+class(var2)
+## [1] &quot;character&quot;
+class(var3)
+## [1] &quot;character&quot;</code></pre>
+<p>Even though <code>var2</code> could be interpreted as numeric, adding the quotation marks created a character vector. When combining or comparing two values/vectors R attempts to coerce one to the higher order data class. From the R documentation:</p>
+<blockquote>
+<p>If the two arguments are atomic vectors of different types, one is coerced to the type of the other, the (decreasing) order of precedence being character, complex, numeric, integer, logical and raw.</p>
+</blockquote>
+<p>Although we won’t discuss all of the data classes listed above, it provides a nice refernce for future use. (To find help in the documentation play around with <code>?</code> and <code>??</code>. <code>?</code> will show the documentation for a specific function, e.g. <code>?mean</code>, and <code>??</code> searches the documentation for a topic, e.g. <code>??average</code>. You can see from the <code>??average</code> search that a quick Google search will often provide better results when you don’t know the name of the function you are looking for.)</p>
 <p>R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: <code>ls</code>.</p>
 <p>Execute your first command! R provides the <code>ls</code> function for displaying the variables contained in your environment.</p>
 </div>

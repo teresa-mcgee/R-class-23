@@ -73,6 +73,28 @@ Notce the `class` function requires an input, in this case called "x". Running `
 class()
 ```
 
+In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let's expolore data classes further after making some new variables. 
+
+```{r}
+var1 <- c(1, 2, 3)
+var2 <- c("1", "2", "3")
+var3 <- c("a", "b", "c")
+```
+
+The `c` function creates a vector -- or a string of values. We did not tell R what data class to make the vectors. Run `class` to see how R interpreted the vectors. 
+
+```{r}
+class(var1)
+class(var2)
+class(var3)
+```
+
+Even though `var2` could be interpreted as numeric, adding the quotation marks created a character vector. When combining or comparing two values/vectors R attempts to coerce one to the higher order data class. From the R documentation:
+
+> If the two arguments are atomic vectors of different types, one is coerced to the type of the other, the (decreasing) order of precedence being character, complex, numeric, integer, logical and raw.
+
+Although we won't discuss all of the data classes listed above, it provides a nice refernce for future use. (To find help in the documentation play around with `?` and `??`. `?` will show the documentation for a specific function, e.g. `?mean`, and `??` searches the documentation for a topic, e.g. `??average`. You can see from the `??average` search that a quick Google search will often provide better results when you don't know the name of the function you are looking for.)
+
 
 
 R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: `ls`. 
