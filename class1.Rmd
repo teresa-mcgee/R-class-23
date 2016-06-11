@@ -4,11 +4,11 @@ author: "Amy Allen & Dayne Filer"
 date: "June 10, 2016"
 output: 
   html_document:
-    code_folding: hide
+    code_folding: show
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
 
 ## Introduction to R
@@ -52,6 +52,27 @@ It can be hard to remember which variables are available. R provides the `ls` fu
 ```{r}
 ls
 ```
+
+The output shows the code behind the `ls` function. To use a function you have to add `()`.
+
+```{r}
+ls()
+```
+
+Running `ls()` returns `[1] "x" "y"`, indicating there are two variables, `x` and `y`, in the global environment. Here we see a new type of result: the `x` and `y` are surrounded by quotation marks. The quotation marks indicate a different type of data. Programming languages include different data classes. While R includes many different types, we will discuss the three most common: (1) numeric, (2) character, and (3) logical. We can check the data class with the `class` function. 
+
+```{r}
+vars <- ls()
+class(x = vars)
+class(x = x)
+```
+
+Notce the `class` function requires an input, in this case called "x". Running `class()` without any input will give an error message:
+
+```{r, error=TRUE}
+class()
+```
+
 
 
 R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: `ls`. 
