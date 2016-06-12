@@ -183,21 +183,62 @@ NA == 1
 
 ### Class 1 exercises
 
-```{r, echo=FALSE}
-set.seed(1234)
-ops <- c("`+`", "`-`", "`/`", "`*`", "`^`", "`>=`", "`==`", "`>=`", "`<=`", "`<-`")
+These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
+
+1. As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence:
+
+`-`, `>=`, `^`, `>=`, `<=`, `*`, `+`, `==`, `<-`, `/`
+
+Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence. 
+
+2. Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)
+
+```{r,eval=FALSE}
+1 + 3*3
+(1 + 3)*3
+2^4/2 + 2
+2^4/(2 + 2)
+(5 + 2*10/(1 + 4))/3
 ```
 
+3. Predict the vector and its class resulting from the following expressions:
 
-As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence:
-
-`r cat(sample(ops, length(ops)), sep = ",")`
-
-```{r}
-
+```{r,eval=FALSE}
+c(1, 3, 5)
+c("a", "b")
+c(TRUE, TRUE, TRUE, FALSE)
+c(1, TRUE, 10)
+c("a", FALSE, 100, "dog")
+c(as.numeric(TRUE), "fish", 2, "fish")
+c(6, 7, as.numeric(FALSE), as.numeric("hello"))
+as.logical(c(1, 0, 10, -100))
+as.logical(c("TRUE", "false", "T", "F", "True", "red"))
+as.numeric(as.logical(c(10, 5, 0, 1, 0, 100)))
 ```
 
+4. Predict the result of the following expressions:
 
+```{r,eval=FALSE}
+1 > 3
+14 >= 2*7
+"1" > "3"
+as.logical(10) > 2
+0 == FALSE
+0 == as.character(FALSE)
+0 == as.character(as.numeric(FALSE))
+as.character(0) == 0
+TRUE == 1^0
+as.numeric(TRUE) == as.character(1^0)
+as.numeric("one") == 1
+
+# These are some "bonus" concepts. How does R compare character values? Make some predictions, then run the code and see if you can figure out the rules for yourself. Then write your own expressions to test the rules!
+"a" < "b"
+"a" < "1"
+"a2" > "a1"
+"aaa" > "aa"
+"a" > "A"
+as.character(as.numeric(TRUE)) > FALSE
+```
 
 
 

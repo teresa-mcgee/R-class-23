@@ -214,7 +214,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7fa01dab8608&gt;
+## &lt;bytecode: 0x7fa84bc28a08&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -304,7 +304,55 @@ as.logical(0)
 </div>
 <div id="class-1-exercises" class="section level3">
 <h3>Class 1 exercises</h3>
-<p>As you might expect the R operators can be combined in a single expression, e.g. <code>2 + 6/3</code>. Look up the order of operations within R and order the following operators from highest to lowest precedence:</p>
+<p>These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code.</p>
+<ol style="list-style-type: decimal">
+<li>As you might expect the R operators can be combined in a single expression, e.g. <code>2 + 6/3</code>. Look up the order of operations within R and order the following operators from highest to lowest precedence:</li>
+</ol>
+<p><code>-</code>, <code>&gt;=</code>, <code>^</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>*</code>, <code>+</code>, <code>==</code>, <code>&lt;-</code>, <code>/</code></p>
+<p>Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)</li>
+</ol>
+<pre class="r"><code>1 + 3*3
+(1 + 3)*3
+2^4/2 + 2
+2^4/(2 + 2)
+(5 + 2*10/(1 + 4))/3</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Predict the vector and its class resulting from the following expressions:</li>
+</ol>
+<pre class="r"><code>c(1, 3, 5)
+c(&quot;a&quot;, &quot;b&quot;)
+c(TRUE, TRUE, TRUE, FALSE)
+c(1, TRUE, 10)
+c(&quot;a&quot;, FALSE, 100, &quot;dog&quot;)
+c(as.numeric(TRUE), &quot;fish&quot;, 2, &quot;fish&quot;)
+c(6, 7, as.numeric(FALSE), as.numeric(&quot;hello&quot;))
+as.logical(c(1, 0, 10, -100))
+as.logical(c(&quot;TRUE&quot;, &quot;false&quot;, &quot;T&quot;, &quot;F&quot;, &quot;True&quot;, &quot;red&quot;))
+as.numeric(as.logical(c(10, 5, 0, 1, 0, 100)))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Predict the result of the following expressions:</li>
+</ol>
+<pre class="r"><code>1 &gt; 3
+14 &gt;= 2*7
+&quot;1&quot; &gt; &quot;3&quot;
+as.logical(10) &gt; 2
+0 == FALSE
+0 == as.character(FALSE)
+0 == as.character(as.numeric(FALSE))
+as.character(0) == 0
+TRUE == 1^0
+as.numeric(TRUE) == as.character(1^0)
+as.numeric(&quot;one&quot;) == 1
+
+# These are some &quot;bonus&quot; concepts. How does R compare character values? Make some predictions, then run the code and see if you can figure out the rules for yourself. Then write your own expressions to test the rules!
+&quot;a&quot; &lt; &quot;b&quot;
+&quot;a&quot; &lt; &quot;1&quot;
+&quot;a2&quot; &gt; &quot;a1&quot;
+&quot;aaa&quot; &gt; &quot;aa&quot;
+&quot;a&quot; &gt; &quot;A&quot;
+as.character(as.numeric(TRUE)) &gt; FALSE</code></pre>
 </div>
 
 
