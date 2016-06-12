@@ -143,17 +143,17 @@ $(document).ready(function () {
 <li># indicates a comment, and anything after a comment will not be evaluated in R</li>
 <li>The comments beginning with ## under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single #</li>
 <li>While you can copy and paste code into R, you will learn faster if you type out the commands yourself.</li>
-<li>Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not undertand please email us with questions or ask in the following class (you’re probably not the only one with the same question!).</li>
+<li>Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you’re probably not the only one with the same question!).</li>
 </ul>
 </div>
 <div id="class-1-expecations" class="section level3">
 <h3>Class 1 expecations</h3>
 <ol style="list-style-type: decimal">
-<li>Know and understand the basic math operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>)</li>
+<li>Know and understand the basic math operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>)</li>
 <li>Know the assignment operator and how to use it</li>
 <li>Understand what a function is, how to use a function, and understand some basic functions</li>
 <li>Understand the three most common data classes (character, numeric, logical)</li>
-<li>Know and understand the basic comparisson operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>&gt;=</code>, <code>&lt;=</code>)</li>
+<li>Know and understand the basic comparison operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>&gt;=</code>, <code>&lt;=</code>)</li>
 <li>Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects</li>
 </ol>
 </div>
@@ -162,13 +162,15 @@ $(document).ready(function () {
 <p>The most basic introduction to R is through simple math calculations. For example:</p>
 <pre class="r"><code>3 + 4
 ## [1] 7</code></pre>
-<p>Similarly, R can do subtraction, multiplication, and division:</p>
+<p>Similarly, R can do subtraction, multiplication, division, and exponentiation:</p>
 <pre class="r"><code>4 - 2
 ## [1] 2
 2*120
 ## [1] 240
 1e3/2
-## [1] 500</code></pre>
+## [1] 500
+3^2
+## [1] 9</code></pre>
 <p>All these calculations are taking place in your global R environment. (Although it is beyond what you need to understand for this class, you can check which environment you are working in by running <code>environment()</code>; the result should be: <code>&lt;environment: R_GlobalEnv&gt;</code>.) The global R environment can store variables defined by the user.</p>
 <p>The <code>&lt;-</code> command is used to store variables in R. For example, if we want to store the result of <code>3 + 4</code> to use in future calculations, we could do something like the following:</p>
 <pre class="r"><code>x &lt;- 3 + 4</code></pre>
@@ -212,7 +214,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7fc23967ae08&gt;
+## &lt;bytecode: 0x7fa01dab8608&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -296,12 +298,13 @@ as.logical(-10)
 ## [1] TRUE
 as.logical(0)
 ## [1] FALSE</code></pre>
-<p>Notice that any number other than <code>0</code>, when converted to logical, is <code>TRUE</code>. However, when <code>&quot;1&quot;</code> is converted directly from character to logical, the result is <code>NA</code> – meaning “not available” or that it is not possible. However, if the <code>&quot;1&quot;</code> is first converted to a numeric, then coverted to logical, the result is <code>TRUE</code>. Any comparison to an <code>NA</code> will be <code>NA</code>.</p>
+<p>Notice that any number other than <code>0</code>, when converted to logical, is <code>TRUE</code>. However, when <code>&quot;1&quot;</code> is converted directly from character to logical, the result is <code>NA</code> – meaning “not available” or that it is not possible. However, if the <code>&quot;1&quot;</code> is first converted to a numeric, then converted to logical, the result is <code>TRUE</code>. Any comparison to an <code>NA</code> will be <code>NA</code>.</p>
 <pre class="r"><code>NA == 1
 ## [1] NA</code></pre>
 </div>
 <div id="class-1-exercises" class="section level3">
 <h3>Class 1 exercises</h3>
+<p>As you might expect the R operators can be combined in a single expression, e.g. <code>2 + 6/3</code>. Look up the order of operations within R and order the following operators from highest to lowest precedence:</p>
 </div>
 
 

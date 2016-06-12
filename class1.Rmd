@@ -17,15 +17,15 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * \# indicates a comment, and anything after a comment will not be evaluated in R
 * The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
-* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not undertand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
+* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 
 ### Class 1 expecations
-1. Know and understand the basic math operators (`+`, `-`, `*`, `/`)
+1. Know and understand the basic math operators (`+`, `-`, `*`, `/`, `^`)
 2. Know the assignment operator and how to use it
 3. Understand what a function is, how to use a function, and understand some basic functions 
 4. Understand the three most common data classes (character, numeric, logical)
-5. Know and understand the basic comparisson operators (`>`, `<`, `==`, `>=`, `<=`)
+5. Know and understand the basic comparison operators (`>`, `<`, `==`, `>=`, `<=`)
 5. Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects
 
 ### Introduction to R
@@ -36,12 +36,13 @@ The most basic introduction to R is through simple math calculations. For exampl
 3 + 4
 ```
 
-Similarly, R can do subtraction, multiplication, and division:
+Similarly, R can do subtraction, multiplication, division, and exponentiation:
 
 ```{r}
 4 - 2
 2*120
 1e3/2
+3^2
 ```
 
 All these calculations are taking place in your global R environment. (Although it is beyond what you need to understand for this class, you can check which environment you are working in by running `environment()`; the result should be: `<environment: R_GlobalEnv>`.) The global R environment can store variables defined by the user.
@@ -174,13 +175,23 @@ as.logical(-10)
 as.logical(0)
 ```
 
-Notice that any number other than `0`, when converted to logical, is `TRUE`. However, when `"1"` is converted directly from character to logical, the result is `NA` -- meaning "not available" or that it is not possible. However, if the `"1"` is first converted to a numeric, then coverted to logical, the result is `TRUE`. Any comparison to an `NA` will be `NA`.
+Notice that any number other than `0`, when converted to logical, is `TRUE`. However, when `"1"` is converted directly from character to logical, the result is `NA` -- meaning "not available" or that it is not possible. However, if the `"1"` is first converted to a numeric, then converted to logical, the result is `TRUE`. Any comparison to an `NA` will be `NA`.
 
 ```{r}
 NA == 1
 ```
 
 ### Class 1 exercises
+
+```{r, echo=FALSE}
+set.seed(1234)
+ops <- c("`+`", "`-`", "`/`", "`*`", "`^`", "`>=`", "`==`", "`>=`", "`<=`", "`<-`")
+```
+
+
+As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence:
+
+`r cat(sample(ops, length(ops)), sep = ",")`
 
 ```{r}
 
