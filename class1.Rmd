@@ -11,6 +11,23 @@ output:
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
 
+### Using this document
+
+* Code blocks and R code have a grey background
+* \# indicates a comment, and anything after a comment will not be evaluated in R
+* The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
+* While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
+* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not undertand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
+
+
+### Class 1 expecations
+1. Know and understand the basic math operators (`+`, `-`, `*`, `/`)
+2. Know the assignment operator and how to use it
+3. Understand what a function is, how to use a function, and understand some basic functions 
+4. Understand the three most common data classes (character, numeric, logical)
+5. Know and understand the basic comparisson operators (`>`, `<`, `==`, `>=`, `<=`)
+5. Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects
+
 ### Introduction to R
 
 The most basic introduction to R is through simple math calculations. For example:
@@ -143,6 +160,35 @@ is.character(TRUE)
 is.logical(FALSE)
 as.character(TRUE)
 ```
+
+Notice that coercing `TRUE` to a character and to a numeric provide different results. In numeric terms `TRUE` is `1` and `FALSE` is `0`. What about converting from a higher precedence class to a lower precedence class? 
+
+```{r}
+as.numeric("1")
+as.numeric("a")
+as.logical("a")
+as.logical("1")
+as.logical(as.numeric("1"))
+as.logical(1)
+as.logical(-10)
+as.logical(0)
+```
+
+Notice that any number other than `0`, when converted to logical, is `TRUE`. However, when `"1"` is converted directly from character to logical, the result is `NA` -- meaning "not available" or that it is not possible. However, if the `"1"` is first converted to a numeric, then coverted to logical, the result is `TRUE`. Any comparison to an `NA` will be `NA`.
+
+```{r}
+NA == 1
+```
+
+### Class 1 exercises
+
+```{r}
+
+```
+
+
+
+
 
 
 

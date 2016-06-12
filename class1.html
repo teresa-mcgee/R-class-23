@@ -136,6 +136,27 @@ $(document).ready(function () {
 </div>
 
 
+<div id="using-this-document" class="section level3">
+<h3>Using this document</h3>
+<ul>
+<li>Code blocks and R code have a grey background</li>
+<li># indicates a comment, and anything after a comment will not be evaluated in R</li>
+<li>The comments beginning with ## under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single #</li>
+<li>While you can copy and paste code into R, you will learn faster if you type out the commands yourself.</li>
+<li>Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not undertand please email us with questions or ask in the following class (you’re probably not the only one with the same question!).</li>
+</ul>
+</div>
+<div id="class-1-expecations" class="section level3">
+<h3>Class 1 expecations</h3>
+<ol style="list-style-type: decimal">
+<li>Know and understand the basic math operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>)</li>
+<li>Know the assignment operator and how to use it</li>
+<li>Understand what a function is, how to use a function, and understand some basic functions</li>
+<li>Understand the three most common data classes (character, numeric, logical)</li>
+<li>Know and understand the basic comparisson operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>&gt;=</code>, <code>&lt;=</code>)</li>
+<li>Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects</li>
+</ol>
+</div>
 <div id="introduction-to-r" class="section level3">
 <h3>Introduction to R</h3>
 <p>The most basic introduction to R is through simple math calculations. For example:</p>
@@ -191,7 +212,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7ff9fc05c808&gt;
+## &lt;bytecode: 0x7fc23967ae08&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -257,6 +278,30 @@ is.logical(FALSE)
 ## [1] TRUE
 as.character(TRUE)
 ## [1] &quot;TRUE&quot;</code></pre>
+<p>Notice that coercing <code>TRUE</code> to a character and to a numeric provide different results. In numeric terms <code>TRUE</code> is <code>1</code> and <code>FALSE</code> is <code>0</code>. What about converting from a higher precedence class to a lower precedence class?</p>
+<pre class="r"><code>as.numeric(&quot;1&quot;)
+## [1] 1
+as.numeric(&quot;a&quot;)
+## Warning: NAs introduced by coercion
+## [1] NA
+as.logical(&quot;a&quot;)
+## [1] NA
+as.logical(&quot;1&quot;)
+## [1] NA
+as.logical(as.numeric(&quot;1&quot;))
+## [1] TRUE
+as.logical(1)
+## [1] TRUE
+as.logical(-10)
+## [1] TRUE
+as.logical(0)
+## [1] FALSE</code></pre>
+<p>Notice that any number other than <code>0</code>, when converted to logical, is <code>TRUE</code>. However, when <code>&quot;1&quot;</code> is converted directly from character to logical, the result is <code>NA</code> – meaning “not available” or that it is not possible. However, if the <code>&quot;1&quot;</code> is first converted to a numeric, then coverted to logical, the result is <code>TRUE</code>. Any comparison to an <code>NA</code> will be <code>NA</code>.</p>
+<pre class="r"><code>NA == 1
+## [1] NA</code></pre>
+</div>
+<div id="class-1-exercises" class="section level3">
+<h3>Class 1 exercises</h3>
 </div>
 
 
