@@ -136,8 +136,8 @@ $(document).ready(function () {
 </div>
 
 
-<div id="introduction-to-r" class="section level2">
-<h2>Introduction to R</h2>
+<div id="introduction-to-r" class="section level3">
+<h3>Introduction to R</h3>
 <p>The most basic introduction to R is through simple math calculations. For example:</p>
 <pre class="r"><code>3 + 4
 ## [1] 7</code></pre>
@@ -191,7 +191,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7fe28318d208&gt;
+## &lt;bytecode: 0x7ff2c1f47808&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -202,10 +202,10 @@ class(x = vars)
 ## [1] &quot;character&quot;
 class(x = x)
 ## [1] &quot;numeric&quot;</code></pre>
-<p>Notce the <code>class</code> function requires an input, in this case called “x”. Running <code>class()</code> without any input will give an error message:</p>
+<p>Notice the <code>class</code> function requires an input, in this case called “x”. Running <code>class()</code> without any input will give an error message:</p>
 <pre class="r"><code>class()
 ## Error in class(): 0 arguments passed to 'class' which requires 1</code></pre>
-<p>In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let’s expolore data classes further after making some new variables.</p>
+<p>In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let’s explore data classes further after making some new variables.</p>
 <pre class="r"><code>var1 &lt;- c(1, 2, 3)
 var2 &lt;- c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;)
 var3 &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</code></pre>
@@ -220,7 +220,29 @@ class(var3)
 <blockquote>
 <p>If the two arguments are atomic vectors of different types, one is coerced to the type of the other, the (decreasing) order of precedence being character, complex, numeric, integer, logical and raw.</p>
 </blockquote>
-<p>Although we won’t discuss all of the data classes listed above, it provides a nice refernce for future use. (To find help in the documentation play around with <code>?</code> and <code>??</code>. <code>?</code> will show the documentation for a specific function, e.g. <code>?mean</code>, and <code>??</code> searches the documentation for a topic, e.g. <code>??average</code>. You can see from the <code>??average</code> search that a quick Google search will often provide better results when you don’t know the name of the function you are looking for.)</p>
+<p>Although we won’t discuss all of the data classes listed above, it provides a nice reference for future use. (To find help in the documentation play around with <code>?</code> and <code>??</code>. <code>?</code> will show the documentation for a specific function, e.g. <code>?mean</code>, and <code>??</code> searches the documentation for a topic, e.g. <code>??average</code>. You can see from the <code>??average</code> search that a quick Google search will often provide better results when you don’t know the name of the function you are looking for.)</p>
+<p>In addition to the algebraic operators discussed at the beginning of the class, R includes the comparison operators. We will illustrate how R interprets data classes and introduce the logical class using the comparison operators. <code>&lt;</code> &amp; <code>&gt;</code> behave as you might expect:</p>
+<pre class="r"><code>1 &lt; 2
+## [1] TRUE
+1 &gt; 2
+## [1] FALSE</code></pre>
+<p>Here, the comparison is simple because the values on both sides of the operator are numeric. (You can check the class, by running class on them, e.g. <code>class(1)</code> &amp; <code>class(2)</code>.) Notice the <code>TRUE</code> and <code>FALSE</code> outputs above. <code>TRUE</code> and <code>FALSE</code> are protected reserved terms in R, and cannot be modified. (If you are curious, try running <code>FALSE &lt;- TRUE</code>. There are other reserved terms that can be overridden in the global environment. For example, <code>LETTERS</code> is a vector of capital letters, but can be overwritten by something like <code>LETTERS &lt;- &quot;a&quot;</code>.)</p>
+<p><code>TRUE</code> and <code>FALSE</code> are in the “logical” data class. We will discuss how they are used more when we talk about <code>if/else</code> statements later in the class, but they simply mean “true” and “false.” So we would expect that <code>1 = 1</code> would return <code>TRUE</code>:</p>
+<pre class="r"><code>1 = 1
+## Error in 1 = 1: invalid (do_set) left-hand side to assignment</code></pre>
+<p>The <code>=</code> operator is another assignment operator in R. We won’t discuss the differences between <code>&lt;-</code> and <code>=</code>, but know that you should almost always be using <code>&lt;-</code>. We see here that numbers are also protected reserved terms in R. The correct operator for comparing if two items are equal in R is <code>==</code> – similarly greater than and less than equal operators are <code>&gt;=</code> and <code>&lt;=</code>.</p>
+<pre class="r"><code>1 == 1
+## [1] TRUE
+1 &gt;= 1
+## [1] TRUE
+1 &gt;= -1
+## [1] TRUE
+&quot;1&quot; == 1
+## [1] TRUE</code></pre>
+<p>The last expression in the code above gives an interesting result. R interpreted <code>&quot;1&quot;</code> as equal to <code>1</code>. We know from <code>var2</code> above that adding quotes to a number indicates a character class rather than a numeric. But we also know from the documentation quote above that when two arguments are of different class, R will coerce the arguments to the data type with the highest precedence. In the expression above the <code>1</code> on the right side of the operator was coerced to the character data class, and R told you that <code>&quot;1&quot;</code> in fact equals <code>&quot;1&quot;</code>. Similarly, if we combine <code>var1</code> and <code>var2</code> R will coerce <code>var1</code> to a character.</p>
+<pre class="r"><code>class(c(var1, var2))
+## [1] &quot;character&quot;</code></pre>
+<p>Don’t let the code above intimidate you. The code just has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called <code>c</code> to create a vector, made up of <code>var1</code> and <code>var2</code>. Then the resulting vector was passed to <code>class</code>. If this is confusing, come back and run the two steps separately (hint: after you run the inner function and see that the numbers have quotations, you can store that resulting vector as a new variable, then check the data class of the new variable with <code>class</code>).</p>
 <p>R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: <code>ls</code>.</p>
 <p>Execute your first command! R provides the <code>ls</code> function for displaying the variables contained in your environment.</p>
 </div>

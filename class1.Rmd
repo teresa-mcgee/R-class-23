@@ -11,7 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
 
-## Introduction to R
+### Introduction to R
+
 The most basic introduction to R is through simple math calculations. For example:
 
 ```{r}
@@ -67,13 +68,13 @@ class(x = vars)
 class(x = x)
 ```
 
-Notce the `class` function requires an input, in this case called "x". Running `class()` without any input will give an error message:
+Notice the `class` function requires an input, in this case called "x". Running `class()` without any input will give an error message:
 
 ```{r, error=TRUE}
 class()
 ```
 
-In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let's expolore data classes further after making some new variables. 
+In some programming languages the user has to specify the data class beforehand. R makes an educated guess on the data class, which is convenient, but can cause unexpected problems if the user is not careful. Let's explore data classes further after making some new variables. 
 
 ```{r}
 var1 <- c(1, 2, 3)
@@ -93,12 +94,55 @@ Even though `var2` could be interpreted as numeric, adding the quotation marks c
 
 > If the two arguments are atomic vectors of different types, one is coerced to the type of the other, the (decreasing) order of precedence being character, complex, numeric, integer, logical and raw.
 
-Although we won't discuss all of the data classes listed above, it provides a nice refernce for future use. (To find help in the documentation play around with `?` and `??`. `?` will show the documentation for a specific function, e.g. `?mean`, and `??` searches the documentation for a topic, e.g. `??average`. You can see from the `??average` search that a quick Google search will often provide better results when you don't know the name of the function you are looking for.)
+Although we won't discuss all of the data classes listed above, it provides a nice reference for future use. (To find help in the documentation play around with `?` and `??`. `?` will show the documentation for a specific function, e.g. `?mean`, and `??` searches the documentation for a topic, e.g. `??average`. You can see from the `??average` search that a quick Google search will often provide better results when you don't know the name of the function you are looking for.)
 
+In addition to the algebraic operators discussed at the beginning of the class, R includes the comparison operators. We will illustrate how R interprets data classes and introduce the logical class using the comparison operators. `<` & `>` behave as you might expect:
 
+```{r}
+1 < 2
+1 > 2
+```
 
-R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: `ls`. 
+Here, the comparison is simple because the values on both sides of the operator are numeric. (You can check the class, by running class on them, e.g. `class(1)` & `class(2)`.) Notice the `TRUE` and `FALSE` outputs above. `TRUE` and `FALSE` are protected reserved terms in R, and cannot be modified. (If you are curious, try running `FALSE <- TRUE`. There are other reserved terms that can be overridden in the global environment. For example, `LETTERS` is a vector of capital letters, but can be overwritten by something like `LETTERS <- "a"`.)
 
-Execute your first command! R provides the `ls` function for displaying the variables contained in your environment. 
+`TRUE` and `FALSE` are in the "logical" data class. We will discuss how they are used more when we talk about `if/else` statements later in the class, but they simply mean "true" and "false." So we would expect that `1 = 1` would return `TRUE`:
+
+```{r},error=TRUE}
+1 = 1
+```
+
+The `=` operator is another assignment operator in R. We won't discuss the differences between `<-` and `=`, but know that you should almost always be using `<-`. We see here that numbers are also protected reserved terms in R. The correct operator for comparing if two items are equal in R is `==` -- similarly greater than and less than equal operators are `>=` and `<=`. 
+
+```{r}
+1 == 1
+1 >= 1
+1 >= -1
+"1" == 1
+```
+
+The last expression in the code above gives an interesting result. R interpreted `"1"` as equal to `1`. We know from `var2` above that adding quotes to a number indicates a character class rather than a numeric. But we also know from the documentation quote above that when two arguments are of different class, R will coerce the arguments to the data type with the highest precedence. In the expression above the `1` on the right side of the operator was coerced to the character data class, and R told you that `"1"` in fact equals `"1"`. Similarly, if we combine `var1` and `var2` R will coerce `var1` to a character.
+
+```{r}
+class(c(var1, var2))
+```
+
+Don't let the code above intimidate you. The code just has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called `c` to create a vector, made up of `var1` and `var2`. Then the resulting vector was passed to `class`. If this is confusing, come back and run the two steps separately (hint: after you run the inner function and see that the numbers have quotations, you can store that resulting vector as a new variable, then check the data class of the new variable with `class`).
+
+To make checking and manipulating data classes R provides the `as` and `is` functions. `is` will check whether the input is a specific data class and `as` will coerce the input to the given data class. Let's use these functions to explore how `TRUE` and `FALSE` are converted to other data classes.
+
+```{r}
+is(object = TRUE, class2 = "logical")
+as(object = TRUE, Class = "numeric")
+as(object = FALSE, Class = "numeric")
+```
+
+Notice that functions can have more than one input (parameter), and each input is named. Inspecting the `class` function closer would show that the name of the input parameter is "x". (If you do not give the name of the parameter R will assume the inputs were given in the order the parameters are defined for the function. Here, typing `is(TRUE, "logical")` would give the same output, but `is("logical", TRUE)` does not. However, `is(class2 = "logical", object = TRUE)` will give the same result because the parameter order does not matter if the parameters are specified.) Additionally, R provides shortcut functions for the different data classes. 
+
+```{r}
+is.character(TRUE)
+is.logical(FALSE)
+as.character(TRUE)
+```
+
 
 
