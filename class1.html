@@ -191,7 +191,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7ff2c1f47808&gt;
+## &lt;bytecode: 0x7ff9fc05c808&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -243,8 +243,20 @@ class(var3)
 <pre class="r"><code>class(c(var1, var2))
 ## [1] &quot;character&quot;</code></pre>
 <p>Don’t let the code above intimidate you. The code just has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called <code>c</code> to create a vector, made up of <code>var1</code> and <code>var2</code>. Then the resulting vector was passed to <code>class</code>. If this is confusing, come back and run the two steps separately (hint: after you run the inner function and see that the numbers have quotations, you can store that resulting vector as a new variable, then check the data class of the new variable with <code>class</code>).</p>
-<p>R is composed of functions and variables, i.e. everything in R is either a function or a variable. Functions and variables all have names, for example: <code>ls</code>.</p>
-<p>Execute your first command! R provides the <code>ls</code> function for displaying the variables contained in your environment.</p>
+<p>To make checking and manipulating data classes R provides the <code>as</code> and <code>is</code> functions. <code>is</code> will check whether the input is a specific data class and <code>as</code> will coerce the input to the given data class. Let’s use these functions to explore how <code>TRUE</code> and <code>FALSE</code> are converted to other data classes.</p>
+<pre class="r"><code>is(object = TRUE, class2 = &quot;logical&quot;)
+## [1] TRUE
+as(object = TRUE, Class = &quot;numeric&quot;)
+## [1] 1
+as(object = FALSE, Class = &quot;numeric&quot;)
+## [1] 0</code></pre>
+<p>Notice that functions can have more than one input (parameter), and each input is named. Inspecting the <code>class</code> function closer would show that the name of the input parameter is “x”. (If you do not give the name of the parameter R will assume the inputs were given in the order the parameters are defined for the function. Here, typing <code>is(TRUE, &quot;logical&quot;)</code> would give the same output, but <code>is(&quot;logical&quot;, TRUE)</code> does not. However, <code>is(class2 = &quot;logical&quot;, object = TRUE)</code> will give the same result because the parameter order does not matter if the parameters are specified.) Additionally, R provides shortcut functions for the different data classes.</p>
+<pre class="r"><code>is.character(TRUE)
+## [1] FALSE
+is.logical(FALSE)
+## [1] TRUE
+as.character(TRUE)
+## [1] &quot;TRUE&quot;</code></pre>
 </div>
 
 
