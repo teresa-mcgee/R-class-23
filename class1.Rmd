@@ -1,8 +1,10 @@
 ---
-title: "R Small Group: Class 1"
+title: 'R Small Group: Class 1'
 author: "Amy Allen & Dayne Filer"
 date: "June 14, 2016"
-output: 
+output:
+  pdf_document: 
+    highlight: tango
   html_document:
     code_folding: show
 ---
@@ -185,11 +187,11 @@ NA == 1
 
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 
-1. As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence:
+1. As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence: 
 
-`-`, `>=`, `^`, `>=`, `<=`, `*`, `+`, `==`, `<-`, `/`
+`-`, `>=`, `^`, `>=`, `<=`, `*`, `+`, `==`, `<-`, `/` 
 
-Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence. 
+(Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.) 
 
 2. Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)
 
@@ -231,7 +233,9 @@ TRUE == 1^0
 as.numeric(TRUE) == as.character(1^0)
 as.numeric("one") == 1
 
-# These are some "bonus" concepts. How does R compare character values? Make some predictions, then run the code and see if you can figure out the rules for yourself. Then write your own expressions to test the rules!
+# These are some "bonus" concepts. How does R compare character values? 
+# Make some predictions, then run the code and see if you can figure out 
+# the rules for yourself. Then write your own expressions to test the rules!
 "a" < "b"
 "a" < "1"
 "a2" > "a1"
