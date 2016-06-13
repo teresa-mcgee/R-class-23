@@ -3,10 +3,10 @@ title: 'R Small Group: Class 1'
 author: "Amy Allen & Dayne Filer"
 date: "June 14, 2016"
 output:
-  pdf_document: 
-    highlight: tango
   html_document:
     code_folding: show
+  pdf_document:
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 
 ### Using this document
 
-* Code blocks and R code have a grey background
+* Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
 * \# indicates a comment, and anything after a comment will not be evaluated in R
 * The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
@@ -189,9 +189,9 @@ These exercises are to help you solidify and expand on the information given abo
 
 1. As you might expect the R operators can be combined in a single expression, e.g. `2 + 6/3`. Look up the order of operations within R and order the following operators from highest to lowest precedence: 
 
-`-`, `>=`, `^`, `>=`, `<=`, `*`, `+`, `==`, `<-`, `/` 
+    `-`, `>=`, `^`, `>=`, `<=`, `*`, `+`, `==`, `<-`, `/` 
 
-(Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.) 
+    Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.
 
 2. Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)
 

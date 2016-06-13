@@ -139,7 +139,7 @@ $(document).ready(function () {
 <div id="using-this-document" class="section level3">
 <h3>Using this document</h3>
 <ul>
-<li>Code blocks and R code have a grey background</li>
+<li>Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).</li>
 <li># indicates a comment, and anything after a comment will not be evaluated in R</li>
 <li>The comments beginning with ## under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single #</li>
 <li>While you can copy and paste code into R, you will learn faster if you type out the commands yourself.</li>
@@ -181,7 +181,7 @@ $(document).ready(function () {
 <pre class="r"><code>y &lt;- 2 + x
 y
 ## [1] 9</code></pre>
-<p>It can be hard to remember which variables are available. R provides the <code>ls</code> function for displaying the variables contained in your environment. Functions have names, in this case <code>ln</code>. What happens when you run <code>ls</code>?</p>
+<p>It can be hard to remember which variables are available. R provides the <code>ls</code> function for displaying the variables contained in your environment. Functions have names, in this case <code>ls</code>. What happens when you run <code>ls</code>?</p>
 <pre class="r"><code>ls
 ## function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
 ##     pattern, sorted = TRUE) 
@@ -214,7 +214,7 @@ y
 ##     }
 ##     else all.names
 ## }
-## &lt;bytecode: 0x7ffea28e0e08&gt;
+## &lt;bytecode: 0x7f881a925808&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The output shows the code behind the <code>ls</code> function. To use a function you have to add <code>()</code>.</p>
 <pre class="r"><code>ls()
@@ -306,12 +306,10 @@ as.logical(0)
 <h3>Class 1 exercises</h3>
 <p>These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code.</p>
 <ol style="list-style-type: decimal">
-<li>As you might expect the R operators can be combined in a single expression, e.g. <code>2 + 6/3</code>. Look up the order of operations within R and order the following operators from highest to lowest precedence:</li>
-</ol>
+<li><p>As you might expect the R operators can be combined in a single expression, e.g. <code>2 + 6/3</code>. Look up the order of operations within R and order the following operators from highest to lowest precedence:</p>
 <p><code>-</code>, <code>&gt;=</code>, <code>^</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>*</code>, <code>+</code>, <code>==</code>, <code>&lt;-</code>, <code>/</code></p>
-<p>Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)</li>
+<p>Hint: some of the operators are considered equally. Try making a list where the top line has the operators with highest precedence, and any operators on the same line have the same precedence.</p></li>
+<li><p>Like in algebra, parentheses can be used to specify the order of operations. What then would you expect to be the result of the following expressions, knowing the order of operations from exercise 1? (Try to predict the answer before typing the code into R.)</p></li>
 </ol>
 <pre class="r"><code>1 + 3*3
 (1 + 3)*3
@@ -346,7 +344,9 @@ TRUE == 1^0
 as.numeric(TRUE) == as.character(1^0)
 as.numeric(&quot;one&quot;) == 1
 
-# These are some &quot;bonus&quot; concepts. How does R compare character values? Make some predictions, then run the code and see if you can figure out the rules for yourself. Then write your own expressions to test the rules!
+# These are some &quot;bonus&quot; concepts. How does R compare character values? 
+# Make some predictions, then run the code and see if you can figure out 
+# the rules for yourself. Then write your own expressions to test the rules!
 &quot;a&quot; &lt; &quot;b&quot;
 &quot;a&quot; &lt; &quot;1&quot;
 &quot;a2&quot; &gt; &quot;a1&quot;
