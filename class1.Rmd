@@ -68,7 +68,7 @@ y <- 2 + x
 y
 ```
 
-It can be hard to remember which variables are available. R provides the `ls` function for displaying the variables contained in your environment. Functions have names, in this case `ln`. What happens when you run `ls`? 
+It can be hard to remember which variables are available. R provides the `ls` function for displaying the variables contained in your environment. Functions have names, in this case `ls`. What happens when you run `ls`? 
 
 ```{r}
 ls
