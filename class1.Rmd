@@ -4,7 +4,6 @@ author: "Amy Allen & Dayne Filer"
 date: "June 14, 2016"
 output:
   html_document:
-    code_folding: show
   pdf_document:
     highlight: tango
 ---
@@ -12,6 +11,29 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
+
+<!-- Here we style out button a little bit -->
+<style>
+  .showopt {
+    background-color: #004c93;
+    color: #FFFFFF; 
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle !important;
+    border-radius: 8px;
+    float:right;
+    }
+
+    .showopt:hover {
+    background-color: #dfe4f2;
+    color: #004c93;
+  }
+
+</style>
+
+<!--Include script for hiding output chunks-->
+<script src="hideOutput.js"></script>
 
 ### Using this document
 
