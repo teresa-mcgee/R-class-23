@@ -50,7 +50,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 3. Understand what a function is, how to use a function, and understand some basic functions 
 4. Understand the three most common data classes (character, numeric, logical)
 5. Know and understand the basic comparison operators (`>`, `<`, `==`, `>=`, `<=`)
-5. Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects
+6. Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects
 
 ### Introduction to R
 
