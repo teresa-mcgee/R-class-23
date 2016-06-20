@@ -43,3 +43,52 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
+### Class 2 expectations
+1. Review vectors (`c()`) from the previous class
+2. Understand different data structures in R
+3. Know how to import data from a *.csv file
+4. Know how to subset a dataset
+
+### Introduction to Data Structures 
+
+The most simple data structure available in R is a vector. We can make vectors of numeric values, logical values, and character strings using the `c()` function. For example:
+
+```{r}
+c(1,2,3)
+c(TRUE,TRUE,FALSE)
+c("a","b","c")
+```
+
+We can also join to vectors using the `c()` function.
+```{r}
+x <- c(1,2,5)
+y <- c(3,4,6)
+z <- c(x,y)
+z
+```
+
+#### Matrices
+But what if we want to have a set of data that is more than just a list. One option we have is a matrix. Matrices allow us to have two dimensions and can be specified using the `matrix()` function as shown below.
+```{r}
+matrix(data = 1:6, nrow = 2, ncol = 3)
+```
+As you can see this gives us a matrix of all numbers from 1 to 6 with two rows and three columns. The matrix is filled by columns. We can also fill a matrix by rows by specifiying `byrow = TRUE`
+```{r}
+matrix(data = 1:6, nrow = 2, ncol = 3, byrow = TRUE)
+```
+Matrices do not have to be numeric. They can also be logical values or character strings. For example:
+```{r}
+matrix(data = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE), nrow = 3, ncol = 2)
+matrix(data = c("a", "b", "c", "d", "e", "f"), nrow = 3, ncol = 2)
+```
+Like vectors matrices can be stored as variables and then called later. The rows and columns of a matrix can have names. You can look at these using the functions `rownames` and `colnames`. As shown below, the rows and columns don't initially have names, which is denoted by `NULL`. However, you can assign values to them. Below we name the rows "Row 1" and "Row 2" and the columns "Col 1", "Col 2", and "Col 3"
+```{r}
+mat1 <- matrix(data = 1:6, nrow = 2, ncol = 3, byrow = TRUE)
+rownames(mat1)
+colnames(mat1)
+rownames(mat1) <- c("Row 1","Row 2")
+colnames(mat1) <- c("Col 1", "Col 2", "Col 3")
+mat1
+```
+It is important to note that similarly to vectors, matrices can only have one data type. If you try to specify a matrix with multiple data types the data will be coerced to the higher order data class. 
+#### Data Frames
