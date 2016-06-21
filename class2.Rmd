@@ -50,7 +50,9 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 
 ### Introduction to data structures 
 
-The most simple data structure available in R is a vector. You can make vectors of numeric values, logical values, and character strings using the `c` function. For example:
+#### Vectors
+
+The most simple data structure available in R is a vector. You can make vectors of numeric values, logical values, and character strings using the `c()` function. For example:
 
 ```{r}
 c(1, 2, 3)
@@ -110,7 +112,7 @@ as.vector(mat1)
 
 #### Lists
 
-Lists allow users to store multiple elements (like vectors and matrices) under a single object. Similar to creating a matrix, the `list` function is used to create a list:
+Lists allow users to store multiple elements (like vectors and matrices) under a single object. You can use the `list` function to create a list:
 
 ```{r}
 l1 <- list(c(1, 2, 3), c("a", "b", "c"))
@@ -138,15 +140,15 @@ Above the list has two elements, named "vec" and "mat," a vector and matrix, res
 
 #### Data frames
 
-Data frames are likely the data structure you will used most in your analyses. A data frame is a special kind of list that stores same-length vectors of different classes. You create data frames using the `data.frame` function. The example below shows this by combining a numeric and a character vector into a data frame. 
+Data frames are likely the data structure you will used most in your analyses. A data frame is a special kind of list that stores same-length vectors of different classes. You create data frames using the `data.frame` function. The example below shows this by combining a numeric and a character vector into a data frame. It uses the `:` operator, which will create a vector containing all integers from 1 to 3. 
 
 ```{r}
 df1 <- data.frame(x = 1:3, y = c("a", "b", "c"))
 df1
-class(df)
+class(df1)
 ```
 
-The benefit of data frame objects will be evident in the next section on subsetting objects. Data frame objects do not print with quotation marks, so the class of the columns is not always obvious. (Note the use of `:` in the data frame above. The `:` operator creates a numeric vector containing the integers from the number on the left side of the operator to the number on the right side of the operator.)
+The benefit of data frame objects will be evident in the next section on subsetting objects. Data frame objects do not print with quotation marks, so the class of the columns is not always obvious.
 
 ```{r}
 df2 <- data.frame(x = c("1", "2", "3"), y = c("a", "b", "c"))
@@ -171,7 +173,11 @@ Now the "y" column is a character. As mentioned above, each "column" of a data f
 
 ### Subsetting objects 
 
-We will discuss three subsetting operators: `[`, `[[`, and `$`. We will start with vectors, and the `[` operator. First create an example vector, then select the third element. 
+We will discuss three subsetting operators: `[`, `[[`, and `$`.
+
+#### Vectors
+
+We will start with vectors, and the `[` operator. First create an example vector, then select the third element. 
 
 ```{r}
 v1 <- c("a", "b", "c", "d")
@@ -184,6 +190,8 @@ The `[` operator can also take a vector as the argument. For example you can sel
 v1 <- c("a", "b", "c", "d")
 v1[c(1, 3)]
 ```
+
+#### Lists
 
 Similarly, you can use `[` to subset a list:
 
@@ -199,7 +207,11 @@ l1[[1]]
 l1[["vector1"]]
 ```
 
-Note, you can also provide a vector of names to the `[` operator. Now we can discuss how to subset on two-dimensional objects. For each dimension the `[` operator takes one argument. Vectors, being 1 dimension, take one argument. Matrices and data frames take two arguments, given as `[i, j]` where `i` is the the row and `j` is the column. Recall `mat1`:
+Note, you can also provide a vector of names to the `[` operator.
+
+#### Matrices 
+
+Now we can discuss how to subset on two-dimensional objects. For each dimension the `[` operator takes one argument. Vectors, being 1 dimension, take one argument. Matrices and data frames take two arguments, given as `[i, j]` where `i` is the the row and `j` is the column. Recall `mat1`:
 
 ```{r}
 mat1
@@ -233,6 +245,8 @@ l1$vector1
 ```
 
 Notice that you do not put quotes around the list names when providing them to the `$` operator, and the `$` operator can only take a single name. 
+
+#### Data frames
 
 Finally, let us discuss subsetting a data frame. Recall from earlier that a data frame is just a special list, so you can subset a data frame in all the same ways you subset a list. Consider `df3`:
 
@@ -288,13 +302,13 @@ There is a lot of information about subsetting and modifying objects that we do 
 
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 
-1. Create a data frame with two columns: "col1" with the letters a to e, "col2" with the numbers 1 to 6, and "col3" with the alternating TRUE and FALSE values. Store the data frame as "mydf."
+1. Create a data frame with two columns: "col1" with the letters a to f, "col2" with the numbers 1 to 6, and "col3" with the alternating TRUE and FALSE values. Store the data frame as "mydf."
 
 2. Coerce `mydf` from exercise 1 to a matrix using the `as.matrix` function. Predict how the data will change. What class will the data be? Will there be column names? Row names?
 
 3. Subsetting can also be done with logical vectors the same length of the object or dimension you would like to subset. For example, if you have a list `l` with three elements, `l[c(TRUE, FALSE, TRUE)]` would return a list with elements one and three from `l`. Figure out how to use `mydf` to subset only to rows where 'col3' is `TRUE`. (You should attempt to think of a solution that only requires one line of code. Hint: you can pass elements of an obect to itself.)
 
-4. You can stack subsetting operators next to each other. Using `l2` from above, select the 7 from 'vec' then select the second two rows from 'mat'. (Again, you should attempt to think of a solution that only requires one line of code for each selection.)
+4. You can stack subsetting operators next to each other. Using `l2` from above, select the 7 from 'vec.' Now try to select the last two rows from 'mat'. (Again, you should attempt to think of a solution that only requires one line of code for each selection.)
 
 5. Recall how you added an element to `l2` using the `$` operator. Again, a data frame is just a special list. Add a column to `mydf` called "col4" with a vector of your choice. 
 
