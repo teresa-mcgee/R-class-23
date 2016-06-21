@@ -160,7 +160,6 @@ $(document).ready(function () {
 <li>Review vectors from the previous class</li>
 <li>Understand the basic R data structures (vector, matrix, list, data.frame)</li>
 <li>Know how to subset the four basic data structures</li>
-<li>Import data using the <code>read.csv</code> function</li>
 </ol>
 </div>
 <div id="introduction-to-data-structures" class="section level3">
@@ -304,6 +303,124 @@ v1[3]
 <pre class="r"><code>v1 &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)
 v1[c(1, 3)]
 ## [1] &quot;a&quot; &quot;c&quot;</code></pre>
+<p>Similarly, you can use <code>[</code> to subset a list:</p>
+<pre class="r"><code>l1
+## $vector1
+## [1] 1 2 3
+## 
+## $vector2
+## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;
+l1[2]
+## $vector2
+## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<p>Notice that the result of <code>l1[2]</code> is still a list. (Try running <code>class(l1[2])</code> or <code>str(l1[2])</code> to prove to yourself that the result is in fact list.) What if you want to select the vector the list contains? The <code>[</code> operator allows you to subset on elements of a list, as you would for a vector. The <code>[[</code> operator allows you to extract list elements. If you want to extract “vector1” you can either select it by the index (1, because it is the first element in the list) or, in a named list, you can subset by name.</p>
+<pre class="r"><code>l1[[1]]
+## [1] 1 2 3
+l1[[&quot;vector1&quot;]]
+## [1] 1 2 3</code></pre>
+<p>Note, you can also provide a vector of names to the <code>[</code> operator. Now we can discuss how to subset on two-dimensional objects. For each dimension the <code>[</code> operator takes one argument. Vectors, being 1 dimension, take one argument. Matrices and data frames take two arguments, given as <code>[i, j]</code> where <code>i</code> is the the row and <code>j</code> is the column. Recall <code>mat1</code>:</p>
+<pre class="r"><code>mat1
+##       Col 1 Col 2 Col 3
+## Row 1     1     2     3
+## Row 2     4     5     6
+mat1[2, 1]
+## [1] 4</code></pre>
+<p>You can see that an <code>i</code> value of <code>2</code> and a <code>j</code> value of <code>1</code> gave the number in the second row and the first column. You do not have to provide both an <code>i</code> and a <code>j</code> value, providing only one or the other returns the vector for the given row.</p>
+<pre class="r"><code>mat1[ , 3]
+## Row 1 Row 2 
+##     3     6
+mat1[1, ]
+## Col 1 Col 2 Col 3 
+##     1     2     3</code></pre>
+<p>Like with lists, the matrices can also be subset by name when the matrix has row or column names.</p>
+<pre class="r"><code>mat1[ , &quot;Col 1&quot;]
+## Row 1 Row 2 
+##     1     4</code></pre>
+<p>When subsetting, R attempts to simplify the data structure. As you see in the examples above, subsetting the matrices results in a vector. When you provide a vector to <code>i</code> or <code>j</code> the result does not <em>always</em> simplify to a vector, but may instead maintain the matrix structure.</p>
+<pre class="r"><code>mat1[c(&quot;Row 1&quot;), c(&quot;Col 1&quot;, &quot;Col 3&quot;)] ## Can be simplified to a vector
+## Col 1 Col 3 
+##     1     3
+mat1[1:2, 2:3] ## Cannot be simplified to a vector
+##       Col 2 Col 3
+## Row 1     2     3
+## Row 2     5     6</code></pre>
+<p>The other subsetting operator you need to know for this course is <code>$</code>. The <code>$</code> operator allows you to select list elements by name. For example, consider <code>l1</code> again. <code>l1</code> has two elements, named “vector1” and “vector2,” and you can select one or the other with the <code>$</code> operator.</p>
+<pre class="r"><code>l1$vector1
+## [1] 1 2 3</code></pre>
+<p>Notice that you do not put quotes around the list names when providing them to the <code>$</code> operator, and the <code>$</code> operator can only take a single name.</p>
+<p>Finally, let us discuss subsetting a data frame. Recall from earlier that a data frame is just a special list, so you can subset a data frame in all the same ways you subset a list. Consider <code>df3</code>:</p>
+<pre class="r"><code>df3
+##   x y
+## 1 1 a
+## 2 2 b
+## 3 3 c
+df3[1]
+##   x
+## 1 1
+## 2 2
+## 3 3
+df3[[2]]
+## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;
+df3$x
+## [1] 1 2 3</code></pre>
+<p>Notice how using the <code>[</code> operator differs from <code>[[</code> and <code>$</code>. (You can think of <code>$</code> as shorthand for <code>[[</code> when you only want to select one element by name.) As we saw in the list subsetting, using <code>[</code> preserved the list structure (or in this case, the data frame structure), unlike the <code>[[</code> operator which attempts to simplify the data structure.</p>
+<p>Unlike a list, you can also subset data frame like you would a two dimensional matrix using both an <code>i</code> and a <code>j</code> statement.</p>
+<pre class="r"><code>df3[1, 2]
+## [1] &quot;a&quot;
+df3[2, ]
+##   x y
+## 2 2 b
+df3[ , 1]
+## [1] 1 2 3</code></pre>
+<p>Notice how subsetting by <code>i</code> and <code>j</code> alone differ. Every column of a data frame is essentially a vector in a list. So when you select one column, the data structure is simplified to a vector. However, selecting 1 row does not simplify, because different columns may have different data classes and it does not make sense to coerce all of the columns to one data type.</p>
+</div>
+<div id="modifying-a-subset" class="section level3">
+<h3>Modifying a subset</h3>
+<p>Recall how you changed the row and column names of the matrix above. Similarly, you can change the values in an object for just a subset using the assignment operator (<code>&lt;-</code>).</p>
+<p>For example, consider the following matrix.</p>
+<pre class="r"><code>mat2 &lt;- matrix(data = 1:10, nrow = 2)
+mat2
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre>
+<p>Now, change the 6 to 100.</p>
+<pre class="r"><code>mat2[2, 3]
+## [1] 6
+mat2[2, 3] &lt;- 100
+mat2
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4  100    8   10</code></pre>
+<p>The last thing we will mention is that you can add elements to list obejcts using the <code>[[</code> and <code>$</code> operators. Consider <code>l2</code> from above.</p>
+<pre class="r"><code>str(l2)
+## List of 2
+##  $ vec: num [1:5] 1 3 5 7 9
+##  $ mat: num [1:3, 1] 1 2 3
+l2$new_element &lt;- &quot;hello&quot;
+l2
+## $vec
+## [1] 1 3 5 7 9
+## 
+## $mat
+##      [,1]
+## [1,]    1
+## [2,]    2
+## [3,]    3
+## 
+## $new_element
+## [1] &quot;hello&quot;</code></pre>
+<p>There is a lot of information about subsetting and modifying objects that we do not have time to cover in this course, so we encourage you to spend some time experimenting on your own.</p>
+</div>
+<div id="class-2-exercises" class="section level3">
+<h3>Class 2 exercises</h3>
+<p>These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code.</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a data frame with two columns: “col1” with the letters a to e, “col2” with the numbers 1 to 6, and “col3” with the alternating TRUE and FALSE values. Store the data frame as “mydf.”</p></li>
+<li><p>Coerce <code>mydf</code> from exercise 1 to a matrix using the <code>as.matrix</code> function. Predict how the data will change. What class will the data be? Will there be column names? Row names?</p></li>
+<li><p>Subsetting can also be done with logical vectors the same length of the object or dimension you would like to subset. For example, if you have a list <code>l</code> with three elements, <code>l[c(TRUE, FALSE, TRUE)]</code> would return a list with elements one and three from <code>l</code>. Figure out how to use <code>mydf</code> to subset only to rows where ‘col3’ is <code>TRUE</code>. (You should attempt to think of a solution that only requires one line of code. Hint: you can pass elements of an obect to itself.)</p></li>
+<li><p>You can stack subsetting operators next to each other. Using <code>l2</code> from above, select the 7 from ‘vec’ then select the second two rows from ‘mat’. (Again, you should attempt to think of a solution that only requires one line of code for each selection.)</p></li>
+<li><p>Recall how you added an element to <code>l2</code> using the <code>$</code> operator. Again, a data frame is just a special list. Add a column to <code>mydf</code> called “col4” with a vector of your choice.</p></li>
+</ol>
 </div>
 
 

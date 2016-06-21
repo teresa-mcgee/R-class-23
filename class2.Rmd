@@ -3,9 +3,9 @@ title: 'R Small Group: Class 2'
 author: "Amy Allen & Dayne Filer"
 date: "June 21, 2016"
 output:
-  html_document:
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +47,6 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 1. Review vectors from the previous class
 2. Understand the basic R data structures (vector, matrix, list, data.frame)
 3. Know how to subset the four basic data structures
-4. Import data using the `read.csv` function
 
 ### Introduction to data structures 
 
@@ -193,9 +192,110 @@ l1
 l1[2]
 ```
 
-Notice that the result of `l1[2]` is still a list. (Try running `class(l1[2])` or `str(l1[2])`.) What if you want to select the vector the list contains? 
-For each dimension the `[` operator takes one argument. Vectors, being 1 dimension, only take one argument. However, matrices and data.frames have two dimensions. By convention, when an object has two dimensions 
+Notice that the result of `l1[2]` is still a list. (Try running `class(l1[2])` or `str(l1[2])` to prove to yourself that the result is in fact list.) What if you want to select the vector the list contains? The `[` operator allows you to subset on elements of a list, as you would for a vector. The `[[` operator allows you to extract list elements. If you want to extract "vector1" you can either select it by the index (1, because it is the first element in the list) or, in a named list, you can subset by name.
 
+```{r}
+l1[[1]]
+l1[["vector1"]]
+```
 
+Note, you can also provide a vector of names to the `[` operator. Now we can discuss how to subset on two-dimensional objects. For each dimension the `[` operator takes one argument. Vectors, being 1 dimension, take one argument. Matrices and data frames take two arguments, given as `[i, j]` where `i` is the the row and `j` is the column. Recall `mat1`:
+
+```{r}
+mat1
+mat1[2, 1]
+```
+
+You can see that an `i` value of `2` and a `j` value of `1` gave the number in the second row and the first column. You do not have to provide both an `i` and a `j` value, providing only one or the other returns the vector for the given row.
+
+```{r}
+mat1[ , 3]
+mat1[1, ]
+```
+
+Like with lists, the matrices can also be subset by name when the matrix has row or column names. 
+
+```{r}
+mat1[ , "Col 1"]
+```
+
+When subsetting, R attempts to simplify the data structure. As you see in the examples above, subsetting the matrices results in a vector. When you provide a vector to `i` or `j` the result does not *always* simplify to a vector, but may instead maintain the matrix structure. 
+
+```{r}
+mat1[c("Row 1"), c("Col 1", "Col 3")] ## Can be simplified to a vector
+mat1[1:2, 2:3] ## Cannot be simplified to a vector
+```
+
+The other subsetting operator you need to know for this course is `$`. The `$` operator allows you to select list elements by name. For example, consider `l1` again. `l1` has two elements, named "vector1" and "vector2," and you can select one or the other with the `$` operator.
+
+```{r}
+l1$vector1
+```
+
+Notice that you do not put quotes around the list names when providing them to the `$` operator, and the `$` operator can only take a single name. 
+
+Finally, let us discuss subsetting a data frame. Recall from earlier that a data frame is just a special list, so you can subset a data frame in all the same ways you subset a list. Consider `df3`:
+
+```{r}
+df3
+df3[1]
+df3[[2]]
+df3$x
+```
+
+Notice how using the `[` operator differs from `[[` and `$`. (You can think of `$` as shorthand for `[[` when you only want to select one element by name.) As we saw in the list subsetting, using `[` preserved the list structure (or in this case, the data frame structure), unlike the `[[` operator which attempts to simplify the data structure. 
+
+Unlike a list, you can also subset data frame like you would a two dimensional matrix using both an `i` and a `j` statement. 
+
+```{r}
+df3[1, 2]
+df3[2, ]
+df3[ , 1]
+```
+
+Notice how subsetting by `i` and `j` alone differ. Every column of a data frame is essentially a vector in a list. So when you select one column, the data structure is simplified to a vector. However, selecting 1 row does not simplify, because different columns may have different data classes and it does not make sense to coerce all of the columns to one data type.
+
+### Modifying a subset
+
+Recall how you changed the row and column names of the matrix above. Similarly, you can change the values in an object for just a subset using the assignment operator (`<-`). 
+
+For example, consider the following matrix.
+
+```{r}
+mat2 <- matrix(data = 1:10, nrow = 2)
+mat2
+```
+
+Now, change the 6 to 100.
+
+```{r}
+mat2[2, 3]
+mat2[2, 3] <- 100
+mat2
+```
+
+The last thing we will mention is that you can add elements to list obejcts using the `[[` and `$` operators. Consider `l2` from above. 
+
+```{r}
+str(l2)
+l2$new_element <- "hello"
+l2
+```
+
+There is a lot of information about subsetting and modifying objects that we do not have time to cover in this course, so we encourage you to spend some time experimenting on your own. 
+
+### Class 2 exercises
+
+These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
+
+1. Create a data frame with two columns: "col1" with the letters a to e, "col2" with the numbers 1 to 6, and "col3" with the alternating TRUE and FALSE values. Store the data frame as "mydf."
+
+2. Coerce `mydf` from exercise 1 to a matrix using the `as.matrix` function. Predict how the data will change. What class will the data be? Will there be column names? Row names?
+
+3. Subsetting can also be done with logical vectors the same length of the object or dimension you would like to subset. For example, if you have a list `l` with three elements, `l[c(TRUE, FALSE, TRUE)]` would return a list with elements one and three from `l`. Figure out how to use `mydf` to subset only to rows where 'col3' is `TRUE`. (You should attempt to think of a solution that only requires one line of code. Hint: you can pass elements of an obect to itself.)
+
+4. You can stack subsetting operators next to each other. Using `l2` from above, select the 7 from 'vec' then select the second two rows from 'mat'. (Again, you should attempt to think of a solution that only requires one line of code for each selection.)
+
+5. Recall how you added an element to `l2` using the `$` operator. Again, a data frame is just a special list. Add a column to `mydf` called "col4" with a vector of your choice. 
 
 
