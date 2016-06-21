@@ -1,7 +1,7 @@
 ---
 title: 'R Small Group: Class 2'
 author: "Amy Allen & Dayne Filer"
-date: "June 14, 2016"
+date: "June 21, 2016"
 output:
   html_document:
   pdf_document:
@@ -44,69 +44,158 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Class 2 expectations
-1. Review vectors (`c()`) from the previous class
-2. Understand different data structures in R
-3. Know how to import data from a *.csv file
-4. Know how to subset a dataset
+1. Review vectors from the previous class
+2. Understand the basic R data structures (vector, matrix, list, data.frame)
+3. Know how to subset the four basic data structures
+4. Import data using the `read.csv` function
 
-### Introduction to Data Structures 
+### Introduction to data structures 
 
-The most simple data structure available in R is a vector. We can make vectors of numeric values, logical values, and character strings using the `c()` function. For example:
+The most simple data structure available in R is a vector. You can make vectors of numeric values, logical values, and character strings using the `c` function. For example:
 
 ```{r}
-c(1,2,3)
-c(TRUE,TRUE,FALSE)
-c("a","b","c")
+c(1, 2, 3)
+c(TRUE, TRUE, FALSE)
+c("a", "b", "c")
 ```
 
-We can also join to vectors using the `c()` function.
+You can also join to vectors using the `c()` function.
+
 ```{r}
-x <- c(1,2,5)
-y <- c(3,4,6)
-z <- c(x,y)
+x <- c(1, 2, 5)
+y <- c(3, 4, 6)
+z <- c(x, y)
 z
 ```
 
 #### Matrices
-But what if we want to have a set of data that is more than just a list. One option we have is a matrix. Matrices allow us to have two dimensions and can be specified using the `matrix()` function as shown below.
+
+A matrix is a special kind of vector with two dimensions. Like a vector, a matrix can only have one data class. You can create matrices using the `matrix` function as shown below.
+
 ```{r}
 matrix(data = 1:6, nrow = 2, ncol = 3)
 ```
-As you can see this gives us a matrix of all numbers from 1 to 6 with two rows and three columns. The matrix is filled by columns. We can also fill a matrix by rows by specifiying `byrow = TRUE`
+
+As you can see this gives us a matrix of all numbers from 1 to 6 with two rows and three columns. The `data` parameter takes a vector of values, `nrow` specifies the number of rows in the matrix, and `ncol` specifies the number of columns. By convention the matrix is filled by column. The default behavior can be changed with the `byrow` parameter as shown below:
+
 ```{r}
 matrix(data = 1:6, nrow = 2, ncol = 3, byrow = TRUE)
 ```
-Matrices do not have to be numeric. They can also be logical values or character strings. For example:
+Matrices do not have to be numeric -- any vector can be transformed into a matrix. For example:
+
 ```{r}
 matrix(data = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE), nrow = 3, ncol = 2)
 matrix(data = c("a", "b", "c", "d", "e", "f"), nrow = 3, ncol = 2)
 ```
-Like vectors matrices can be stored as variables and then called later. The rows and columns of a matrix can have names. You can look at these using the functions `rownames` and `colnames`. As shown below, the rows and columns don't initially have names, which is denoted by `NULL`. However, you can assign values to them. Below we name the rows "Row 1" and "Row 2" and the columns "Col 1", "Col 2", and "Col 3"
+
+Like vectors matrices can be stored as variables and then called later. The rows and columns of a matrix can have names. You can look at these using the functions `rownames` and `colnames`. As shown below, the rows and columns don't initially have names, which is denoted by `NULL`. However, you can assign values to them.
+
 ```{r}
 mat1 <- matrix(data = 1:6, nrow = 2, ncol = 3, byrow = TRUE)
 rownames(mat1)
 colnames(mat1)
-rownames(mat1) <- c("Row 1","Row 2")
+rownames(mat1) <- c("Row 1", "Row 2")
 colnames(mat1) <- c("Col 1", "Col 2", "Col 3")
 mat1
 ```
-It is important to note that similarly to vectors, matrices can only have one data type. If you try to specify a matrix with multiple data types the data will be coerced to the higher order data class. 
-#### Data Frames
-A data frame is similar to a matrix in that it has multiple dimensions, but a data frame can contain multiple data types. We create data frames using the `data.frame` function. The example below shows this by combining a numeric and a character vector into a data frame. 
+
+It is important to note that similarly to vectors, matrices can only have one data type. If you try to specify a matrix with multiple data types the data will be coerced to the higher order data class.
+
+The `class`, `is`, and `as` functions can be used to check and coerce data structures in the same way they were used on the vectors in class 1. 
+
 ```{r}
-data.frame(x=1:3, y=c("a","b","c"))
+class(mat1)
+is.matrix(mat1)
+as.vector(mat1)
 ```
-Like all other data types and structures we've discussed data frames can be saved as variables in order to call them later. One function we can apply to a data frame is `str()`, which gives the structure of an R object. 
+
+#### Lists
+
+Lists allow users to store multiple elements (like vectors and matrices) under a single object. Similar to creating a matrix, the `list` function is used to create a list:
+
 ```{r}
-df <- data.frame(x=1:3, y=c("a","b","c"))
-str(df)
+l1 <- list(c(1, 2, 3), c("a", "b", "c"))
+l1
 ```
-Here we see that `df` has is a `data.frame` and has 3 observations of 2 variables. In this case the variables are x and y. Then we are told that x has the data type integer and y is a factor with three levels. It is important to note that any time you put a character string into a data frame is is automatically turned into a factor. We can turn this off using `stringsAsFactors = FALSE`
+
+Notice the vectors that make up the above list are different classes. Lists allow users to group elements of different classes. Each element in a list can also have a name. List names are accessed by the `names` function, and are assigned in the same manner row and column names are assigned in a matrix.
+
 ```{r}
-df <- data.frame(x=1:3, y=c("a","b","c"), stringsAsFactors = FALSE)
-str(df)
+names(l1)
+names(l1) <- c("vector1", "vector2")
+l1
 ```
-Now our variable y is a character vector. Another important thing to note about creating data frame is that the each "column" of the data frame must have the same length. Trying to create a data.frame from vectors with different lengths will result in an error. Try run:
-`
-data.frame(x=1:3,c("a","b","c","d"))
-`
+
+It is often easier and safer to declare the list names when creating the list object. 
+
+```{r}
+l2 <- list(vec = c(1, 3, 5, 7, 9),
+           mat = matrix(data = c(1, 2, 3), nrow = 3))
+l2
+names(l2)
+```
+
+Above the list has two elements, named "vec" and "mat," a vector and matrix, resepcively.
+
+#### Data frames
+
+Data frames are likely the data structure you will used most in your analyses. A data frame is a special kind of list that stores same-length vectors of different classes. You create data frames using the `data.frame` function. The example below shows this by combining a numeric and a character vector into a data frame. 
+
+```{r}
+df1 <- data.frame(x = 1:3, y = c("a", "b", "c"))
+df1
+class(df)
+```
+
+The benefit of data frame objects will be evident in the next section on subsetting objects. Data frame objects do not print with quotation marks, so the class of the columns is not always obvious. (Note the use of `:` in the data frame above. The `:` operator creates a numeric vector containing the integers from the number on the left side of the operator to the number on the right side of the operator.)
+
+```{r}
+df2 <- data.frame(x = c("1", "2", "3"), y = c("a", "b", "c"))
+df2
+```
+
+Without further investigation, the "x" columns in `df1` and `df2` cannot be differentiated. The `str` function can be used to describe objects with more detail than class. 
+
+```{r}
+str(df1)
+str(df2)
+```
+
+Here you see that `df1` is a `data.frame` and has 3 observations of 2 variables, "x" and "y." Then you are told that "x" has the data type integer (not important for this class, but for our purposes it behaves like a numeric) and "y" is a factor with three levels (another data class we are not discussing). ***It is important to note that, by default, data frames coerce characters to factors.*** The default behavior can be changed with the `stringsAsFactors` parameter:
+
+```{r}
+df3 <- data.frame(x = 1:3, y = c("a", "b", "c"), stringsAsFactors = FALSE)
+str(df3)
+```
+
+Now the "y" column is a character. As mentioned above, each "column" of a data frame must have the same length. Trying to create a data.frame from vectors with different lengths will result in an error. (Try running `data.frame(x = 1:3, y = 1:4)` to see the resulting error.)
+
+### Subsetting objects 
+
+We will discuss three subsetting operators: `[`, `[[`, and `$`. We will start with vectors, and the `[` operator. First create an example vector, then select the third element. 
+
+```{r}
+v1 <- c("a", "b", "c", "d")
+v1[3]
+```
+
+The `[` operator can also take a vector as the argument. For example you can select the first and third elements:
+
+```{r}
+v1 <- c("a", "b", "c", "d")
+v1[c(1, 3)]
+```
+
+Similarly, you can use `[` to subset a list:
+
+```{r}
+l1
+l1[2]
+```
+
+Notice that the result of `l1[2]` is still a list. (Try running `class(l1[2])` or `str(l1[2])`.) What if you want to select the vector the list contains? 
+For each dimension the `[` operator takes one argument. Vectors, being 1 dimension, only take one argument. However, matrices and data.frames have two dimensions. By convention, when an object has two dimensions 
+
+
+
+
