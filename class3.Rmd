@@ -1,0 +1,93 @@
+---
+title: 'R Small Group: Class 3'
+author: "Amy Allen & Dayne Filer"
+date: "June 28, 2016"
+output:
+  pdf_document:
+    highlight: tango
+  html_document: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+```
+
+<!-- Here we style out button a little bit -->
+<style>
+  .showopt {
+    background-color: #004c93;
+    color: #FFFFFF; 
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle !important;
+    border-radius: 8px;
+    float:right;
+    }
+
+    .showopt:hover {
+    background-color: #dfe4f2;
+    color: #004c93;
+  }
+
+</style>
+
+<!--Include script for hiding output chunks-->
+<script src="hideOutput.js"></script>
+
+### Using this document
+
+* Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
+* \# indicates a comment, and anything after a comment will not be evaluated in R
+* The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
+* While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
+* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
+
+### Class 3 expectations
+1. Know how to import data from a csv file format
+2. Understand all of the arguments of the `plot` function
+3. Be able to make basic plots 
+
+### Importing data from a csv file 
+
+A csv is a comma separated values file, which allows data to be saved in a table structured format. Excel files can often be saved as csv files. R has a function to read these files called `read.csv`. We will use this function to read in data from a csv file.
+
+You have been provided with the data set "yeastmutants.csv". This data set includes data on the response to mating pheromone over time for following three cell types: wildtype (wt), an sst2 mutant (sst2), and a gpa1 mutant (gpa1). For each mutant there is data on the mean response of a population (avg) as well as the standard deviation of the response (stdev). The data set also includes the time for each data point. Let's import it into R and store it as `data`. First we need to set our working directory to the location where the file is stored. We do this by using the `setwd` function. First locate the file under the files tab, then hover over the file name and it should give you the path to that directory; for me it is "~/Documents/rclass". Make sure that the path name is in quotes so R knows it is a character data type and execute the function as follows:
+
+```{r}
+setwd("~/Documents/rclass")
+getwd()
+```
+
+You can use the `getwd()` function to check that you have sucessfully changed directories. Now that we are in the correct working directory we can load the data using the `read.csv` function. Here the argument `header` is set to `TRUE` because the data set has a header labeling each column. 
+
+```{r}
+data <- read.csv("yeastmutants.csv", header = TRUE)
+```
+ 
+ Now we can take a look at our data.
+ 
+```{r}
+class(data)
+data
+str(data)
+```
+
+Using the `class()` function we can tell that `data` is a dataframe. This means it is a list of vectors each with the same length. Now, let's look closer at the data itself; we see it looks like a table with 7 columns (each with a header) and 17 rows. We can also look at the structure of this data frame using the `str()` function. It tells us that we have 17 observations of 7 variables and liststhe variables and their classes. `Time` is an integer and the rest of the variables are numeric.
+
+### Basic plotting
+
+Now we have imported some data, so how can we visualize it? One of the most basic ways to visualize data is the the `plot()` function. We can learn more about this function using `?plot`. The `plot` function is used for generic X-Y plotting. It requires two arguments `x` and `y`, which represent the x and y coordinates for the plot respectively. Then the function also has lots of optional arguments. `type` is used indicate what type of plot should be drawn; all of the options for this are listed in the help menu. `main` and `sub` are used to give the plot an overall and a subtitle, respectively. `xlab` and `ylab` are used to label the x and y axes. Finally, `asp` is used to assign the y/x aspect ratio. There are other arguments that can be passed to `plot()`. You can google these if you're interested or use `?par`; one we will be particuarly interested in is `col` which assigns a color. 
+
+Now let's do a basic plotting example. We want to plot the average response of wildtype cells versus time. We will need to subset the average response of wt and time from the data frame and plot them. We can do this using the `$` operator. 
+
+```{r}
+plot(x = data$Time, y = data$wt.avg)
+```
+
+We also want to give the plot a title and axis labels.
+
+```{r}
+plot(x = data$Time, y = data$wt.avg, main = "Yeast Response to Pheromone", 
+     xlab = "Time (minutes)", ylab = "Mean pheromone response")
+```
