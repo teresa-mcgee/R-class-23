@@ -1,0 +1,96 @@
+---
+title: 'Homework 3: Solutions'
+author: "Amy Allen & Dayne Filer"
+date: "June 28, 2016"
+output:
+  pdf_document:
+    highlight: tango
+  html_document: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+```
+
+<!-- Here we style out button a little bit -->
+<style>
+  .showopt {
+    background-color: #004c93;
+    color: #FFFFFF; 
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle !important;
+    border-radius: 8px;
+    float:right;
+    }
+
+    .showopt:hover {
+    background-color: #dfe4f2;
+    color: #004c93;
+  }
+
+</style>
+
+<!--Include script for hiding output chunks-->
+<script src="hideOutput.js"></script>
+
+Load data:
+
+```{r}
+setwd("~/Documents/rclass")
+data <- read.csv("heights.csv", header = TRUE)
+```
+
+1. Make a histogram of height using the `hist()` function. Include an appropriate title and axis labels.
+
+```{r}
+hist(data$Height, 
+     xlab = "Height (inches)", 
+     ylab = "Frequency", 
+     main = "Histogram of Height")
+```
+
+\pagebreak
+2. Now make the same histogram but include 20 bins and make it your favorite color. 
+
+```{r}
+hist(data$Height, xlab = "Height (inches)", 
+     ylab = "Frequency", 
+     main = "Histogram of Height", 
+     breaks = 20, 
+     col = "purple")
+```
+
+\pagebreak
+3. Make a bar chart of how many people are left or right handed using the `barplot()` function. Hint: `data$Handedness[data$Handedness=="Left"]` will return a vector including on those entries where `data$Handedness` is `"Left"` and `length()` will return the length of a vector. 
+
+```{r}
+barplot(height = c(length(data$Handedness[data$Handedness =="Left"]),
+                   length(data$Handedness[data$Handedness =="Right"])), 
+        names.arg = c("Left Handed","Right Handed"), 
+        ylab = "Count", 
+        main = "Handedness")
+```
+
+\pagebreak
+4. Make a bar chart of how many people have the following eye colors: blue, brown, other. Make the color of each bar correspond to the eye color (you can choose any color for other). 
+
+```{r}
+barplot(height = c(length(data$Eye.Color[data$Eye.Color == "Blue"]),
+                   length(data$Eye.Color[data$Eye.Color == "Brown"]),
+                   length(data$Eye.Color[data$Eye.Color == "Other"])), 
+        names.arg = c("Blue","Brown","Other"), 
+        ylab = "Count", 
+        main = "Eye Color",
+        col = c("blue","brown","purple"))
+```
+
+\pagebreak
+5. Make a box plot of the height using the `boxplot()` function. 
+
+```{r}
+boxplot(x = data$Height, 
+        ylab = "Height (inches)", 
+        main = "Boxplot of Height")
+```

@@ -311,5 +311,3 @@ These exercises are to help you solidify and expand on the information given abo
 4. You can stack subsetting operators next to each other. Using `l2` from above, select the 7 from 'vec.' Now try to select the last two rows from 'mat'. (Again, you should attempt to think of a solution that only requires one line of code for each selection.)
 
 5. Recall how you added an element to `l2` using the `$` operator. Again, a data frame is just a special list. Add a column to `mydf` called "col4" with a vector of your choice. 
-
-
