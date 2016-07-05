@@ -3,13 +3,14 @@ title: 'R Small Group: Class 4'
 author: "Amy Allen & Dayne Filer"
 date: "July 5, 2016"
 output:
+  html_document: null
   pdf_document:
     highlight: tango
-  html_document: null
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+set.seed(1234)
 ```
 
 <!-- Here we style out button a little bit -->
