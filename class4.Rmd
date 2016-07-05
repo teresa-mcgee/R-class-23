@@ -3,9 +3,9 @@ title: 'R Small Group: Class 4'
 author: "Amy Allen & Dayne Filer"
 date: "July 5, 2016"
 output:
+  html_document: null
   pdf_document:
     highlight: tango
-  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +47,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 1. Know and understand the three basic control statements in R (for-loops, if/else statements, and while statements)
 
 ### Control statements
-Imagine a machine that slices apples and oranges such that every slice is less than an inch thick. The machine can slice the apples without peeling them, but it needs to peel the oranges before slicing. Therefore, the machine must be told whether it is slicing an apple or an orange. If the machine is slicing an apple then it can slice the fruit until all slices are less than an inch thick. However, if the machine is slicing and orange it must first peel the orange and then slice it. 
+Imagine a machine that slices apples and oranges such that every slice is less than an inch thick. The machine can slice the apples without peeling them, but it needs to peel the oranges before slicing. Therefore, the machine must be told whether it is slicing an apple or an orange. If the machine receives an apple it does not have to peel before beginning to slice. However, if the machine receives an orange, it must peel the orange before slicing it. 
 
 Now think about writing the program to run this machine. You have a full pile of mixed apples and oranges. The machine can only slice one piece of fruit at a time, and you must program the machine to process all the fruit, so you must first program the machine to iterate over each piece of fruit. In programming, you use a "for-loop" to iterate over different items. The next step is to determine whether to peel the fruit. In programming, you would use an "if/else" statement, i.e. *if* the fruit is an orange, peel the fruit, *else*, do not peel the fruit. Finally, the machine must keep cutting the fruit until all the slices are less than one inch thick. In programming, you would use a "while" statement, i.e. *while* any piece of the fruit is greater than or equal to one inch, keep cutting more slices. 
 
@@ -98,7 +98,7 @@ for (i in 1:nrow(mat)) {
 }
 ```
 
-Here you go through each column of a row and then move to the next row. 
+The example above iterates first by row, then by column. In other words, start with row 1 and go through every column, then move to the next row and iterate through every column, and so on. 
 
 ### If/else statements
 In R, you create an if/else statement with the following syntax:
