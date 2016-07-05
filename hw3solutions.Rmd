@@ -45,7 +45,7 @@ data <- read.csv("heights.csv", header = TRUE)
 1. Make a histogram of height using the `hist()` function. Include an appropriate title and axis labels.
 
 ```{r}
-hist(data$Height, 
+hist(x = data$Height, 
      xlab = "Height (inches)", 
      ylab = "Frequency", 
      main = "Histogram of Height")
@@ -55,7 +55,8 @@ hist(data$Height,
 2. Now make the same histogram but include 20 bins and make it your favorite color. 
 
 ```{r}
-hist(data$Height, xlab = "Height (inches)", 
+hist(x = data$Height, 
+     xlab = "Height (inches)", 
      ylab = "Frequency", 
      main = "Histogram of Height", 
      breaks = 20, 
