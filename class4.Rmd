@@ -3,9 +3,9 @@ title: 'R Small Group: Class 4'
 author: "Amy Allen & Dayne Filer"
 date: "July 5, 2016"
 output:
-  html_document: null
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -45,6 +45,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 
 ### Class 4 expectations
 1. Know and understand the three basic control statements in R (for-loops, if/else statements, and while statements)
+2. Learn the and/or operators for combining logical statements
 
 ### Control statements
 Imagine a machine that slices apples and oranges such that every slice is less than an inch thick. The machine can slice the apples without peeling them, but it needs to peel the oranges before slicing. Therefore, the machine must be told whether it is slicing an apple or an orange. If the machine receives an apple it does not have to peel before beginning to slice. However, if the machine receives an orange, it must peel the orange before slicing it. 

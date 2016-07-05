@@ -157,6 +157,7 @@ $(document).ready(function () {
 <h3>Class 4 expectations</h3>
 <ol style="list-style-type: decimal">
 <li>Know and understand the three basic control statements in R (for-loops, if/else statements, and while statements)</li>
+<li>Learn the and/or operators for combining logical statements</li>
 </ol>
 </div>
 <div id="control-statements" class="section level3">
@@ -335,20 +336,20 @@ for (f in 1:length(fruit$type)) {
 <p>You can now look at the results:</p>
 <pre class="r"><code>res
 ## $type
-##  [1] &quot;apple&quot;  &quot;apple&quot;  &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot; &quot;orange&quot;
-##  [8] &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot; &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot; 
-## [15] &quot;apple&quot;  &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot;  &quot;apple&quot;  &quot;apple&quot;  &quot;orange&quot;
-## [22] &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot;
+##  [1] &quot;apple&quot;  &quot;apple&quot;  &quot;apple&quot;  &quot;orange&quot; &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot;
+##  [8] &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot; &quot;apple&quot;  &quot;orange&quot; &quot;orange&quot;
+## [15] &quot;orange&quot; &quot;apple&quot;  &quot;apple&quot;  &quot;orange&quot; &quot;orange&quot; &quot;apple&quot;  &quot;apple&quot; 
+## [22] &quot;orange&quot; &quot;apple&quot;  &quot;apple&quot;  &quot;apple&quot; 
 ## 
 ## $pieces
-##  [1]  8  4 16 16  1  8  8  8  8  8  8  4 16 16  8  8  8  8  8  8  8  8  4
-## [24] 16  8
+##  [1]  8  4  8  8 16  4  8  4  2  4 16  8  8  4 16  8 16  8  8 16  8  8  8
+## [24] 16 16
 ## 
 ## $slice_width
-##  [1] 0.9535595 0.6546087 0.5438086 0.7405339 0.1990816 0.9084231 0.6956611
-##  [8] 0.6844052 0.9826755 0.7376525 0.5284821 0.9858647 0.8377965 0.6432551
-## [15] 0.8365128 0.5240775 0.6156936 0.7330905 0.5902534 0.5578879 0.9691160
-## [22] 0.9863307 0.7754745 0.5635837 0.5830991</code></pre>
+##  [1] 0.8929190 0.7024396 0.5734106 0.9930347 0.5173523 0.7272320 0.7152580
+##  [8] 0.8436192 0.5720434 0.7512611 0.6007198 0.9878073 0.7660313 0.9416921
+## [15] 0.5969286 0.8133795 0.6568291 0.7879092 0.8181727 0.7567379 0.6039652
+## [22] 0.8582273 0.7642088 0.5792578 0.6426411</code></pre>
 </div>
 <div id="class-4-exercises" class="section level3">
 <h3>Class 4 exercises</h3>
