@@ -1,11 +1,11 @@
 ---
-title: 'Homework 4 Solutions'
+title: "Homework 4 Solutions"
 author: "Amy Allen & Dayne Filer"
 date: "July 5, 2016"
 output:
-  html_document: null
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -35,6 +35,7 @@ set.seed(1234)
 
 <!--Include script for hiding output chunks-->
 <script src="hideOutput.js"></script>
+
 
 1. Create a new fruit list with 5000 fruit instead of 25, count the number of apples and the number of oranges.
 
