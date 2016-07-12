@@ -8,6 +8,8 @@ output:
     highlight: tango
 ---
 
+NEED TO ADD ! for future classes. 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 set.seed(1234)

@@ -3,9 +3,9 @@ title: 'R Small Group: Class 5'
 author: "Amy Allen & Dayne Filer"
 date: "July 12, 2016"
 output:
+  html_document: null
   pdf_document:
     highlight: tango
-  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -49,103 +49,117 @@ set.seed(1234)
 2. Understand function environments and how functions find things
 3. Understand the "do not repeat yourself" (DRY) principle
 
-### Basic Functions
-So far we've used a lot of functions that already exist in R. We can also add our own functions, which on of the great strengths of R. User-written functions take the following structure. 
+### Basic functions
+So far we've used a lot of functions that already exist in R. Now you will learn how to write your own functions. User-written functions take the following structure:
+
 ```{r eval=FALSE}
-myfunction <- function(arg1, arg2, ... ){
+myfunction <- function(arg1, arg2, ...) {
+  
   do some stuff
   return(object)
+  
 }
 ```
 
-Let's make a simple function that just returns the arument that it is given.
+Make a simple function that just returns the arument that it is given.
+
 ```{r}
-first_function <- function (x){
+first_function <- function (x) {
+  
   return(x)
+  
 }
 ```
 
-Now if we hand a value to `first_function` it should return that value
+Now if you pass a value to `first_function` it should return that value:
+
 ```{r}
 first_function(9)
 ```
 
-This function isn't really very useful, so let's try make a function that squares a value and then adds one to it. 
+A function that only returns the given value is not useful, but it does illustrate how you can add functions to your environment. Now make a function that squares a value and then adds one to it.
+
 ```{r}
-second_function <- function(x){
-  ans <- x^2+1
+second_function <- function(x) {
+
+  ans <- x^2 + 1
   return(ans)
+  
 }
 second_function(9)
 ```
 
-### Function Environment
-An environment is a place to store variables. So far when we've made assignments in R, they have been added as entries to the global environment. 
+### The function environment
+An environment is a place to store variables. As we discussed in class 1, when you make assignments in R, they are generally added as entries to the global environment. 
 
-Functions have their own environments. When a function is called a new environment is created. This new environment is called the evaluation environment. Functions also have an enclosing environment, which is the environment where the function was defined. For a functions defined in the workspace the enclosing environment is the global envrionment. 
+Functions are evaluated in their own environments. When a function is called a new environment is created. This new environment is called the evaluation environment. Functions also have an enclosing environment, which is the environment where the function was defined. For a functions defined in the workspace the enclosing environment is the global envrionment. 
 
-When a function is evaluated R looks through a series of environments for variables called. It first searches the evaluation environment and then the enclosing environment. This means that a global variable can be referenced inside a function. This principle is shown below by `third_function` which sums the argument `x` with the variable `a` from the global environment. 
+When a function is evaluated, R looks through a series of environments for variables called. It first searches the evaluation environment and then the enclosing environment. This means that a global variable can be referenced inside a function. This principle is shown below by `third_function` which sums the argument `x` with the variable `a` from the global environment. 
 
 ```{r}
 a <- 9
-third_function <- function(x) {x+a}
+third_function <- function(x) { x + a }
 third_function(11)
 ```
 
-The evaluation environment is populated with local variables as the evaluation of the function procedes. Let's take `second_function` for example. Within the function the variable `ans` is assigned. However, when we evaluate the function this variable does not show up in the global environment because it was assigned in the evaluation environment. 
+The evaluation environment is populated with local variables as the evaluation of the function procedes. Once the function completes running, the evaluation environment is destroyed. Look at `second_function` for example. Within the function the variable `ans` is assigned. However, when you evaluate the function the `ans` variable is not available the global environment because it was assigned in the evaluation environment, and the evaluation environment was destroyed after the function completed. 
 
 ```{r}
 second_function(9)
 ls()
 ```
 
-As you can see when we list objects in the global environment we only get the global variable `a` assigned previously and the three functions that we have defined so far. 
+As you can see, listing objects in the global environment only returns the global variable `a` assigned previously and the three functions that you have defined so far. 
 
 ### DRY principle
-The don't repeat yourself (DRY) principle states that "every piece of knowledge must have a single, unambigous, authorative representation within a system" according to programmers Dave Thomas and Andy Hunt. This means that you want to define each variable once and only once, and you don't want to duplicate variables. Duplication can lead to bugs in your code that could easily be avoided.
+The don't repeat yourself (DRY) principle states that 
 
-### Adding Complexity for Functions
-Now we understand how R finds variables for functions we can start to add complexity to functions. 
+> every piece of knowledge must have a single, unambigous, authorative representation within a system - Dave Thomas and Andy Hunt. 
 
-Suppose you got your apples and oranges from two different farmers. They both give you an inventory list, but one farmer measures his fruit in inches, and the other measures his fruit in centimeters. You want to convert the data so all of it is in centimeters. 
+There is a lot to think about when using the DRY principle, like not repeating variable names throughout your code. The DRY principle is particularly useful when thinking about functional programming. If you find yourself writing the same code more than once, or copying and pasting, consider writing a function. Think back to the fruit machine discussed in last class, and consider the following code to generate two sets of fruit:
 
-The following code generates the inventory lists from each farmer
 ```{r}
-# Farmer 1 measures in inches
 farmer1 <- list(type = sample(x = c("orange", "apple"), 
-                            size = 25, 
-                            replace = TRUE),
-              wdth = rnorm(n = 25, mean = 6, sd = 2.5))
-# Farmer 2 measures in centimeters
-farmer2 <- list(type = sample(x = c("orange", "apple"), 
-                            size = 25, 
-                            replace = TRUE),
-              wdth = rnorm(n = 25, mean = 15, sd = 6))
+                              size = 25,
+                              replace = TRUE),
+                wdth = rnorm(n = 25, mean = 6, sd = 2.5))
+farmer2 <- list(type = sample(x = c("orange", "apple"),
+                              size = 25,
+                              replace = TRUE),
+                wdth = rnorm(n = 25, mean = 8, sd = 1.8))
 ```
 
-Now let's write a function that will convert centimeters to inches and try it out.
+Now imagine you have to created data for 100 farmers. After you fininsh you realize you need to add pears to the vector of possible fruit. If you wrote code like above you would have to edit each line. However, you may see how the code above could be functionalized. Consider what may be variable in the code above, and create a function parameter for each variable part of the code. You may wish to change the type of fruit, the number of fruit, or the size of the fruit. 
+
 ```{r}
-# write function to convert centimeters to inches
-convert_cm_in <- function(data){
-  new_data <- data*0.393701
-  return(new_data)
+## Create a funciton to generate fruit. 
+genFruit <- function(fnum, fmean, fsd, ftype = c("apple", "orange")) {
+  
+  res <- list(type = sample(x = ftype, size = fnum, replace = TRUE),
+              wdth = rnorm(n = fnum, mean = fmean, sd = fsd))
+  return(res)
+  
 }
-# apply to the widths provided by farmer2 
-convert_cm_in(farmer2$wdth)
-# update the data from farmer2
-farmer2$wdth <- convert_cm_in(farmer2$wdth)
+farmer1 <- genFruit(fnum = 25, fmean = 6,  fsd = 2.5)
+farmer2 <- genFruit(fnum = 25, fmean = 8, fsd = 1.8)
 ```
 
-Functions can be even more complex than this. For example, we can make the code that we wrote last week into a function to make it easy to apply to multiple datasets reproducibly. To change from a script to a function you must write the main body of the code in terms of the argument (in this case `data`) rather than a specific set of data. Note that this function will only run when applied to a list or data frame that has the entries `wdth` and `type`
+Notice two things: (1) now any change needed in the fruit generation only requires the code to change in one place -- greatly reducing the amount of work, and more importantly, the change for error; (2) notice how 'ftype' is defined in the function with a default value. You can probably imagine how many functions benefit from default parameter values. For the `genFruit` function above you will most often only generate apples and oranges, so it makes sense to provide a default value for the fruit type. Almost all of the functions you will use in R run with default values that you may or may not be aware of.
+
+Similarly, you can functionalize the fruit machine:
+
 ```{r}
-fruit_machine <- function(data){
+fruit_machine <- function(fruit, slice_size = 1) {
+  
   # create results list
   res <- list (type = character(), pieces = numeric(), 
                slice_width = numeric())
+  
   ## For-loop iterating through the 1:(number of fruit)
-  for (f in 1:length(data$type)) {
-    f_type <- data$type[f] ## Get the fruit type from the list
-    f_wdth <- data$wdth[f] ## Get the fruit width from the list
+  for (f in 1:length(fruit$type)) {
+    
+    f_type <- fruit$type[f] ## Get the fruit type from the list
+    f_wdth <- fruit$wdth[f] ## Get the fruit width from the list
     n_pieces <- 1 ## Each fruit is initially 1 piece
   
     ## Peel the oranges
@@ -154,7 +168,7 @@ fruit_machine <- function(data){
     }
   
     ## Divide the fruit
-    while (f_wdth >= 1) {
+    while (f_wdth >= slice_size) {
       f_wdth <- f_wdth/2
       n_pieces <- n_pieces*2
     }
@@ -162,24 +176,101 @@ fruit_machine <- function(data){
     res$type[f] <- f_type
     res$pieces[f] <- n_pieces
     res$slice_width[f] <- f_wdth
+    
   }
+  
   return(res)
+  
 }
 ```
 
-Now let's apply this function to our two data sets `farmer1` and `farmer2`
+Now you can use the `fruit_machine` function to the `farmer1` and `farmer2` datasets you generated, changing the slice size based on the farmers requests. 
+
 ```{r}
-results1 <- fruit_machine(farmer1)
-results2 <- fruit_machine(farmer2)
+results1 <- fruit_machine(farmer1, slice_size = 1)
+results2 <- fruit_machine(farmer2, slice_size = 0.5)
 ```
 
-### Small Group Exercises
-Write functions to do some basic math and statistics.
+### Function control statements 
+So far we have only discussed one aspect of function control statments: the `return` function. The `return` function can actually go anywhere in the function, and a function can have multiple `return` functions. For example consider a function that returns "big number" for numbers greater than or equal to 100 and "small number" for numbers under less than 100:
 
-1. Write a function that solves the quadratic formula. 
+```{r}
+xmpl_func <- function(x) {
+  
+  if (x >= 100) {
+    return("big number")
+  } 
+  
+  return("small number")
+  
+}
+xmpl_func(1)
+xmpl_func(1e10)
+xmpl_func("see what happens")
+```
+
+When a function encounters the `return` function the returns the value and halts any execution. The other two functions worth knowing are: `stop` and `warning`. The `stop` and `warning` functions allow you to do tests within the function and exit the function (`stop`) if necessary, or issue a warning (`warning`).
+
+In the `xmpl_func("see what happens")` example, the function returned `TRUE`. (Recall from class 1 that both would be converted to character in the if statement, which is why the code did not error.) However, you may wish to make sure the input to `xmpl_func` is numeric and has a length of 1. Modify `xmpl_func` to test the input.
+
+```{r,error=TRUE}
+xmpl_func <- function(x) {
+  
+  ## Test the length of x
+  if (length(x) > 1) stop("'x' must be of length 1.")
+  
+  ## Test the class of x
+  if (!is.numeric(x)) stop("'x' must be numeric.")
+  
+  if (x >= 100) {
+    return("big number")
+  } 
+  
+  return("small number")
+  
+}
+xmpl_func("see what happens")
+xmpl_func(1:10)
+```
+
+Finally, you may wish to issue a warning if the input can be converted to numeric instead of an error:
+
+```{r,error=TRUE}
+xmpl_func <- function(x) {
+  
+  ## Test the length of x
+  if (length(x) > 1) stop("'x' must be of length 1.")
+  
+  if (is.logical(x)) {
+    x <- as.numeric(x)
+    warning("'x' was converted from logical to numeric.")
+  }
+  
+  if (!is.numeric(x)) stop("'x' could not be converted to numeric.")
+  
+  if (x >= 100) {
+    return("big number")
+  } 
+  
+  return("small number")
+  
+}
+xmpl_func("see what happens")
+xmpl_func(TRUE)
+```
+
+Notice the function completed when the input was logical. The `warning` function does not halt execution, but does print a warning message for the user. 
+
+### Small Group Exercises
+These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
+
+1. Write a function that solves the quadratic formula. Recall, given:
+$$ax^2 + bx + c = 0$$
+    The quadratic equation is:
 $$x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
-Use it to solve the following equations. 
+    Use it to solve the following equations. 
 $$x^2+x-4=0$$
 $$x^2-3x-4=0$$
 $$6x^2+11x-35=0$$
-2. Write a function that finds the standard deviation of a set of numbers. Use the `sd` function to check your results. Note: $\sigma=\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}{(x_i-\bar{x})^2}}$
+
+2. Add the necessary checks for input length and class to the quadratic formula function from question 1. 
