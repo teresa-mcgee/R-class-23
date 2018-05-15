@@ -1,11 +1,11 @@
 ---
 title: 'R Small Group: Class 6'
-author: "Amy Allen & Dayne Filer"
-date: "July 19, 2016"
+author: "Amy Pomeroy & Dayne Filer"
+date: "March 7, 2018"
 output:
-  html_document: null
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -46,7 +46,7 @@ set.seed(1234)
 
 ### Class 6 expectations
 
-1. Know how to install and load R packages
+1. Install and load R packages
 2. Consider some principles of reproducible research
 3. Know the basic components of an R package
 4. Create a simple R package using RStudio and roxygen2
@@ -124,7 +124,7 @@ Consider the following two comments for the code above:
 var1 <- c(1:5)
 var2 <- mean(var1)*1023
 
-## From Filer et al. 2016, we want to multiply the mean of the results by 1023
+## From Filer et al. 2018, we want to multiply the mean of the results by 1023
 ## to get the correct estimate of the parameter
 var1 <- c(1:5)
 var2 <- mean(var1)*1023
@@ -204,6 +204,7 @@ Open a new R script (Menu -> File -> New File -> R Script). Type (or copy) the f
 Now delete the R/hello.R and man/hello.Rmd files. Finally, build the package by clicking on Menu -> Build -> Build and Reload. After the package builds, you should see `library(firstpackage)` run in your console and you are ready to use your package. Try typing the following:
 
 ```{r,echo=FALSE,include=FALSE}
+install.packages("devtools", dependencies = TRUE,repos = "http://cran.us.r-project.org")
 library(devtools)
 library(roxygen2)
 unlink("firstpackage", recursive = TRUE)
@@ -307,11 +308,11 @@ Build and reload again, then look at the help file for `mydata`:
 
 ### Class 6 excercises
 
-1. Create an R package called "fruitmachine."
+1. Create an R package called "primeranalysis."
 
-2. Add the `genFruit` and `fruit_machine` functions from class 5 and document them.
+2. Add the `genPrimer` and `primer_analysis` functions from class 5 and document them.
 
-3. Add the `farmer1` and `farmer2` objects to the package and document them. 
+3. Add the `primer1` and `primer2` objects to the package and document them. 
 
 
 ```{r,include=FALSE}

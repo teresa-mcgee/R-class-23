@@ -1,11 +1,11 @@
 ---
 title: 'R Small Group: Class 1'
-author: "Amy Allen & Dayne Filer"
-date: "June 14, 2016"
+author: "Amy Pomeroy, Dayne Filer, and Sara Taylor"
+date: "June 14, 2017"
 output:
-  html_document:
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -69,8 +69,6 @@ Similarly, R can do subtraction, multiplication, division, and exponentiation:
 3^2
 ```
 
-All these calculations are taking place in your global R environment. (Although it is beyond what you need to understand for this class, you can check which environment you are working in by running `environment()`; the result should be: `<environment: R_GlobalEnv>`.) The global R environment can store variables defined by the user.
-
 The `<-` command is used to store variables in R. For example, if we want to store the result of `3 + 4` to use in future calculations, we could do something like the following:
 
 ```{r}
@@ -90,19 +88,17 @@ y <- 2 + x
 y
 ```
 
-It can be hard to remember which variables are available. R provides the `ls` function for displaying the variables contained in your environment. Functions have names, in this case `ls`. What happens when you run `ls`? 
-
-```{r}
-ls
-```
-
-The output shows the code behind the `ls` function. To use a function you have to add `()`.
+It can be hard to remember which variables are available. R provides the `ls` function for displaying the variables contained in your environment. Functions have names, in this case `ls`. What happens when you run `ls()`? Note that you have to include the `()` after the function name to execute the function. If you do not include the parentheses the output shows the code behind the `ls` function.
 
 ```{r}
 ls()
 ```
 
-Running `ls()` returns `[1] "x" "y"`, indicating there are two variables, `x` and `y`, in the global environment. Here we see a new type of result: the `x` and `y` are surrounded by quotation marks. The quotation marks indicate a different type of data. Programming languages include different data classes. While R includes many different types, we will discuss the three most common: (1) numeric, (2) character, and (3) logical. We can check the data class with the `class` function. 
+Running `ls()` returns `[1] "x" "y"`, indicating there are two variables, `x` and `y`, in the global environment.
+
+#### Data types
+
+Programming languages include different data classes. While R includes many different types, we will discuss the three most common: (1) numeric, (2) character, and (3) logical. We can check the data class with the `class` function. 
 
 ```{r}
 vars <- ls()
@@ -136,7 +132,9 @@ Even though `var2` could be interpreted as numeric, adding the quotation marks c
 
 > If the two arguments are atomic vectors of different types, one is coerced to the type of the other, the (decreasing) order of precedence being character, complex, numeric, integer, logical and raw.
 
-Although we won't discuss all of the data classes listed above, it provides a nice reference for future use. (To find help in the documentation play around with `?` and `??`. `?` will show the documentation for a specific function, e.g. `?mean`, and `??` searches the documentation for a topic, e.g. `??average`. You can see from the `??average` search that a quick Google search will often provide better results when you don't know the name of the function you are looking for.)
+Although we won't discuss all of the data classes listed above, it provides a nice reference for future use.
+
+#### Comparison Operators
 
 In addition to the algebraic operators discussed at the beginning of the class, R includes the comparison operators. We will illustrate how R interprets data classes and introduce the logical class using the comparison operators. `<` & `>` behave as you might expect:
 
@@ -145,9 +143,9 @@ In addition to the algebraic operators discussed at the beginning of the class, 
 1 > 2
 ```
 
-Here, the comparison is simple because the values on both sides of the operator are numeric. (You can check the class, by running class on them, e.g. `class(1)` & `class(2)`.) Notice the `TRUE` and `FALSE` outputs above. `TRUE` and `FALSE` are protected reserved terms in R, and cannot be modified. (If you are curious, try running `FALSE <- TRUE`. There are other reserved terms that can be overridden in the global environment. For example, `LETTERS` is a vector of capital letters, but can be overwritten by something like `LETTERS <- "a"`.)
+Here, the comparison is simple because the values on both sides of the operator are numeric. Notice the output of the above comparisons are `TRUE` and `FALSE`. `TRUE` and `FALSE` are protected reserved terms in R, and cannot be modified.
 
-`TRUE` and `FALSE` are in the "logical" data class. We will discuss how they are used more when we talk about `if/else` statements later in the class, but they simply mean "true" and "false." So we would expect that `1 = 1` would return `TRUE`:
+`TRUE` and `FALSE` are in the "logical" data class. We will discuss more details of how they can be used in future lectures, but they simply mean "true" and "false." So we would expect that `1 = 1` would return `TRUE`:
 
 ```{r},error=TRUE}
 1 = 1
@@ -168,7 +166,7 @@ The last expression in the code above gives an interesting result. R interpreted
 class(c(var1, var2))
 ```
 
-Don't let the code above intimidate you. The code just has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called `c` to create a vector, made up of `var1` and `var2`. Then the resulting vector was passed to `class`. If this is confusing, come back and run the two steps separately (hint: after you run the inner function and see that the numbers have quotations, you can store that resulting vector as a new variable, then check the data class of the new variable with `class`).
+The code above has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called `c` to create a vector, made up of `var1` and `var2`. Then the resulting vector was passed to `class`. If this is confusing, come back and run the two steps separately (hint: you can store that resulting vector as a new variable, then check the data class of the new variable with `class`).
 
 To make checking and manipulating data classes R provides the `as` and `is` functions. `is` will check whether the input is a specific data class and `as` will coerce the input to the given data class. Let's use these functions to explore how `TRUE` and `FALSE` are converted to other data classes.
 
@@ -205,7 +203,7 @@ Notice that any number other than `0`, when converted to logical, is `TRUE`. How
 NA == 1
 ```
 
-### Class 1 exercises
+### Homework exercises
 
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 

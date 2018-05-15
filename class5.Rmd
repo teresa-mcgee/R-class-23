@@ -1,11 +1,11 @@
 ---
 title: 'R Small Group: Class 5'
-author: "Amy Allen & Dayne Filer"
-date: "July 12, 2016"
+author: "Amy Pomeroy & Dayne Filer"
+date: "March 7, 2018"
 output:
-  html_document: null
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
 ```{r setup, include=FALSE}
@@ -45,7 +45,7 @@ set.seed(1234)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Class 5 expectations
-1. Know how to write and run a basic function in R
+1. Write and run a basic function in R
 2. Understand function environments and how functions find things
 3. Understand the "do not repeat yourself" (DRY) principle
 
@@ -116,79 +116,97 @@ The don't repeat yourself (DRY) principle states that
 
 > every piece of knowledge must have a single, unambigous, authorative representation within a system - Dave Thomas and Andy Hunt. 
 
-There is a lot to think about when using the DRY principle, like not repeating variable names throughout your code. The DRY principle is particularly useful when thinking about functional programming. If you find yourself writing the same code more than once, or copying and pasting, consider writing a function. Think back to the fruit machine discussed in last class, and consider the following code to generate two sets of fruit:
+There is a lot to think about when using the DRY principle, like not repeating variable names throughout your code. The DRY principle is particularly useful when thinking about functional programming. If you find yourself writing the same code more than once, or copying and pasting, consider writing a function. Think back to the primer list discussed in last class, and consider the following code to generate two sets of fruit:
 
 ```{r}
-farmer1 <- list(type = sample(x = c("orange", "apple"), 
-                              size = 25,
-                              replace = TRUE),
-                wdth = rnorm(n = 25, mean = 6, sd = 2.5))
-farmer2 <- list(type = sample(x = c("orange", "apple"),
-                              size = 25,
-                              replace = TRUE),
-                wdth = rnorm(n = 25, mean = 8, sd = 1.8))
+library(stringi)
+lengths1 <- sample(15:35, 25,replace=TRUE)
+primers1 <- list(primer = stri_rand_strings(25, lengths1, '[ACTG]'),
+                 length = lengths1)
+lengths2 <- sample(20:40, 25,replace=TRUE)
+primers2 <- list(primer = stri_rand_strings(25, lengths1, '[ACTG]'),
+                 length = lengths1)
 ```
 
-Now imagine you have to created data for 100 farmers. After you fininsh you realize you need to add pears to the vector of possible fruit. If you wrote code like above you would have to edit each line. However, you may see how the code above could be functionalized. Consider what may be variable in the code above, and create a function parameter for each variable part of the code. You may wish to change the type of fruit, the number of fruit, or the size of the fruit. 
+Now imagine you have to create 100 primer lists. After you fininsh you realize you need to change the list of possible primer lengths. If you wrote code like above you would have to edit each line. However, you may see how the code above could be functionalized. Consider what may be variable in the code above, and create a function parameter for each variable part of the code. You may wish to change the minimum primer length, the maximum primer length, the number of primers in each list, and even the possible bases. 
 
 ```{r}
-## Create a funciton to generate fruit. 
-genFruit <- function(fnum, fmean, fsd, ftype = c("apple", "orange")) {
+## Create a funciton to primer lists. 
+genPrimer <- function(minlen, maxlen, nprimers, bases = '[ACTG]') {
   
-  res <- list(type = sample(x = ftype, size = fnum, replace = TRUE),
-              wdth = rnorm(n = fnum, mean = fmean, sd = fsd))
+  lengths <- lengths1 <- sample(minlen:maxlen, nprimers,replace=TRUE)
+  res <- list(primer = stri_rand_strings(nprimers, lengths, bases),
+              length = lengths)
   return(res)
   
 }
-farmer1 <- genFruit(fnum = 25, fmean = 6,  fsd = 2.5)
-farmer2 <- genFruit(fnum = 25, fmean = 8, fsd = 1.8)
+primers1 <- genPrimer(minlen = 15, maxlen = 35, nprimers = 25)
+primers2 <- genPrimer(minlen = 20, maxlen = 40, nprimers = 25)
 ```
 
-Notice two things: (1) now any change needed in the fruit generation only requires the code to change in one place -- greatly reducing the amount of work, and more importantly, the change for error; (2) notice how 'ftype' is defined in the function with a default value. You can probably imagine how many functions benefit from default parameter values. For the `genFruit` function above you will most often only generate apples and oranges, so it makes sense to provide a default value for the fruit type. Almost all of the functions you will use in R run with default values that you may or may not be aware of.
+Notice two things: (1) now any change needed in the fruit generation only requires the code to change in one place -- greatly reducing the amount of work, and more importantly, the change for error; (2) notice how 'bases' is defined in the function with a default value. You can probably imagine how many functions benefit from default parameter values. For the `genPrimer` function above you will most often only generate sequences with nucelotides found in DNA, so it makes sense to provide a default value for the bases. Almost all of the functions you will use in R run with default values that you may or may not be aware of.
 
-Similarly, you can functionalize the fruit machine:
+Similarly, you can functionalize the molecular weight and Tm calculators:
 
 ```{r}
-fruit_machine <- function(fruit, slice_size = 1) {
+library(stringr) #This library is required for the function that calculates Tm
+primer_analysis <- function(primers) {
   
   # create results list
-  res <- list (type = character(), pieces = numeric(), 
-               slice_width = numeric())
+  res <- list (primer = character(), mw = numeric(), 
+               Tm = numeric(), length = numeric())
   
   ## For-loop iterating through the 1:(number of fruit)
-  for (f in 1:length(fruit$type)) {
+  for (p in 1:length(primers$primer)) {
     
-    f_type <- fruit$type[f] ## Get the fruit type from the list
-    f_wdth <- fruit$wdth[f] ## Get the fruit width from the list
-    n_pieces <- 1 ## Each fruit is initially 1 piece
-  
-    ## Peel the oranges
-    if (f_type == "orange") {
-      f_wdth <- f_wdth - 1/8
-    }
-  
-    ## Divide the fruit
-    while (f_wdth >= slice_size) {
-      f_wdth <- f_wdth/2
-      n_pieces <- n_pieces*2
-    }
-  
-    res$type[f] <- f_type
-    res$pieces[f] <- n_pieces
-    res$slice_width[f] <- f_wdth
+    sequence <- primers$primer[p] ## Get the fruit type from the list
+    len <- primers$length[p] ## Get the fruit width from the list
     
-  }
-  
-  return(res)
-  
+    ### Get molecular weight
+    pmass <- 0 #set mass of primer equal to zero
+    for (j in 1:len){
+      l <- substr(sequence,j,j) #get jth nucleic acid of ith primer
+      if (l=="C"){
+        m <- 467.2
+      } else if (l=="A"){
+        m <- 491.2
+      } else if (l=="G"){
+        m <- 507.2
+      } else if (l=="T"){
+        m <- 482.2
+      } #get mass of jth nucleic acid of ith primer
+      pmass <- pmass+m #add mass of jth nucleic acid to the mass of the primer
+    }
+    
+    ### Get Tm
+    nA <- sum(str_count(sequence,"A")) #number of A's
+    nC <- sum(str_count(sequence,"C")) #number of C's
+    nG <- sum(str_count(sequence,"G")) #number of G's
+    nT <- sum(str_count(sequence,"T")) #number of T's
+    if (len<=13){
+      Tm <- (nA+nT)*2 + (nG+nC)*4
+    }
+    else{
+      Tm <- 64.9 +41*(nG+nC-16.4)/(nA+nT+nG+nC)
+    }
+    
+    # assign values to the results matrix
+    res$primer[p] <- sequence
+    res$mw[p] <- pmass
+    res$Tm[p] <- Tm
+    res$length[p] <- len
+      
+    }
+    
+    return(res)
 }
 ```
 
-Now you can use the `fruit_machine` function to the `farmer1` and `farmer2` datasets you generated, changing the slice size based on the farmers requests. 
+Now you can use the `primer_analysis` function to the `primers1` and `primers2` datasets you generated.
 
 ```{r}
-results1 <- fruit_machine(farmer1, slice_size = 1)
-results2 <- fruit_machine(farmer2, slice_size = 0.5)
+results1 <- primer_analysis(primers1)
+results2 <- primer_analysis(primers2)
 ```
 
 ### Function control statements 

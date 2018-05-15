@@ -1,14 +1,13 @@
 ---
 title: 'R Small Group: Class 4'
-author: "Amy Allen & Dayne Filer"
-date: "July 5, 2016"
+author: "Amy Pomeroy, Dayne Filer, & Sara Taylor"
+date: "March 7, 2018"
 output:
-  html_document: null
   pdf_document:
     highlight: tango
+  html_document: null
 ---
 
-NEED TO ADD ! for future classes. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
@@ -47,15 +46,21 @@ set.seed(1234)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Class 4 expectations
-1. Know and understand the three basic control statements in R (for-loops, if/else statements, and while statements)
-2. Learn the and/or operators for combining logical statements
+1. Implement the three basic control statements in R (for-loops, if/else statements, and while statements)
+2. Use the and/or operators for combining logical statements
 
 ### Control statements
-Imagine a machine that slices apples and oranges such that every slice is less than an inch thick. The machine can slice the apples without peeling them, but it needs to peel the oranges before slicing. Therefore, the machine must be told whether it is slicing an apple or an orange. If the machine receives an apple it does not have to peel before beginning to slice. However, if the machine receives an orange, it must peel the orange before slicing it. 
+Imagine you have a data set of primer sequences. You want to quickly find out information about this set of primers. Let's start by loading the list.
 
-Now think about writing the program to run this machine. You have a full pile of mixed apples and oranges. The machine can only slice one piece of fruit at a time, and you must program the machine to process all the fruit, so you must first program the machine to iterate over each piece of fruit. In programming, you use a "for-loop" to iterate over different items. The next step is to determine whether to peel the fruit. In programming, you would use an "if/else" statement, i.e. *if* the fruit is an orange, peel the fruit, *else*, do not peel the fruit. Finally, the machine must keep cutting the fruit until all the slices are less than one inch thick. In programming, you would use a "while" statement, i.e. *while* any piece of the fruit is greater than or equal to one inch, keep cutting more slices. 
+```{r}
+setwd("~/Documents/HLC Curriculum/HLC-Curriculum/R Materials")
+primers <- read.csv("primers.csv", header = FALSE, stringsAsFactors = FALSE)
+str(primers)
+```
 
-### For-loops
+There are 562 primers in the list, so if you wanted to find the length of all of them, you probably wouldn't want to count the length of each one by hand. Similarly, if you wanted to find the molecular weight of all of them, doing so by hand would be extremely time consuming. Control statements can help us make these tasks quicker. 
+
+#### For-loops
 Each programming language has its own syntax for the different control statements. In R, you create a for-loop according to the following basic syntax:
 
 ```{r,eval=FALSE}
@@ -84,7 +89,7 @@ yrs <- c("2000", "2005", "2010")
 for (i in 1:length(yrs)) { print(paste("The year is", yrs[i])) }
 ```
 
-Traditionaly, for-loops iterate over the sequence `1...N` like above. However, R allows for-loops to iterate over any type of list. Rather than iterate over `1:length(yrs)` R can just iterate over `yrs`.
+Traditionally, for-loops iterate over the sequence `1...N` like above. However, R allows for-loops to iterate over any type of list. Rather than iterate over `1:length(yrs)` R can just iterate over `yrs`.
 
 ```{r}
 for (j in yrs) { print(paste("The year is", j)) }
@@ -104,6 +109,25 @@ for (i in 1:nrow(mat)) {
 
 The example above iterates first by row, then by column. In other words, start with row 1 and go through every column, then move to the next row and iterate through every column, and so on. 
 
+Let's look at an example with our list of primers. We are interested in knowing the length of each of our primers. 
+
+```{r}
+for (i in primers[1]) {
+  print(nchar(i))
+}
+```
+
+The function `nchar` returns the number of characters in a string. Therefore, this code prints the number of characters in each entry in the first column of the primers data set. 
+
+This is helpful, but we might want to use this data later. To do so, we will want to assign the primer lengths to a variable rather than just printing a list of numbers. 
+
+```{r}
+len <- numeric(length = length(primers$V1))
+for (i in 1:length(primers$V1)){
+  len[i] <- nchar(primers[i,1])
+}
+```
+
 ### If/else statements
 In R, you create an if/else statement with the following syntax:
 
@@ -119,10 +143,10 @@ if (FALSE) { print("TRUE") } else { print("FALSE") }
 if (1 > 2) { print("TRUE") } else { print("FALSE") }
 ```
 
-Not all if/else statments have to have an `else` clause. By default, if no `else` statement is given R does nothing.
+Not all if/else statements have to have an `else` clause. By default, if no `else` statement is given R does nothing.
 
 ```{r}
-x <- 10
+x <- 1000
 if (x > 100) print("'x' is greater than 100")
 ```
 
@@ -141,7 +165,10 @@ if (y < 100) {
 }
 ```
 
-Another way to combine if/else statments is to combine the conditional statement. There are four operators for combining logical statements: `&`, `&&`, `|`, `||`. The "and" operators (`&`/`&&`) return return `TRUE` if both statments are `TRUE`. The "or" operators (`|`/`||`) return `TRUE` if either statement is `TRUE`. The  The single-character operators (`&` and `|`) return a vector. 
+
+### Combining if/else statments
+
+Another way to combine if/else statements is to combine the conditional statement. There are four operators for combining logical statements: `&`, `&&`, `|`, `||`. The "and" operators (`&`/`&&`) return return `TRUE` if both statements are `TRUE`. The "or" operators (`|`/`||`) return `TRUE` if either statement is `TRUE`. The  The single-character operators (`&` and `|`) return a vector. 
 
 ```{r}
 1 > 0 & TRUE
@@ -161,7 +188,7 @@ The double-character operators (`&&` and `||`) will only return a single `TRUE` 
 1 > 0 && c(FALSE, TRUE)
 ```
 
-Notice in the last two statments above the order of the vector matters. The double-character operators are lazy -- they only check as much as they need to. If you give a double-character operator a vector, it only checks the first element. 
+Notice in the last two statements above the order of the vector matters. The double-character operators are lazy -- they only check as much as they need to. If you give a double-character operator a vector, it only checks the first element. 
 
 Furthermore, if the first expression is `TRUE` the `||` operator will not even evaluate the second expression. Similarly, if the first expression is `FALSE` the `&&` operator will not evaluate the second expression.
 
@@ -172,7 +199,7 @@ FALSE || r
 FALSE && r
 ```
 
-You can combine logical expressions within an if/else statment (recall we defined `y` as `25` in an earlier expression). 
+You can combine logical expressions within an if/else statement (recall we defined `y` as `25` in an earlier expression). 
 
 ```{r}
 if (y < 100 && y > 10) {
@@ -183,6 +210,19 @@ if (y < 100 && y > 10) {
 ```
 
 
+### Class 4 exercises 
+
+These exercises are to help you solidify and expand on the information given above and in the supplemental material.  
+
+1. Write a for loop that prints the first 3 nucleotides of each primer. Hint: you might want to use the `substr()` function.
+
+2. Write a for loop that prints "primer is longer than 24 bases" if the primer is longer than 20 bases, "primer is exactly 24 bases" if the primer is 20 bases, and "primer is shorter than 24 bases" if the primer is shorter than 24 bases. 
+
+3. Write a for loop that prints "primer is between 20 and 24 bases" if the primer has 20 or more bases and 24 or fewer bases. 
+
+4. Challenge. Write a script that calculates the melting temperature (Tm) of each primer. For primers that are 13 bases or less the formula for Tm in Celcius is: $Tm= (A+T) * 2 + (G+C) * 4$, where A, T, G, and C represent the number of each base.  For primers that are 14 bases or more the formula for Tm in Celcius is: $Tm= 64.9 +41*(G+C-16.4)/(A+T+G+C)$. Refer to the example given in the supplemental material. Hint: the `str_count` function in the library `stringr` can be used to count the number of times a given letter appears in a string. To load the `stringr` library simply type `library(stringr)`. 
+
+## Supplemental Material
 ### While statements
 The final control statement we will discuss are while statements. Although while statements are rarely used in R, they are often used in other languages and are good to understand. The while syntax in R is:
 
@@ -203,62 +243,33 @@ while (val < 10) {
 }
 ```
 
-If you omit the second part that updates `val` R would have printed `3` until you manually killed the process. 
+If you omit the second part that updates `val` R would have printed `3` until you manually killed the process.
 
 ### Combining control statements
-With the control statements above you are ready to program the fruit slicing machine discussed at the beginning of class. Start by creating the fruit. (We will use the `sample` and `rnorn` functions to generate some example data). 
-
+The following example combines for loops and if/else statements. Let's revisit our primer list example. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively. 
 ```{r}
-fruit <- list(type = sample(x = c("orange", "apple"), 
-                            size = 25, 
-                            replace = TRUE),
-              wdth = rnorm(n = 25, mean = 6, sd = 2.5))
-```
-
-You should have a list with two elements, a vector with the fruit type and a vector with the widths. Assume the peel on an orange is an eighth inch. Start with a for-loop for every piece of fruit, check if the fruit needs peeling, peel the oranges, then divide the fruit until the width of the pieces is less than one inch. Store the results in a new list called `res`.
-
-```{r}
-## Create result list
-res <- list(type = character(), pieces = numeric(), slice_width = numeric())
-
-## For-loop iterating through the 1:(number of fruit)
-for (f in 1:length(fruit$type)) {
-  f_type <- fruit$type[f] ## Get the fruit type from the list
-  f_wdth <- fruit$wdth[f] ## Get the fruit width from the list
-  n_pieces <- 1 ## Each fruit is initially 1 piece
-  
-  ## Peel the oranges
-  if (f_type == "orange") {
-    f_wdth <- f_wdth - 1/8
+masses <- numeric(length=length(primers$V1)) #make empty numeric vector with the same length as the primers vector
+for (i in 1:length(primers$V1)){
+  plen <- nchar(primers[i,1]) #get length of ith primer
+  pmass <- 0 #set mass of primer equal to zero
+  for (j in 1:plen){
+    l <- substr(primers[i,1],j,j) #get jth nucleic acid of ith primer
+    if (l=="C"){
+      m <- 467.2
+    } else if (l=="A"){
+      m <- 491.2
+    } else if (l=="G"){
+      m <- 507.2
+    } else if (l=="T"){
+      m <- 482.2
+    } #get mass of jth nucleic acid of ith primer
+    pmass <- pmass+m #add mass of jth nucleic acid to the mass of the primer
   }
-  
-  ## Divide the fruit
-  while (f_wdth >= 1) {
-    f_wdth <- f_wdth/2
-    n_pieces <- n_pieces*2
-  }
-  
-  res$type[f] <- f_type
-  res$pieces[f] <- n_pieces
-  res$slice_width[f] <- f_wdth
+  masses[i]<-pmass #store the mass of the ith primer in the vector "masses"
 }
 ```
 
-You can now look at the results:
+You can now look at the results: 
 ```{r}
-res
+masses
 ```
-
-### Class 4 exercises 
-
-These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
-
-1. Create a new fruit list with 5000 fruit instead of 25, count the number of apples and the number of oranges.
-
-2. Modify the fruit machine program to throw out the slices that are less than 0.7 inches and track the number of fruit discarded. 
-
-3. Further modify the fruit machine program to make orange slices between 0.7 and 1.0 inches and apple slices between 0.3 and 0.5 inches. Track how many oranges are discarded and how many apples are discarded.
-
-4. Plot a histogram of the apple slice widths.
-
-5. Plot a histogram of the number of orange slices. 

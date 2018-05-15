@@ -1,7 +1,7 @@
 ---
 title: 'R Small Group: Class 2'
-author: "Amy Allen & Dayne Filer"
-date: "June 21, 2016"
+author: "Amy Pomeroy, Dayne Filer, and Sara Taylor"
+date: "June 20, 2017"
 output:
   pdf_document:
     highlight: tango
@@ -44,9 +44,8 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Class 2 expectations
-1. Review vectors from the previous class
-2. Understand the basic R data structures (vector, matrix, list, data.frame)
-3. Know how to subset the four basic data structures
+1. Understand the basic R data structures (vector, matrix, list, data.frame)
+2. Know how to subset the four basic data structures
 
 ### Introduction to data structures 
 
@@ -82,6 +81,7 @@ As you can see this gives us a matrix of all numbers from 1 to 6 with two rows a
 ```{r}
 matrix(data = 1:6, nrow = 2, ncol = 3, byrow = TRUE)
 ```
+
 Matrices do not have to be numeric -- any vector can be transformed into a matrix. For example:
 
 ```{r}
@@ -100,7 +100,7 @@ colnames(mat1) <- c("Col 1", "Col 2", "Col 3")
 mat1
 ```
 
-It is important to note that similarly to vectors, matrices can only have one data type. If you try to specify a matrix with multiple data types the data will be coerced to the higher order data class.
+***It is important to note that similarly to vectors, matrices can only have one data type.*** If you try to specify a matrix with multiple data types the data will be coerced to the higher order data class.
 
 The `class`, `is`, and `as` functions can be used to check and coerce data structures in the same way they were used on the vectors in class 1. 
 
