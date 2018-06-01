@@ -1,40 +1,16 @@
 ---
-title: 'R Small Group: Class 6'
-author: "Amy Pomeroy & Dayne Filer"
-date: "March 7, 2018"
-output:
-  pdf_document:
-    highlight: tango
-  html_document: null
+title: "HTLTC-R: Class 6"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Class 6}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 set.seed(1234)
 ```
-
-<!-- Here we style out button a little bit -->
-<!--
-<style>
-  .showopt {
-    background-color: #004c93;
-    color: #FFFFFF; 
-    width: 100px;
-    height: 20px;
-    text-align: center;
-    vertical-align: middle !important;
-    border-radius: 8px;
-    float:right;
-    }
-
-    .showopt:hover {
-    background-color: #dfe4f2;
-    color: #004c93;
-  }
-
-</style>
-<script src="hideOutput.js"></script>
--->
 
 ### Using this document
 
@@ -57,7 +33,7 @@ So far in this class you have only used functions that are included within the b
 
 While there are many repositories for R packages online, the primary repository is called "The Comprehensive R Archive Network" or "CRAN." By default, R will search for packages on CRAN. You can install a new package using the `install.packages` function:
 
-```{r}
+```{r,eval=FALSE}
 install.packages("VennDiagram", repos = "http://archive.linux.duke.edu/cran/")
 ```
 
@@ -204,11 +180,13 @@ Open a new R script (Menu -> File -> New File -> R Script). Type (or copy) the f
 Now delete the R/hello.R and man/hello.Rmd files. Finally, build the package by clicking on Menu -> Build -> Build and Reload. After the package builds, you should see `library(firstpackage)` run in your console and you are ready to use your package. Try typing the following:
 
 ```{r,echo=FALSE,include=FALSE}
-install.packages("devtools", dependencies = TRUE,repos = "http://cran.us.r-project.org")
+# install.packages("devtools", dependencies = TRUE, repos = "http://cran.us.r-project.org")
 library(devtools)
 library(roxygen2)
 unlink("firstpackage", recursive = TRUE)
-package.skeleton("firstpackage")
+dir.create("firstpackage")
+dir.create(file.path("firstpackage", "R"))
+dir.create(file.path("firstpackage", "man"))
 cat("Package: firstpackage
 Type: Package
 Title: My first package
@@ -217,20 +195,26 @@ Author: Amy & Dayne
 Maintainer: Dayne Filer <dayne_filer@med.unc.edu>
 Description: This package has one function and was created to show how to build a package.
 License: GPL-2
-LazyData: TRUE", file = file.path("firstpackage", "DESCRIPTION"), append = FALSE)
-file.remove(file.path("firstpackage", "Read-and-delete-me"))
-file.remove(file.path("firstpackage", "R", "firstpackage-internal.R"))
-file.remove(file.path("firstpackage", "man", "firstpackage-package.Rd"))
-cat("#' @title Return the input
-#' @description This function simply returns the input, 'x'
-#' @param x An R object
-#' @export
-
-returnInput <- function(x) {
+LazyData: TRUE
+", file = file.path("firstpackage", "DESCRIPTION"), append = FALSE)
+cat("returnInput <- function(x) {
 return(x)
 }", file = file.path("firstpackage", "R", "returnInput.R"), append = FALSE)
-roxygenise(file.path("firstpackage"), clean = TRUE)
-install(file.path("firstpackage"))
+cat("\\name{returnInput}
+\\alias{returnInput}
+\\title{Return the input}
+\\usage{
+returnInput(x)
+}
+\\arguments{
+\\item{x}{An R object}
+}
+\\description{
+This function simply returns the input, 'x'
+}
+", file = file.path("firstpackage", "man", "returnInput.Rd"), append = FALSE)
+cat("export(returnInput)", file = file.path("firstpackage", "NAMESPACE"), append = FALSE)
+devtools::install(file.path("firstpackage"))
 library(firstpackage)
 unloadNamespace("devtools")
 unloadNamespace("roxygen2")
@@ -267,7 +251,7 @@ rm(mydata)
 library(devtools)
 library(roxygen2)
 roxygenize(file.path("firstpackage"), clean = TRUE)
-install(file.path("firstpackage"), local = TRUE)
+devtools::install(file.path("firstpackage"), local = TRUE)
 library(firstpackage)
 ```
 
@@ -296,7 +280,7 @@ cat("#' @name mydata
 
 NULL", file = file.path("firstpackage", "R", "mydata.R"), append = FALSE)
 roxygenise(file.path("firstpackage"), clean = TRUE)
-install(file.path("firstpackage"), local = TRUE)
+devtools::install(file.path("firstpackage"), local = TRUE)
 library(firstpackage)
 ```
 

@@ -1,42 +1,18 @@
 ---
-title: 'R Small Group: Class 4'
-author: "Amy Pomeroy, Dayne Filer, & Sara Taylor"
-date: "March 7, 2018"
-output:
-  pdf_document:
-    highlight: tango
-  html_document: null
+title: "HTLTC-R: Class 4"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Class 4}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 set.seed(1234)
+library(htltcR)
+data(primers)
 ```
-
-<!-- Here we style out button a little bit -->
-<style>
-  .showopt {
-    background-color: #004c93;
-    color: #FFFFFF; 
-    width: 100px;
-    height: 20px;
-    text-align: center;
-    vertical-align: middle !important;
-    border-radius: 8px;
-    float:right;
-    }
-
-    .showopt:hover {
-    background-color: #dfe4f2;
-    color: #004c93;
-  }
-
-</style>
-
-<!--Include script for hiding output chunks-->
-<script src="hideOutput.js"></script>
-
 
 ### Using this document
 * Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
@@ -52,9 +28,11 @@ set.seed(1234)
 ### Control statements
 Imagine you have a data set of primer sequences. You want to quickly find out information about this set of primers. Let's start by loading the list.
 
-```{r}
-setwd("~/Documents/HLC Curriculum/HLC-Curriculum/R Materials")
+```{r,eval=FALSE}
 primers <- read.csv("primers.csv", header = FALSE, stringsAsFactors = FALSE)
+```
+
+```{r}
 str(primers)
 ```
 

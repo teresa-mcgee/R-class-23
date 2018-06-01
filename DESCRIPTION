@@ -1,0 +1,17 @@
+Package: htltcR
+Type: Package
+Title: R class for UNC How-to-Learn-to-Code
+Version: 1.0
+Date: 2018-06-01
+Authors@R: c(person("Dayne L", "Filer", 
+                    role = c("aut", "cre"), 
+                    email = "dayne.filer@gmail.com"), 
+             person("Amy Pomperoy",
+                    role = c("aut")),
+             person("Sarah Taylor",
+                    role = c("aut"))) 
+Description: Add later
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+LazyData: true

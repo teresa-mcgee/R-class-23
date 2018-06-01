@@ -1,39 +1,15 @@
 ---
-title: 'R Small Group: Class 2'
-author: "Amy Pomeroy, Dayne Filer, and Sara Taylor"
-date: "June 20, 2017"
-output:
-  pdf_document:
-    highlight: tango
-  html_document: null
+title: "HTLTC-R: Class 2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Class 2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 ```
-
-<!-- Here we style out button a little bit -->
-<style>
-  .showopt {
-    background-color: #004c93;
-    color: #FFFFFF; 
-    width: 100px;
-    height: 20px;
-    text-align: center;
-    vertical-align: middle !important;
-    border-radius: 8px;
-    float:right;
-    }
-
-    .showopt:hover {
-    background-color: #dfe4f2;
-    color: #004c93;
-  }
-
-</style>
-
-<!--Include script for hiding output chunks-->
-<script src="hideOutput.js"></script>
 
 ### Using this document
 
