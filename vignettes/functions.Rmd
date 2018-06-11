@@ -1,5 +1,5 @@
 ---
-title: "HTLTC-R: Class 5"
+title: "HTLTC-R: Functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HTLTC-R: Class 5}
