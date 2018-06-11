@@ -2,7 +2,7 @@
 title: "HTLTC-R: Data structures & subsetting"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 2}
+  %\VignetteIndexEntry{HTLTC-R: Data structures & subsetting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
-### Class 2 expectations
+### Goals
 1. Understand the basic R data structures (vector, matrix, list, data.frame)
 2. Know how to subset the four basic data structures
 
@@ -274,7 +274,7 @@ l2
 
 There is a lot of information about subsetting and modifying objects that we do not have time to cover in this course, so we encourage you to spend some time experimenting on your own. 
 
-### Class 2 exercises
+### Exercises
 
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 

@@ -2,7 +2,7 @@
 title: "HTLTC-R: Functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 5}
+  %\VignetteIndexEntry{HTLTC-R: Functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,7 +19,7 @@ set.seed(1234)
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
-### Class 5 expectations
+### Goals
 1. Write and run a basic function in R
 2. Understand function environments and how functions find things
 3. Understand the "do not repeat yourself" (DRY) principle
@@ -254,7 +254,7 @@ xmpl_func(TRUE)
 
 Notice the function completed when the input was logical. The `warning` function does not halt execution, but does print a warning message for the user. 
 
-### Small Group Exercises
+### Exercises
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 
 1. Write a function that solves the quadratic formula. Recall, given:

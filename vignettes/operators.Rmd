@@ -2,7 +2,7 @@
 title: "HTLTC-R: Operators"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 1}
+  %\VignetteIndexEntry{HTLTC-R: Operators}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 
-### Class 1 expecations
+### Goals
 1. Know and understand the basic math operators (`+`, `-`, `*`, `/`, `^`)
 2. Know the assignment operator and how to use it
 3. Understand what a function is, how to use a function, and understand some basic functions 
@@ -179,7 +179,7 @@ Notice that any number other than `0`, when converted to logical, is `TRUE`. How
 NA == 1
 ```
 
-### Homework exercises
+### Exercises
 
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code. 
 

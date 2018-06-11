@@ -2,7 +2,7 @@
 title: "HTLTC-R: Control statements"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 4}
+  %\VignetteIndexEntry{HTLTC-R: Control statements}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,7 +21,7 @@ data(primers)
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
-### Class 4 expectations
+### Goals
 1. Implement the three basic control statements in R (for-loops, if/else statements, and while statements)
 2. Use the and/or operators for combining logical statements
 
@@ -188,7 +188,7 @@ if (y < 100 && y > 10) {
 ```
 
 
-### Class 4 exercises 
+### Exercises 
 
 These exercises are to help you solidify and expand on the information given above and in the supplemental material.  
 
