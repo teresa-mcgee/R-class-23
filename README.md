@@ -28,6 +28,10 @@ data(primers)
 * Class 9: package (Reproducible research & packages)
 * Classes 10-12: (Final project)
 
+## Contributing
+
+See [CONTRIBUTING.md](rclass/CONTRIBUTING.md) for instructions.
+
 ## Plotting lectures
 Different small groups have used different methods for teaching plotting. Here is the list of available plotting lectures with a summary of each. 
 
