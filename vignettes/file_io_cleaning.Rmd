@@ -41,10 +41,24 @@ Looks like the last 8 rows of the data.frame are not part of our data. We should
 ```{r}
 tail(crime, 20)
 ```
-I like using base subsetting for these problems since usually the reason you're removing rows at the bottom is because a tool will output this information at the bottom of an output file. In case you rerun the tool later with more data and the length of the file changes, you can't rely on reading in a set number of lines. If the tool always outputs the same number of lines, it's safer to just drop the last `n` lines from the data after reading. We'll do this here. 
+I like using base subsetting for these problems since usually the reason you're
+removing rows at the bottom is because a tool will output extra information at
+the bottom of an output file. In case you rerun the tool later with more data
+and the length of the file changes, you can't rely on reading in a set number of
+lines. If the tool always outputs the same number of lines at the end of the
+file, it's safer to just drop the last `n` lines from the data after reading.
+We'll do this here by removing the last 8 lines.
 ```{r}
-keep <- 1:(nrow(crime) - 8)
-crime <- crime[keep,]
+keep <- 1:(nrow(crime) - 8) # create a vector of rows to keep
+crime <- crime[keep,] # subset by row
+```
+
+Now our data is correct at the top and the bottom.
+```{r}
+head(crime)
+```
+```{r}
+tail(crime)
 ```
 
 Let's take another close look at the dataset:
@@ -98,7 +112,7 @@ Try to autocomplete the following:
 crime$`Murder and
 nonnegligent
 manslaughter`
-# But it will return an error because of the newlines
+# But it will return an error because of the newlines (it will run if you highlight the whole thing and run the code)
 ```
 ```{r}
 # this won't work either because the column name requires newlines
@@ -144,27 +158,39 @@ Now that we've solved the newline issue, what other issues exist? Take a look at
 the `/`. This is a bad character in a colname because R needs to escape it to
 access it. Let's change it to '.'
 
-While we're at it, let's also drop out the `-` because this means "subtract" in
-R, so it also is a bad character for colnames. We'll just delete it.
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) 
+```
 
-There's also some spaces in the colnames (look carefully!). We don't want those either, so change them to "_".
+While we're at it, let's also drop out the `-` because this means "subtract" in
+R, so it is also a bad character for colnames. We'll just delete it.
+To delete things with regex's, you can replace a pattern with an empty string: ""
 ```{r}
 names(crime) %>%
   gsub("\n", "_", .) %>% 
   gsub("/", ".", .) %>% 
   # replacing for an empty string will delete a character/pattern
+  gsub("-", "", .) 
+```
+
+There are also some spaces in the colnames (look carefully!). We don't want those either, so change them to "_".
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
   gsub("-", "", .) %>% 
   gsub(" ", "_", .)
-
 ```
 
 You'll also notice that some columns end in numbers. These aren't descriptive, so let's delete them too. 
 
 We can use the special regex character `\d` which means "match any number".
 Because R is weird, you have to escape the first `\` when you call `\d` in
-regex's. This is often true for other regex characters like '.' (match any character) which has to be
-`\\.` in R. This might not make sense right now, but if you work more with
-regex's later, keep this in mind!
+regex's. This is often true for other regex characters like '.' (match any
+character) which has to be written as `\\.` in R. This might not make sense
+right now, but if you work more with regex's later, keep this in mind!
 
 ```{r}
 names(crime) %>%
@@ -238,7 +264,8 @@ library(ggplot2)
 crime %>% 
   ggplot(aes(student_enrollment, violent_crime + property_crime)) +
     geom_point(aes(color = state)) + 
-    theme(legend.position = "none") 
+    theme(legend.position = "none") +
+    ylab("Crimes per campus")
 ```
 
 ## Save the cleaned data:
@@ -246,3 +273,17 @@ It's always a good idea to save the clean data for easy sharing with others late
 ```{r, eval = F}
 readr::write_csv(crime, "crime_cleaned.csv")
 ```
+
+```{r cleanup, include=F, echo=F, message=F, warning=F}
+file.remove(file)
+```
+
+# Additional Import Functions
+The `readr` package [documentation here](https://readr.tidyverse.org/index.html)
+provides several user-friendly functions for reading comma-separated (`.csv`
+with `readr::read_csv()`), tab-separated (`.tsv` with `readr::read_tsv()`), and
+other delimited files (`readr::read_delim()`). You should prefer these functions
+over base-R implementations like `read.csv()` or `read.delim()`, as the `readr`
+functions have more consistent and reproducible behavior across filesystems, and
+they use more sensible defaults.
+
