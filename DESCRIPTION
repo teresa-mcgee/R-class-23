@@ -9,6 +9,8 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Amy Pomperoy",
                     role = c("aut")),
              person("Sarah Taylor",
+                    role = c("aut")),
+             person("Spencer Nystrom",
                     role = c("aut"))) 
 Description: Add later
 Suggests: knitr, rmarkdown
