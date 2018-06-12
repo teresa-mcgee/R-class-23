@@ -1,0 +1,289 @@
+---
+title: "Reading & Cleaning Data"
+output: 
+  html_notebook
+---
+ 
+# Topics:
+ - discuss `readr::read.csv` and why it's better than `read.csv`
+ - `readxl::read_xls` to show how to import excel tables
+ - introduce `skip` and `comment` parameters
+ - discuss regular expression **basics** & `gsub` command for replacing characters
+
+```{r setup}
+library(magrittr)
+library(dplyr)
+```
+
+# Download example dataset:
+```{r}
+link <- "https://ucr.fbi.gov/crime-in-the-u.s/2015/crime-in-the-u.s.-2015/tables/table-9/table_9_offenses_known_to_law_enforcement_by_state_by_university_and_college_2015.xls"
+file <- "crime.xls"
+download.file(link, file)
+```
+
+```{r}
+read_xls(file)
+```
+Looks like the data we want is actually a litter lower down in the file. 
+We can skip over lines at the top with the `skip` parameter.
+```{r}
+(crime <- read_xls(file, skip = 3))
+```
+Even though it's good to look at the **top** of the data, you should also look at the **bottom**! This is often overlooked and has caused problems for many people in the past. You can do this easily with `tail()`.
+```{r}
+tail(crime)
+```
+
+Lo' and behold, this doesn't look right.
+
+Looks like the last 8 rows of the data.frame are not part of our data. We should remove these.
+```{r}
+tail(crime, 20)
+```
+I like using base subsetting for these problems since usually the reason you're
+removing rows at the bottom is because a tool will output extra information at
+the bottom of an output file. In case you rerun the tool later with more data
+and the length of the file changes, you can't rely on reading in a set number of
+lines. If the tool always outputs the same number of lines at the end of the
+file, it's safer to just drop the last `n` lines from the data after reading.
+We'll do this here by removing the last 8 lines.
+```{r}
+keep <- 1:(nrow(crime) - 8) # create a vector of rows to keep
+crime <- crime[keep,] # subset by row
+```
+
+Now our data is correct at the top and the bottom.
+```{r}
+head(crime)
+```
+```{r}
+tail(crime)
+```
+
+Let's take another close look at the dataset:
+```{r}
+str(crime)
+```
+
+Note that the `X__1` through `X__4` columns look empty. We can check that by looking at the unique values in each column:
+```{r}
+crime$X__1 %>% unique
+crime$X__2 %>% unique
+crime$X__3 %>% unique
+crime$X__4 %>% unique
+```
+Retyping is annoying. We can use pattern matching to select these all at once, and looking at their `summary`.
+
+We can see that they only contian `NA` values, so there's no reason to keep them.
+```{r}
+crime %>% 
+  select(matches("X_")) %>% 
+  summary()
+```
+
+We can drop them by matching a pattern as above using `-`.
+```{r}
+crime %<>% 
+  select(-matches("X_")) # drop any columns that match the pattern "X_"
+```
+
+Check that the columns were dropped. Also note that the remaining column names
+are poorly formatted.
+
+Whats the deal with the `\n`?
+```{r}
+names(crime)
+```
+
+`\n` along with `\t` and `\r` are special characters that often appear in files.
+`\n` and `\r` are codes that stand in place for a newline (like pressing enter).
+`\r` is called the 'carriage return' character which is usually only added when
+files are created using a Windows OS. `\t` stands for a tab.
+
+In the above example the column names have newline characters in them, which
+will make it impossible to reference by name since newlines are sometimes
+meaningful in R.
+
+For example:
+Try to autocomplete the following:
+```{r}
+# Rstudio should autocomplete this:
+crime$`Murder and
+nonnegligent
+manslaughter`
+# But it will return an error because of the newlines (it will run if you highlight the whole thing and run the code)
+```
+```{r}
+# this won't work either because the column name requires newlines
+crime$`Murder and nonnegligent manslaughter`
+```
+
+We need a way to replace newline characters found in all colnames of `crimes`. 
+One easy way to do this is with **regular expressions**.
+
+**Regular expressions** (also called **Regex's**) are a way of matching patterns in text.
+The `gsub` command will use regular expressions to match a pattern and replace it for a different one.
+
+Here are a few simple examples:
+```{r}
+gsub("Bob", "Tom", "Bob and Sally") # Replace Tom for Bob in the string "Bob and Sally"
+```
+
+```{r}
+myString <- "My Birthday is January 01"
+gsub("01", "10", myString)
+```
+
+```{r}
+gsub(" ", "_", myString) # replace all spaces for _
+```
+
+## rename with regex
+**Note to teachers:** This is a good opportunity to let the students play with
+the code on their own to get these solutions.
+
+Lets first drop out the `\n`
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .)
+```
+When renaming colnames in batch like this, I like to string together all my
+regexes and monitor the output as I add them on to make sure things make sense,
+then I'll go back and save the changes once I'm happy with the results. We'll
+take that approach here by continually adding new `gsub` commands until we get
+colnames we like.
+
+Now that we've solved the newline issue, what other issues exist? Take a look at
+the `/`. This is a bad character in a colname because R needs to escape it to
+access it. Let's change it to '.'
+
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) 
+```
+
+While we're at it, let's also drop out the `-` because this means "subtract" in
+R, so it is also a bad character for colnames. We'll just delete it.
+To delete things with regex's, you can replace a pattern with an empty string: ""
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  # replacing for an empty string will delete a character/pattern
+  gsub("-", "", .) 
+```
+
+There are also some spaces in the colnames (look carefully!). We don't want those either, so change them to "_".
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  gsub("-", "", .) %>% 
+  gsub(" ", "_", .)
+```
+
+You'll also notice that some columns end in numbers. These aren't descriptive, so let's delete them too. 
+
+We can use the special regex character `\d` which means "match any number".
+Because R is weird, you have to escape the first `\` when you call `\d` in
+regex's. This is often true for other regex characters like '.' (match any
+character) which has to be written as `\\.` in R. This might not make sense
+right now, but if you work more with regex's later, keep this in mind!
+
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  gsub("-", "", .) %>% 
+  gsub(" ", "_", .) %>% 
+  gsub("\\d", "", .)
+```
+
+Next, let's get rid of the parentheses. We can use another regex pattern `[]`
+which will match any characters inside the square brackets to delete both "(" and ")".
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  gsub("-", "", .) %>% 
+  gsub(" ", "_", .) %>% 
+  gsub("\\d", "", .) %>% 
+  gsub("[()]", "", .)
+```
+
+Finally, let's get rid of the capitalization in the colnames to make it
+consistent. We'll convert everything to lowercase with the function `tolower()`.
+```{r}
+names(crime) %>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  gsub("-", "", .) %>% 
+  gsub(" ", "_", .) %>% 
+  gsub("\\d", "", .) %>% 
+  gsub("[()]", "", .) %>% 
+  tolower()
+```
+Now save the new names with `%<>%` which will send the final output back as input.
+```{r}
+names(crime) %<>%
+  gsub("\n", "_", .) %>% 
+  gsub("/", ".", .) %>% 
+  gsub("-", "", .) %>% 
+  gsub(" ", "_", .) %>% 
+  gsub("\\d", "", .) %>% 
+  gsub("[()]", "", .) %>% 
+  tolower()
+```
+
+```{r}
+names(crime)
+```
+
+For more reading on regex's check:
+[Regex cheatsheet](http://regexlib.com/(X(1)A(xSygfbbpgXfgBpYdzZKZbaM80NvGWFKqz8H3p14z0goMZmVZU6P1V8S_EcyNeeY0ryvSsa9Ndw9_54dwIXQI5fjTdwJzOo1NhOnVqmLTuZ1NDcdA-UseLK7W01hB-KYIvuVOGgWiImZ-T7mf0uWFBNQbtY1KXM9TgHosz31NGuevvup3lyGMYJLwdgybbcAg0))/CheatSheet.aspx)
+
+# Fill in missing values
+Take a look at the `state` and `university.college` columns. Each row labeled as
+`NA` takes the value of the previously assigned row. We need a way to fill these values down.
+```{r}
+crime
+```
+
+To do this, we can use the `tidyr` package, whose function `fill()` will do just this:
+```{r}
+library(tidyr)
+(crime %<>% 
+  fill(state, university.college))
+```
+
+## Make a plot with your new tidy data!
+```{r}
+library(ggplot2)
+crime %>% 
+  ggplot(aes(student_enrollment, violent_crime + property_crime)) +
+    geom_point(aes(color = state)) + 
+    theme(legend.position = "none") +
+    ylab("Crimes per campus")
+```
+
+## Save the cleaned data:
+It's always a good idea to save the clean data for easy sharing with others later.
+```{r, eval = F}
+readr::write_csv(crime, "crime_cleaned.csv")
+```
+
+```{r cleanup, include=F, echo=F, message=F, warning=F}
+file.remove(file)
+```
+
+# Additional Import Functions
+The `readr` package [documentation here](https://readr.tidyverse.org/index.html)
+provides several user-friendly functions for reading comma-separated (`.csv`
+with `readr::read_csv()`), tab-separated (`.tsv` with `readr::read_tsv()`), and
+other delimited files (`readr::read_delim()`). You should prefer these functions
+over base-R implementations like `read.csv()` or `read.delim()`, as the `readr`
+functions have more consistent and reproducible behavior across filesystems, and
+they use more sensible defaults.
+
