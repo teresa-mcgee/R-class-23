@@ -2,7 +2,7 @@
 title: "HTLTC-R: Reproducible research & packages"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 6}
+  %\VignetteIndexEntry{HTLTC-R: Reproducible research & packages}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ set.seed(1234)
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
-### Class 6 expectations
+### Goals
 
 1. Install and load R packages
 2. Consider some principles of reproducible research
@@ -290,7 +290,7 @@ Build and reload again, then look at the help file for `mydata`:
 ?mydata
 ```
 
-### Class 6 excercises
+### Excercises
 
 1. Create an R package called "primeranalysis."
 

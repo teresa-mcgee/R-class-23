@@ -2,7 +2,7 @@
 title: "HTLTC-R: Plotting"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Class 3}
+  %\VignetteIndexEntry{HTLTC-R: Plotting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,7 +22,7 @@ dat <- yeast
 * While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
-### Class 3 expectations
+### Goals
 1. Know how to import data from a csv file format
 2. Understand all of the arguments of the `plot` function
 3. Be able to make basic plots 
@@ -108,7 +108,7 @@ The following questions are to be worked on in a small group. Always make sure t
 
 \pagebreak
 
-### Homework
+### Exercises
 The following questions are to be done for homework. They require the data in the file "heights.csv" which includes the gender, height, handedness, and eye color. To answer these questions you will use different types of plots including histograms, bar plots, and box plots. You can learn about all the required arguments by using the help section. 
 
 1. Make a histogram of height using the `hist()` function. Include an appropriate title and axis labels.
