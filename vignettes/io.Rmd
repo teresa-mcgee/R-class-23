@@ -1,0 +1,320 @@
+---
+title: "HTLTC-R: Reading, writing, and regular expressions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Reading, writing, and regular expressions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+    ```{r setup, include=FALSE}
+    knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+    library(htltcR)
+    ```
+    
+### Using this document
+
+* Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
+* \# indicates a comment, and anything after a comment will not be evaluated in R
+* The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
+* While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
+* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
+
+### Goals
+1. Understand how to point to files, including best practices
+2. Practice reading and writing files
+3. Know how to import data from a csv file
+4. Work on cleaning up a file for analysis
+
+### File paths
+
+The first step when accessing a file -- whether reading or writing -- is correctly pointing to the file on the filesystem. To do so, you must specify the path. For an example of a path run the following:
+
+```{r}
+getwd()
+```
+
+This stands for "get working directory." Your working directory is very important -- this is where R will look for files. The working directory will For example:
+
+```{r}
+file.exists("madeupfile.txt")
+```
+
+This function looks for a file called "madeupfile.txt" in the working directory, and returns `FALSE` indicating there is no such file. The working directory will depend on where `R` is called from. At any time you can change the working directory with the `setwd` function. However, R can easily look outside the current working directory by specifying a path. A typical path looks like the following:
+
+    /path/to/some/folder/file.extension
+    
+The problem is the exact formatting of paths differ from operating system to operating system. Rather than simply typing "/path/to/some/folder/file.extension" using the `file.path` function will make your code more portable (meaning it will play nice when running on other operating systems):
+
+
+```{r}
+file.path("/", "path", "to", "some", "folder", "file.extension")
+```
+
+Specifying paths creates problems for reproducible analysis. Generally speaking, you do not want your analysis to depend on the current working directory. You also do not want the analysis to depend on users having files in specific locations. Later in the course we will give you the skills to circumvent the issue by wrapping your analysis in a package. For now, just keep in mind no one will be able to run your analysis if the paths are specific to your computer! The best option is the package route, but another option is to create a variable that contains the path to the analysis directory.
+
+### Manipulating the file system
+
+To illustrate we will learn about a family of functions that manipulate the file system. Conveniently, they follow the format `file.*` or `dir.*` ("dir" is referencing a directory, or folder). We will use the file sytem functions to create a new directory containing subdirectories and files. 
+
+```{r}
+# Step one is to specify the "analysis dir" -- ad -- here, we place the dir
+# in the temporary dir created by R. This isn't important. (This variable
+# is where someone recreating your analysis would specify the path)
+ad <- file.path(tempdir(), "myanalysis")
+# First check for the directory -- you always want to check so that you
+# do not overwrite someone's files (there is also a file.exists)
+dir.exists(ad)
+dir.create(ad)
+dir.create(file.path(ad, "sub"))
+file.create(file.path(ad, "f1.txt"))
+file.create(file.path(ad, "sub", "f2.txt"))
+# List the files in the given directory. recursive = TRUE indicates to 
+# look in all subdirectories and list those files as well. You'll notice
+# the paths to the files in subdirectories specify the path from the given
+# path 
+list.files(ad, recursive = TRUE)
+```
+
+Now imagine you have a folder containing all of the scripts and files for your analysis. You should write your scripts such that all of the file paths are rooted by a path to the analysis directory, such that someone else could change that one variable and run your code. There are many other functions for manipulating the file system -- most of which we will not cover -- but the following shows how to rename, move, and then delete files.
+
+```{r}
+file.rename(from = file.path(ad, "f1.txt"), 
+            to   = file.path(ad, "f5.txt"))
+list.files(ad, recursive = TRUE)
+file.remove(file.path(ad, "f5.txt"))
+list.files(ad, recursive = TRUE)
+# Finally, remove the folder we created above (and all its contents!). 
+# Careful here, this is a dangerous function. 
+unlink(ad, recursive = TRUE)
+```
+
+Manipulating the file system in R can be really helpful. Rather than manually renaming, moving, or deleting files you can have R do it for you. When you get into dealing with hundreds or thousands of files this becomes really helpful!
+
+### Reading and writing text files
+
+Before we talk about the higher level functions to read in data files, we will briefly discuss how R interacts with files. This topic is very detailed and is intended for illustration -- you will not likely use these functions. The first step is to establish a connection to a file -- file being generic here. We will only discuss simple text files, but the connection can be to a website, compressed file, etc. First, we will create a file and establish a connection.
+
+```{r}
+xmplFile <- file.path(tempdir(), "example.txt")
+file.create(xmplFile)
+con1 <- file(xmplFile)
+con1
+```
+
+The connection is created, but not opened. We will now open the connection, read and write some lines, then close the connection and delete the file. When opening a connection you must specify to read, write, or append. Opening a file to write (or to read & write) will delete all data in the file. To preserve the existing content you have to open as append (or read & append). You can run `?open` to read more about the different opening modes.
+
+```{r}
+open(con1, open = "w+") # the mode 'w+' here means write and read
+readLines(con1)
+writeLines(text = "hello", con = con1)
+readLines(con1)
+writeLines(text = c("this", "is", "some", "more", "text"), con = con1)
+readLines(con1)
+close(con1)
+readLines(xmplFile)
+file.remove(xmplFile)
+```
+
+Lastly, notice two things: (1) the connection stores its current position. After writing and reading "hello", the next call to `readLines` does not read "hello" because the read position already passed "hello." (2) `readLines` can be called directly on a path, and the funciton will handle the connection for you. Similar to the read position, we see the connection also stores the write position because "hello" was not overwritten by the second call to `writeLines`. The read and write positions can be queried using the `seek` function. 
+
+Please note: these functions are dangerous, because calling the wrong function can easily delete the file contents. You should be able to how to extract lines from a file, but mistakes are costly and using these functions would require you to parse the lines yourself. Luckily, R has many wrapper functions that manage the connections, reading, and parsing for you.
+
+### Importing data from a csv file 
+
+A csv is a comma separated values file, which allows data to be saved in a table structured format. Excel files can often be saved as csv files. R has a function to read these files called `read.csv`. We will use this function to read in data from a csv file.
+
+Consider the following file
+
+    # Here is a couple lines of comments explaining
+    # the file contents.
+    "id ","val  "
+    1,10
+    2,5
+    3,15
+    ,
+
+We can create this file using what we learned above.
+
+```{r}
+csvFile <- file.path(tempdir(), "csvFile.csv")
+writeLines(text = c("# Here is a couple lines of comments explaining",
+                    "# the file contents.",
+                    "\"id \",\"val  \"",
+                    "1,10",
+                    "2,5",
+                    "3,15",
+                    ","),
+           con = csvFile)
+```
+
+Now we will use the `read.csv` function to read the data into a data.frame object.
+
+```{r}
+read.csv(csvFile)
+```
+
+The data is a mess due to the comment lines at the top of the file. We have three options: (1) edit the file by hand -- a very poor choice, (2) skip those lines, or (3) tell the function how to look for comments. The following shows how to both skip and designate comments:
+
+```{r}
+read.csv(csvFile, skip = 2)
+read.csv(csvFile, comment.char = "#")
+```
+
+However, we are not done. R does not like spaces in column names, and you can see the spaces have been replaced by periods. Additionally, you can see two rows of `NA` at the bottom of the table. To remove the spaces from the names we will introduce the regular expression functions.
+
+### Regular expressions
+
+Regular expressions are a way of finding text. They can be as simple as find any letter, or as complicated as find an explicit phrase, but only when it occurs after another phrase, and replace part of the first phrase with a third phrase. R has its own flavor of regular expressions (regex's), but will also accept Perl regex. Here, we will look at a few cases using the `grep`, `grepl`, `sub`, and `gsub` functions. 
+
+First consider how to find regular expressions using the `grep` and `grepl` functions:
+
+```{r}
+s1 <- c("a", "ab", "b", "ac", "c")
+grep(pattern = "a", x = s1)
+grepl(pattern = "b", x = s1)
+```
+
+We see `grep` returns the index of strings in the vector that contained the pattern, whereas `grepl` returns a vector indicating whether the pattern matched each string in the vector. `grep` will also return the strings that matched by indicating `value = TRUE`:
+
+```{r}
+grep(pattern = "c", x = s1, value = TRUE)
+```
+
+The above examples have very simple patterns. `?regex` gives a good starting point for how to make more general ("regular"!) patterns. For example, suppose we want to find every string of the format: capitalletter, lowercase letter. Here we can use `[:A-Z:]` to indicate any uppercase letter, and `[:A-Z:]` to indicate any lowercase letter.
+
+```{r}
+s2 <- c("ab", "Aba", "aBa", "Ab", "BB", "Ba", "Cb")
+grep("[:A-Z:][:a-z:]", s2, value = TRUE)
+```
+
+This is close, but "Aba" breaks the desired format. It contains the format, but has too many letters. We can modify the regular expression with `^` to indicate the start of the string and `$` to indicate the end of the string.
+
+```{r}
+grep("^[:A-Z:][:a-z:]$", s2, value = TRUE)
+```
+
+Now we get exactly the desired output. Again, `?regex` provides a lot of information to get you started. It is (always!) helpful to read the documentation first. Now that we know how to find patterns, lets look at how to modify strings with the substitute functions. 
+
+```{r}
+sub(pattern = "Bob", replacement = "Tom", x = "Bob and Sally")
+```
+Here we replace "Bob" with "Tom" in the string. What if "Bob" occurs twice in the string?
+
+```{r}
+sub(pattern = "Bob", replacement = "Tom", x = "Bob, Bob, and Sally")
+```
+
+The `sub` function only finds the first instance of the pattern, then stops looking. If we want to replace all entries of the pattern we need the `gsub` function.
+
+```{r}
+gsub(pattern = "Bob", replacement = "Tom", x = "Bob, Bob, and Sally")
+```
+
+### Back to the file problems
+
+Now we can fix the column names. Recall we access the column names with the `colnames` function. First store the file to a data.frame called `dat`.
+
+```{r}
+dat <- read.csv(csvFile, comment.char = "#")
+colnames(dat)
+colnames(dat) <- gsub("[:.:]", "", colnames(dat))
+colnames(dat)
+```
+
+Now we just need to exclude the `NA` columns. There are MANY ways to do this. We will go over three. (1) If we know how many rows you should have you can read only those lines using the `nrows` parameter:
+
+```{r}
+read.csv(csvFile, comment.char = "#", nrows = 3)
+```
+
+This is often not ideal, because we want to write generalized code when possible. What happens if we get an input file with a different number of rows? This approach would only work well if the input should always have exactly the same number of rows. (2) we can use the `na.omit` function. This is a powerful function, but, (depeding on your goals) you need to be careful about the input data structure. For a data.frame object, `na.omit` will remove rows with `NA` in ANY column. For example:
+
+```{r}
+na.omit(dat)
+```
+
+Consider if we had a slightly different data.frame, where we only wanted to remove `NA` values in the `id` column:
+
+```{r}
+copyOfDat <- dat
+copyOfDat[5, 1] <- 4
+copyOfDat
+na.omit(copyOfDat)
+```
+
+In the above example, `na.omit` removed row 5 -- this may not be the desired result. (3) we can find which rows have `NA` in them. This becomes tedious if we care about removing rows with any `NA` values, but if we only care about missing values in the `id` column, then this approach works best. 
+
+```{r}
+# First find the rows with valid ids
+keep <- !is.na(copyOfDat$id)
+copyOfDat[keep, ]
+```
+
+Recall from our discussions about data structures and subsetting that we can subset using a logical vector. Supplying a logical vector to the `i` and `j` positions will only keep the rows or columns, respectivley, where the index is `TRUE`.
+
+### More details
+
+Not all data comes in as comma separated file -- not to worry. The `read.csv` function is a specialized version of the `read.table` function. `read.table` reads arbitrary text files and can handle different separators (eg. tab-delimited .txt files) by specifying the `sep` argument. For example:
+
+```{r}
+# Create a text string with our data -- this is just a shortcut rather
+# than writing out a file
+txt <- "1,2,3\n\"a\",\"4\",5"
+# cat interprets the text and prints it to the console -- here it recognizes
+# the special '\n' newline character
+cat(txt)
+# The read.table/read.csv functions can take a 'text' argument rather than 
+# a path
+read.csv(text = txt)
+read.table(text = txt, sep = ",")
+```
+
+We can see the two function calls are similar, but not identical. The issue here is with the "header." R needs to know if the file contains a header, to be the column names, or not. By default, `read.table` does not expect a header and `read.csv` does. We can control this behavior with the `header` argument. ***This is an excellent example of why reading the documentation is important.*** Take a look at `?read.table` -- it will show the default `header` values for the two functions. 
+
+```{r}
+read.csv(text = txt, header = FALSE)
+```
+
+By default `read.table` expects a tab-delimited file, but any separator can be used. Consider the following examples:
+
+```{r}
+read.table(text = "a\tb\nb\ta")
+read.table(text = "a;b\nb;a")
+read.table(text = "a;b\nb;a", sep = ";")
+```
+
+### Saving R objects
+
+Suppose you do not want to bother with files, but want to save R objects directly. This can be especially helpful when you have complex data structures not easily represented by a flat file. Reading and writing R objects is also faster and takes less diskspace. R provides two modes to save objects. The first mode saves a single unnamed object (`saveRDS`/`readRDS`), and the second mode can save many named objects (`save`/`load`). We encourage you to read the documentation for these functions and experiment yourself. 
+
+### Exercises
+These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code.
+
+1. Consider the `txt` object above. Notice that the data types are seemingly mixed in the first column, ie. column 1 contains a number and a letter. How does R handle this? Convert the string to a table (as above) and store the data.table as `dat1`. What is the class of `V1`? Second, take a look at the documentation for `type.convert` and figure out how to read the text string such that `V1` is stored as a character vector.
+
+2. What if the "a" value in `txt` was meant to indicate a missing value, and you actually want to `V1` to read in as numeric. Use what you learned from the `type.convert` documentation to tell `read.table` that "a" means the value is missing.
+
+3. Your collaborator from Europe sends you the following file: `"12,34\t15,01\t"`. Use `read.table` to correctly load the file with numeric values.
+
+4. R does not provide a native solution for reading Excel files -- wah, wah. Luckily, there are many packages available for doing so. We will discuss packages more later in the class. For now, simply run the following code which will install and load the `readxl` package.
+
+        install.packages("readxl")
+        library(readxl)
+  
+    You will now have access to the `read_xls` function. You will use this function to load in some data, and then you will use what you've learned so far to create a cleaned object that you could use for further analysis.
+    
+        # First, download the file copied from the FBI database and take a look in Excel. 
+        xlsLink <- "https://raw.githubusercontent.com/How-to-Learn-to-Code/rclass/master/inst/other/crime.xls"
+        download.file(xlsLink, "crime.xls")
+        crime <- read_xls("crime.xls")
+        
+    Don't be intimidated by how the object looks. Running `class(crime)` shows that it is a new data structure that inherits from data.frame. You can treat it exactly like a data.frame, or coerce it back to a simple data.frame if you prefer (crime <- as.data.frame(crime)). Now you need to use what you've learned so far to clean up the file, such that it matches the cleaned version we created. The cleaned version can be found here:
+    
+        csvLink <- "https://raw.githubusercontent.com/How-to-Learn-to-Code/rclass/master/inst/other/crime.csv"
+        cleanedDF <- read.csv(csvLink)
+
+
+
+
+
