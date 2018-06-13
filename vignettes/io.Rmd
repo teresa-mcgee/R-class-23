@@ -284,6 +284,28 @@ read.table(text = "a;b\nb;a")
 read.table(text = "a;b\nb;a", sep = ";")
 ```
 
+Notice the first column of `txt` has seemingly mixed data types; ie. column 1 contains a number and a letter. When loading data we need to pay close attention to data types. We will use the `str` function to keep track of data types for each column. First consider:
+
+```{r}
+str(read.table(text = txt, sep = ","))
+```
+
+We see the first column was actually imported as a factor. From the discussion on coercing data types, we may have expected the first column to import as a character. When data is loaded by `read.table` (or `read.csv`) each column is processed with the `type.convert` function. `type.convert` looks at the contents of the column, and chooses the lowest order data type possible. However, this function defaults to treating strings as factors. We can alter this behavior by passing `stringsAsFactors = FALSE` to `read.table` (this argument gets passed along to `type.convert`). 
+
+```{r}
+str(read.table(text = txt, sep = ",", stringsAsFactors = FALSE))
+```
+
+Similarly, we can pass `as.is = TRUE`. The `as.is` paramter allows finer control. Like `stringsAsFactors` it accepts `TRUE/FALSE`, but it can also accept a vector of integers specifying which columns to leave "as.is" (meaning they are not converted to factors). For example:
+
+```{r}
+str(read.table(text = txt, sep = ",", as.is = 1:3))
+str(read.table(text = txt, sep = ",", as.is = 2:3))
+str(read.table(text = sub("4", "b", txt), sep = ",", as.is = 2:3))
+```
+
+Notice the 4 in `txt` is quoted, but R still recognizes `"4"` as coercible to numeric, and does so because the rest of the column is numeric. In the last example above we sub out the 4 for the letter "b", but we only leave columns 2 and 3 "as is" resulting in a mix of factor and character columns in the result.
+
 ### Saving R objects
 
 Suppose you do not want to bother with files, but want to save R objects directly. This can be especially helpful when you have complex data structures not easily represented by a flat file. Reading and writing R objects is also faster and takes less diskspace. R provides two modes to save objects. The first mode saves a single unnamed object (`saveRDS`/`readRDS`), and the second mode can save many named objects (`save`/`load`). We encourage you to read the documentation for these functions and experiment yourself. 
@@ -291,13 +313,11 @@ Suppose you do not want to bother with files, but want to save R objects directl
 ### Exercises
 These exercises are to help you solidify and expand on the information given above. We intentionally added some concepts that were not covered above, and hope that you will take a few minutes to think through what is happening and how R is interpreting the code.
 
-1. Consider the `txt` object above. Notice that the data types are seemingly mixed in the first column, ie. column 1 contains a number and a letter. How does R handle this? Convert the string to a table (as above) and store the data.table as `dat1`. What is the class of `V1`? Second, take a look at the documentation for `type.convert` and figure out how to read the text string such that `V1` is stored as a character vector.
+1. What if the "a" value in `txt` was meant to indicate a missing value, and you actually want to `V1` to read in as numeric. Read the `type.convert` documentation and use what you learn to tell `read.table` that "a" means the value is missing.
 
-2. What if the "a" value in `txt` was meant to indicate a missing value, and you actually want to `V1` to read in as numeric. Use what you learned from the `type.convert` documentation to tell `read.table` that "a" means the value is missing.
+2. Your collaborator from Europe sends you the following file: `"12,34\t15,01\t"`. Use `read.table` to correctly load the file with numeric values.
 
-3. Your collaborator from Europe sends you the following file: `"12,34\t15,01\t"`. Use `read.table` to correctly load the file with numeric values.
-
-4. R does not provide a native solution for reading Excel files -- wah, wah. Luckily, there are many packages available for doing so. We will discuss packages more later in the class. For now, simply run the following code which will install and load the `readxl` package.
+3. R does not provide a native solution for reading Excel files -- wah, wah. Luckily, there are many packages available for doing so. We will discuss packages more later in the class. For now, simply run the following code which will install and load the `readxl` package.
 
         install.packages("readxl")
         library(readxl)
