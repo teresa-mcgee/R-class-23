@@ -200,7 +200,7 @@ These exercises are to help you solidify and expand on the information given abo
 
 4. Challenge. Write a script that calculates the melting temperature (Tm) of each primer. For primers that are 13 bases or less the formula for Tm in Celcius is: $Tm= (A+T) * 2 + (G+C) * 4$, where A, T, G, and C represent the number of each base.  For primers that are 14 bases or more the formula for Tm in Celcius is: $Tm= 64.9 +41*(G+C-16.4)/(A+T+G+C)$. Refer to the example given in the supplemental material. Hint: the `str_count` function in the library `stringr` can be used to count the number of times a given letter appears in a string. To load the `stringr` library simply type `library(stringr)`. 
 
-## Supplemental Material
+### Supplemental Material
 ### While statements
 The final control statement we will discuss are while statements. Although while statements are rarely used in R, they are often used in other languages and are good to understand. The while syntax in R is:
 

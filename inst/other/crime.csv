@@ -1,0 +1,681 @@
+state,university.college,campus,student_enrollment,violent_crime,murder_and_nonnegligent_manslaughter,rape_revised_definition,rape_legacy_definition,robbery,aggravated_assault,property_crime,burglary,larceny_theft,motor_vehicle_theft,arson
+ALABAMA,Alabama A&M University,NA,5333,12,0,2,NA,3,7,78,1,75,2,NA
+ALABAMA,Jacksonville State University,NA,8659,7,0,0,NA,0,7,59,9,50,0,NA
+ALABAMA,Samford University,NA,4933,3,0,0,NA,0,3,46,8,34,4,NA
+ALABAMA,Tuskegee University,NA,3103,5,0,0,NA,1,4,112,12,97,3,NA
+ALABAMA,University of Alabama:,Birmingham,18698,24,0,2,NA,3,19,395,5,379,11,NA
+ALABAMA,University of Alabama:,Huntsville,7348,10,0,1,NA,1,8,73,18,55,0,NA
+ALABAMA,University of Alabama:,Tuscaloosa,36047,15,0,3,NA,9,3,359,36,316,7,NA
+ALABAMA,University of South Alabama,NA,15805,21,0,1,NA,3,17,165,28,136,1,NA
+ALASKA,University of Alaska:,Anchorage,17151,4,0,1,NA,0,3,95,4,88,3,0
+ALASKA,University of Alaska:,Fairbanks,8620,3,0,2,NA,0,1,50,3,44,3,0
+ARIZONA,Arizona State University,Main Campus,83260,35,0,9,NA,6,20,1045,78,946,21,3
+ARIZONA,Central Arizona College,NA,5937,1,0,1,NA,0,0,20,8,12,0,0
+ARIZONA,Northern Arizona University,NA,27705,28,1,20,NA,0,7,274,21,252,1,0
+ARIZONA,Pima Community College,NA,28070,1,0,0,NA,1,0,87,5,79,3,0
+ARIZONA,University of Arizona,NA,42236,25,0,17,NA,2,6,598,32,551,15,1
+ARIZONA,Yavapai College,NA,7842,0,0,0,NA,0,0,4,0,4,0,0
+ARKANSAS,Arkansas State University:,Beebe,4140,0,0,0,NA,0,0,7,0,7,0,0
+ARKANSAS,Arkansas State University:,Jonesboro,13144,11,0,4,NA,2,5,76,8,68,0,0
+ARKANSAS,Arkansas Tech University,NA,12002,6,0,5,NA,0,1,83,7,74,2,0
+ARKANSAS,Henderson State University,NA,3627,1,0,1,NA,0,0,47,7,39,1,0
+ARKANSAS,Southern Arkansas University,NA,3546,0,0,0,NA,0,0,13,4,9,0,0
+ARKANSAS,University of Arkansas:,Fayetteville,26237,9,1,7,NA,0,1,176,10,123,43,0
+ARKANSAS,University of Arkansas:,Little Rock,11645,8,0,1,NA,3,4,85,1,84,0,0
+ARKANSAS,University of Arkansas:,Medical Sciences,2890,2,0,0,NA,1,1,103,2,96,5,0
+ARKANSAS,University of Arkansas:,Monticello,3854,0,0,0,NA,0,0,21,1,20,0,0
+ARKANSAS,University of Arkansas:,Pine Bluff,2513,0,0,0,NA,0,0,77,9,67,1,0
+CALIFORNIA,Allan Hancock College,NA,11047,0,0,0,NA,0,0,21,2,18,1,0
+CALIFORNIA,California State Polytechnic University:,Pomona,23966,6,0,4,NA,1,1,173,5,150,18,1
+CALIFORNIA,California State Polytechnic University:,San Luis Obispo5,20186,3,0,2,NA,0,1,163,7,149,7,1
+CALIFORNIA,California State University:,Bakersfield,8720,1,0,0,NA,0,1,78,12,65,1,0
+CALIFORNIA,California State University:,Channel Islands,5879,2,0,0,NA,1,1,62,7,54,1,0
+CALIFORNIA,California State University:,Chico5,17287,7,0,3,NA,1,3,254,13,235,6,2
+CALIFORNIA,California State University:,Dominguez Hills,14687,4,0,0,NA,0,4,72,5,65,2,0
+CALIFORNIA,California State University:,East Bay,14823,2,0,2,NA,0,0,97,11,80,6,0
+CALIFORNIA,California State University:,Fresno,23179,13,0,3,NA,3,7,267,43,209,15,1
+CALIFORNIA,California State University:,Fullerton5,38128,8,0,3,NA,1,4,248,22,218,8,0
+CALIFORNIA,California State University:,Long Beach5,36809,6,0,4,NA,1,1,148,12,129,7,0
+CALIFORNIA,California State University:,Los Angeles5,24488,14,0,2,NA,0,12,147,23,119,5,0
+CALIFORNIA,California State University:,Monterey Bay,6631,12,0,6,NA,0,6,35,8,24,3,0
+CALIFORNIA,California State University:,Northridge,40131,7,0,3,NA,2,2,302,16,278,8,0
+CALIFORNIA,California State University:,Sacramento,29349,12,0,2,NA,5,5,195,7,186,2,1
+CALIFORNIA,California State University:,San Bernardino,18952,8,0,2,NA,5,1,104,3,80,21,0
+CALIFORNIA,California State University:,San Jose5,32713,29,0,2,NA,5,22,442,30,397,15,1
+CALIFORNIA,California State University:,San Marcos,12154,7,0,7,NA,0,0,59,2,57,0,0
+CALIFORNIA,California State University:,Stanislaus,9045,2,0,2,NA,0,0,72,1,70,1,0
+CALIFORNIA,College of the Sequoias,NA,10647,4,0,0,NA,1,3,70,12,51,7,0
+CALIFORNIA,Contra Costa Community College,NA,35481,3,0,0,NA,3,0,194,17,156,21,1
+CALIFORNIA,Cuesta College5,NA,9221,0,0,0,NA,0,0,13,1,11,1,0
+CALIFORNIA,El Camino College,NA,24207,3,0,0,NA,3,0,112,6,101,5,0
+CALIFORNIA,Foothill-De Anza College,NA,38134,1,0,0,NA,1,0,72,5,64,3,0
+CALIFORNIA,Humboldt State University,NA,8485,7,0,3,NA,0,4,153,12,139,2,2
+CALIFORNIA,Marin Community College,NA,5500,3,0,2,NA,0,1,27,2,25,0,0
+CALIFORNIA,Pasadena Community College5,NA,26611,5,0,0,NA,1,4,104,5,99,0,0
+CALIFORNIA,Riverside Community College,NA,36582,1,0,0,NA,0,1,74,6,57,11,1
+CALIFORNIA,San Bernardino Community College,NA,18897,1,0,0,NA,0,1,84,13,62,9,0
+CALIFORNIA,San Diego State University,NA,33483,26,0,12,NA,5,9,457,32,400,25,0
+CALIFORNIA,San Francisco State University,NA,29465,7,0,2,NA,2,3,220,26,180,14,0
+CALIFORNIA,San Jose/Evergreen Community College5,NA,18205,1,0,0,NA,0,1,46,4,40,2,0
+CALIFORNIA,Santa Rosa Junior College5,NA,23144,5,0,2,NA,0,3,86,10,72,4,0
+CALIFORNIA,Sonoma State University,NA,9290,3,0,3,NA,0,0,128,21,105,2,0
+CALIFORNIA,State Center Community College District,NA,36940,7,0,0,NA,2,5,222,28,184,10,0
+CALIFORNIA,University of California:,Berkeley,37565,35,0,9,NA,12,14,749,43,688,18,1
+CALIFORNIA,University of California:,Davis,34508,22,0,13,NA,4,5,600,27,568,5,3
+CALIFORNIA,University of California:,Hastings College of Law,1003,19,0,1,NA,4,14,40,4,36,0,0
+CALIFORNIA,University of California:,Irvine5,30051,22,0,9,NA,4,9,467,45,405,17,3
+CALIFORNIA,University of California:,Los Angeles,41845,97,0,27,NA,22,48,817,136,663,18,2
+CALIFORNIA,University of California:,"Medical Center, Sacramento6",NA,24,0,2,NA,0,22,200,16,180,4,4
+CALIFORNIA,University of California:,Merced,6268,11,0,3,NA,0,8,23,2,19,2,0
+CALIFORNIA,University of California:,Riverside,21498,10,0,3,NA,6,1,291,28,250,13,1
+CALIFORNIA,University of California:,San Diego,30709,7,0,1,NA,1,5,511,28,461,22,1
+CALIFORNIA,University of California:,San Francisco,3170,15,0,1,NA,4,10,437,34,387,16,0
+CALIFORNIA,University of California:,Santa Barbara,23051,28,0,15,NA,2,11,203,17,186,0,1
+CALIFORNIA,University of California:,Santa Cruz,17866,21,0,11,NA,2,8,341,26,304,11,1
+CALIFORNIA,Ventura County Community College District,NA,33956,0,0,0,NA,0,0,39,0,39,0,0
+CALIFORNIA,West Valley-Mission College5,NA,17497,5,0,0,NA,3,2,43,12,27,4,0
+COLORADO,Adams State University,NA,3154,1,0,1,NA,0,0,74,5,68,1,0
+COLORADO,Aims Community College,NA,5001,0,0,0,NA,0,0,1,0,1,0,0
+COLORADO,Auraria Higher Education Center6,NA,NA,3,0,1,NA,2,0,186,5,168,13,0
+COLORADO,Colorado School of Mines,NA,5962,0,0,0,NA,0,0,50,3,46,1,0
+COLORADO,Colorado State University,Fort Collins,31354,2,0,2,NA,0,0,268,5,262,1,6
+COLORADO,Fort Lewis College,NA,3791,2,0,2,NA,0,0,41,4,37,0,0
+COLORADO,Red Rocks Community College,NA,8112,0,0,0,NA,0,0,16,1,15,0,0
+COLORADO,University of Colorado:,Boulder,32432,10,0,5,NA,1,4,462,27,426,9,4
+COLORADO,University of Colorado:,Colorado Springs,11761,4,0,1,NA,1,2,78,2,74,2,0
+COLORADO,University of Colorado:,Denver,22791,2,0,0,NA,0,2,57,1,50,6,0
+COLORADO,University of Northern Colorado,NA,12050,4,0,4,NA,0,0,136,3,132,1,1
+CONNECTICUT,Central Connecticut State University,NA,12037,1,0,1,NA,0,0,20,0,20,0,0
+CONNECTICUT,Eastern Connecticut State University,NA,5287,0,0,0,NA,0,0,55,3,48,4,0
+CONNECTICUT,Southern Connecticut State University,NA,10825,2,0,0,NA,1,1,50,0,48,2,0
+CONNECTICUT,University of Connecticut:,Health Center6,NA,0,0,0,NA,0,0,5,0,5,0,0
+CONNECTICUT,University of Connecticut:,"Storrs, Avery Point and Hartford6",NA,4,0,2,NA,1,1,193,13,169,11,2
+CONNECTICUT,Western Connecticut State University,NA,5952,0,0,0,NA,0,0,30,8,22,0,0
+CONNECTICUT,Yale University,NA,12336,17,0,7,NA,9,1,269,64,202,3,0
+DELAWARE,Delaware State University,NA,4397,17,0,7,NA,1,9,87,8,78,1,0
+DELAWARE,University of Delaware,NA,22680,5,0,1,NA,1,3,155,10,145,0,1
+FLORIDA,Florida A&M University,NA,10241,7,0,2,NA,3,2,192,17,168,7,0
+FLORIDA,Florida Atlantic University,NA,30297,3,0,2,NA,0,1,185,26,146,13,0
+FLORIDA,Florida Gulf Coast University,NA,14473,9,0,0,NA,1,8,71,3,67,1,0
+FLORIDA,Florida International University,NA,49610,16,0,5,NA,4,7,381,21,346,14,0
+FLORIDA,Florida Polytechnic University6,NA,NA,0,0,NA,0,0,0,3,0,3,0,0
+FLORIDA,Florida SouthWestern State College,NA,15389,4,0,2,NA,0,2,20,1,19,0,0
+FLORIDA,Florida State University:,Panama City6,NA,2,0,0,NA,1,1,1,0,1,0,0
+FLORIDA,Florida State University:,Tallahassee,41226,20,0,10,NA,2,8,388,29,307,52,3
+FLORIDA,New College of Florida,NA,834,1,0,1,NA,0,0,39,4,35,0,1
+FLORIDA,Pensacola State College,NA,10317,5,0,1,NA,0,4,34,2,32,0,0
+FLORIDA,Santa Fe College,NA,15055,0,0,0,NA,0,0,26,0,26,0,0
+FLORIDA,Tallahassee Community College,NA,13049,3,0,0,NA,1,2,75,0,74,1,0
+FLORIDA,University of Central Florida,NA,60767,20,0,6,NA,4,10,296,33,248,15,0
+FLORIDA,University of Florida,NA,49459,15,0,6,NA,4,5,477,40,425,12,0
+FLORIDA,University of North Florida,NA,15984,3,0,1,NA,0,2,111,4,105,2,0
+FLORIDA,University of South Florida:,St. Petersburg,4491,1,0,0,NA,1,0,29,2,27,0,0
+FLORIDA,University of South Florida:,Tampa,41938,9,0,1,NA,7,1,513,38,463,12,1
+FLORIDA,University of West Florida,NA,12602,8,0,5,NA,0,3,59,10,48,1,0
+GEORGIA,Abraham Baldwin Agricultural College,NA,3458,0,0,NA,0,0,0,31,1,30,0,0
+GEORGIA,Agnes Scott College,NA,873,0,0,NA,0,0,0,7,0,5,2,0
+GEORGIA,Albany State University,NA,3910,4,0,NA,2,1,1,47,2,45,0,0
+GEORGIA,Andrew College,NA,303,0,0,NA,0,0,0,13,3,10,0,0
+GEORGIA,Armstrong Atlantic State University,NA,7094,1,0,NA,0,0,1,50,5,43,2,0
+GEORGIA,Augusta Technical College,NA,4269,0,0,NA,0,0,0,8,0,8,0,0
+GEORGIA,Bainbridge State College,NA,2470,0,0,NA,0,0,0,0,0,0,0,0
+GEORGIA,Berry College,NA,2177,0,0,NA,0,0,0,49,6,43,0,0
+GEORGIA,Chattahoochee Technical College,NA,9942,0,0,NA,0,0,0,6,0,6,0,0
+GEORGIA,Clayton State University,NA,7022,4,1,NA,2,0,1,28,3,24,1,0
+GEORGIA,College of Coastal Georgia,NA,3008,0,0,NA,0,0,0,14,3,11,0,0
+GEORGIA,Columbus State University,NA,8192,5,0,NA,4,1,0,44,5,39,0,0
+GEORGIA,Dalton State College,NA,4854,0,0,NA,0,0,0,8,2,6,0,0
+GEORGIA,Darton State College,NA,5623,1,0,NA,0,1,0,28,1,27,0,0
+GEORGIA,Emory University,NA,14769,10,0,NA,8,0,2,437,22,403,12,0
+GEORGIA,Fort Valley State University,NA,2594,1,0,NA,1,0,0,21,0,21,0,0
+GEORGIA,Georgia College and State University,NA,6772,2,0,NA,2,0,0,84,7,69,8,0
+GEORGIA,Georgia Institute of Technology,NA,23109,13,0,NA,1,8,4,341,27,298,16,0
+GEORGIA,Georgia Military College,NA,7262,0,0,NA,0,0,0,3,0,3,0,0
+GEORGIA,Georgia Perimeter College,NA,21371,1,0,NA,0,1,0,76,1,74,1,0
+GEORGIA,Georgia Regents University,NA,7988,2,0,NA,0,1,1,107,1,103,3,0
+GEORGIA,Georgia Southern University,NA,20517,7,0,NA,3,3,1,135,4,131,0,0
+GEORGIA,Georgia Southwestern State University,NA,2666,2,0,NA,0,0,2,63,1,60,2,0
+GEORGIA,Georgia State University,NA,32556,20,0,NA,2,14,4,261,6,249,6,0
+GEORGIA,Gordon State College,NA,4047,2,0,NA,0,2,0,25,1,24,0,0
+GEORGIA,Gwinnett Technical College,NA,7234,0,0,NA,0,0,0,10,0,10,0,0
+GEORGIA,Kennesaw State University,NA,25714,12,0,NA,6,1,5,213,15,192,6,0
+GEORGIA,Mercer University,NA,8552,2,0,NA,0,0,2,79,7,70,2,0
+GEORGIA,Middle Georgia State College,NA,7927,5,0,NA,3,0,2,27,5,22,0,0
+GEORGIA,Piedmont College,NA,2120,0,0,NA,0,0,0,0,0,0,0,0
+GEORGIA,Savannah State University,NA,4915,13,1,NA,0,6,6,174,29,143,2,1
+GEORGIA,Southern Crescent Technical College,NA,4898,0,0,NA,0,0,0,8,1,7,0,0
+GEORGIA,South Georgia State College,NA,2611,0,0,NA,0,0,0,11,4,7,0,0
+GEORGIA,Spelman College,NA,2135,0,0,NA,0,0,0,24,3,21,0,0
+GEORGIA,University of Georgia,NA,35197,20,0,NA,12,3,5,378,41,333,4,0
+GEORGIA,University of North Georgia,NA,16064,1,0,NA,1,0,0,30,0,28,2,0
+GEORGIA,University of West Georgia,NA,12206,5,0,NA,0,4,1,122,21,101,0,0
+GEORGIA,Valdosta State University,NA,11563,6,0,NA,0,6,0,114,13,99,2,0
+GEORGIA,West Georgia Technical College,NA,6536,0,0,NA,0,0,0,23,0,22,1,0
+GEORGIA,Young Harris College,NA,1218,0,0,NA,0,0,0,4,0,4,0,0
+ILLINOIS,Benedictine University,Lisle,6307,0,0,0,NA,0,0,33,6,27,0,0
+ILLINOIS,Black Hawk College:,Kewanee6,NA,0,0,0,NA,0,0,1,0,1,0,0
+ILLINOIS,Black Hawk College:,Moline,6307,0,0,0,NA,0,0,16,8,8,0,0
+ILLINOIS,Chicago State University,NA,5211,2,0,0,NA,2,0,23,1,22,0,0
+ILLINOIS,College of DuPage,NA,29476,0,0,0,NA,0,0,32,1,31,0,0
+ILLINOIS,College of Lake County,NA,15410,1,0,0,NA,1,0,47,2,44,1,0
+ILLINOIS,Eastern Illinois University,NA,8913,17,0,5,NA,5,7,57,5,52,0,1
+ILLINOIS,Elgin Community College,NA,10929,1,0,0,NA,0,1,9,0,9,0,0
+ILLINOIS,Illinois Central College,NA,10296,0,0,0,NA,0,0,39,6,33,0,0
+ILLINOIS,John Wood Community College,NA,1900,0,0,0,NA,0,0,2,0,2,0,0
+ILLINOIS,Joliet Junior College,NA,15776,2,0,0,NA,0,2,17,0,17,0,0
+ILLINOIS,Kankakee Community College,NA,3378,0,0,0,NA,0,0,1,0,1,0,0
+ILLINOIS,Lake Land College,NA,5593,1,1,0,NA,0,0,7,0,7,0,0
+ILLINOIS,Lewis University,NA,6689,5,0,4,NA,0,1,11,0,11,0,0
+ILLINOIS,Lincoln Land Community College,NA,7006,0,0,0,NA,0,0,12,0,12,0,0
+ILLINOIS,Loyola University,NA,15902,15,0,7,NA,7,1,126,1,124,1,0
+ILLINOIS,McHenry County College,NA,6567,0,0,0,NA,0,0,10,0,10,0,0
+ILLINOIS,Millikin University,NA,2190,0,0,0,NA,0,0,33,1,31,1,0
+ILLINOIS,Moraine Valley Community College,NA,15286,0,0,0,NA,0,0,67,0,67,0,0
+ILLINOIS,Morton College,NA,4653,0,0,0,NA,0,0,10,0,10,0,0
+ILLINOIS,Northeastern Illinois University,NA,10275,0,0,0,NA,0,0,35,0,35,0,0
+ILLINOIS,Northern Illinois University,NA,20611,17,0,7,NA,3,7,170,11,156,3,1
+ILLINOIS,Oakton Community College,NA,10589,0,0,0,NA,0,0,13,0,13,0,0
+ILLINOIS,Parkland College,NA,8443,1,0,0,NA,0,1,25,2,23,0,0
+ILLINOIS,Rend Lake College,NA,2970,0,0,0,NA,0,0,2,0,2,0,0
+ILLINOIS,Southern Illinois University:,Carbondale,17989,9,0,5,NA,0,4,219,35,184,0,0
+ILLINOIS,Southern Illinois University:,Edwardsville,13972,10,0,2,NA,1,7,107,12,94,1,0
+ILLINOIS,Southern Illinois University:,School of Medicine6,NA,1,0,0,NA,0,1,10,2,8,0,0
+ILLINOIS,South Suburban College,NA,4329,0,0,0,NA,0,0,19,3,16,0,0
+ILLINOIS,Southwestern Illinois College,NA,10545,2,0,1,NA,0,1,27,1,24,2,0
+ILLINOIS,University of Chicago,Cook County,15097,4,0,0,NA,4,0,266,16,248,2,0
+ILLINOIS,University of Illinois:,Springfield,5431,3,0,0,NA,0,3,31,2,28,1,0
+ILLINOIS,University of Illinois:,Urbana,45140,14,0,8,NA,4,2,322,5,313,4,1
+ILLINOIS,Western Illinois University,NA,11458,9,0,6,NA,0,3,89,10,79,0,3
+INDIANA,Ball State University,NA,20655,10,0,6,NA,4,0,228,29,196,3,0
+INDIANA,Butler University,NA,4848,6,0,4,NA,1,1,121,10,109,2,0
+INDIANA,Indiana State University,NA,13183,9,0,NA,0,1,8,225,4,220,1,0
+INDIANA,Indiana University:,Bloomington,46416,38,0,18,NA,0,20,306,46,249,11,NA
+INDIANA,Indiana University:,Indianapolis,30690,12,0,4,NA,4,4,228,18,201,9,0
+INDIANA,Indiana University:,Northwest,6052,1,0,0,NA,0,1,20,3,17,0,NA
+INDIANA,Indiana University:,Southeast,6442,3,0,3,NA,0,0,9,1,8,0,0
+INDIANA,Marian University,NA,2771,0,0,NA,0,0,0,36,4,32,0,NA
+INDIANA,Purdue University,NA,39752,9,0,7,NA,2,0,348,29,314,5,2
+IOWA,Iowa State University,NA,34435,17,0,8,NA,2,7,249,12,231,6,0
+IOWA,University of Iowa,NA,29970,11,0,3,NA,2,6,255,27,224,4,1
+IOWA,University of Northern Iowa,NA,11928,2,0,1,NA,0,1,103,9,94,0,0
+KANSAS,Emporia State University,NA,6114,1,0,0,NA,0,1,24,2,22,0,0
+KANSAS,Fort Hays State University,NA,13825,1,0,1,NA,0,0,45,12,33,0,0
+KANSAS,Kansas City Kansas Community College,NA,6198,0,0,0,NA,0,0,36,2,34,0,0
+KANSAS,Kansas State University,NA,24766,5,0,1,NA,1,3,103,6,96,1,0
+KANSAS,Pittsburg State University,NA,7479,2,0,0,NA,1,1,46,2,44,0,0
+KANSAS,University of Kansas:,Main Campus,27180,5,0,1,NA,1,3,177,24,147,6,1
+KANSAS,University of Kansas:,Medical Center6,NA,16,0,1,NA,2,13,152,6,141,5,0
+KANSAS,Washburn University,NA,6722,1,0,1,NA,0,0,57,6,47,4,1
+KANSAS,Wichita State University,NA,14995,4,1,0,NA,3,0,87,5,81,1,0
+KENTUCKY,Eastern Kentucky University,NA,16305,3,0,0,NA,2,1,158,17,138,3,2
+KENTUCKY,Kentucky State University,NA,1895,0,0,0,NA,0,0,14,2,12,0,0
+KENTUCKY,Morehead State University,NA,11052,3,0,3,NA,0,0,21,2,18,1,0
+KENTUCKY,Murray State University,NA,11207,4,0,3,NA,0,1,97,12,84,1,1
+KENTUCKY,Northern Kentucky University,NA,15090,2,0,2,NA,0,0,69,4,63,2,0
+KENTUCKY,University of Kentucky,NA,29203,4,0,0,NA,0,4,465,12,422,31,1
+KENTUCKY,University of Louisville,NA,21561,7,0,2,NA,4,1,247,23,216,8,0
+KENTUCKY,Western Kentucky University,NA,20171,1,0,1,NA,0,0,97,16,79,2,1
+LOUISIANA,Delgado Community College,NA,17152,0,0,0,NA,0,0,14,1,12,1,0
+LOUISIANA,Dillard University,NA,1200,3,0,2,NA,0,1,45,18,27,0,0
+LOUISIANA,Grambling State University,NA,4504,10,0,0,NA,4,6,122,31,91,0,0
+LOUISIANA,Louisiana State University:,Baton Rouge,31044,10,0,2,NA,5,3,446,70,348,28,0
+LOUISIANA,Louisiana State University:,Eunice,2738,0,0,0,NA,0,0,0,0,0,0,0
+LOUISIANA,Louisiana State University:,"Health Sciences Center, New Orleans",2828,0,0,0,NA,0,0,0,0,0,0,0
+LOUISIANA,Louisiana State University:,"Health Sciences Center, Shreveport",870,3,0,0,NA,0,3,27,2,23,2,0
+LOUISIANA,Louisiana State University:,Shreveport,4186,2,0,1,NA,0,1,17,4,13,0,0
+LOUISIANA,Louisiana Tech University,NA,11225,3,0,0,NA,1,2,83,22,60,1,0
+LOUISIANA,McNeese State University,NA,8237,0,0,0,NA,0,0,11,0,11,0,0
+LOUISIANA,Nicholls State University,NA,6292,1,0,1,NA,0,0,22,0,22,0,0
+LOUISIANA,Northwestern State University,NA,9002,3,0,2,NA,0,1,57,11,45,1,0
+LOUISIANA,Southern University and A&M College:,Baton Rouge,6330,6,0,0,NA,1,5,135,13,118,4,0
+LOUISIANA,Southern University and A&M College:,New Orleans,2103,0,0,0,NA,0,0,0,0,0,0,0
+LOUISIANA,Southern University and A&M College:,Shreveport,2952,0,0,0,NA,0,0,2,0,2,0,0
+LOUISIANA,Tulane University,NA,12603,9,0,0,NA,8,1,326,24,298,4,1
+LOUISIANA,University of Louisiana:,Lafayette,17195,19,0,3,NA,3,13,175,23,146,6,1
+LOUISIANA,University of Louisiana:,Monroe,8517,4,0,2,NA,2,0,45,6,38,1,0
+LOUISIANA,University of New Orleans,NA,9234,5,0,1,NA,1,3,67,10,53,4,0
+MAINE,University of Maine:,Farmington,1960,6,0,NA,6,0,0,11,1,10,0,0
+MAINE,University of Maine:,Orono,11286,1,0,NA,1,0,0,133,2,131,0,3
+MAINE,University of Southern Maine,NA,8428,1,0,NA,1,0,0,26,1,25,0,2
+MARYLAND,Bowie State University,NA,5695,5,0,1,NA,2,2,49,22,27,0,0
+MARYLAND,Coppin State University,NA,3133,1,0,0,NA,0,1,66,21,42,3,0
+MARYLAND,Frostburg State University,NA,5645,0,0,0,NA,0,0,45,6,37,2,0
+MARYLAND,Hagerstown Community College,NA,4615,0,0,0,NA,0,0,1,1,0,0,0
+MARYLAND,Morgan State University,NA,7698,11,0,0,NA,4,7,110,14,95,1,0
+MARYLAND,Salisbury University,NA,8770,5,0,5,NA,0,0,86,4,82,0,0
+MARYLAND,St. Mary's College,NA,1721,3,0,2,NA,1,0,51,5,42,4,0
+MARYLAND,Towson University,NA,22285,4,0,2,NA,0,2,120,11,106,3,0
+MARYLAND,University of Baltimore,NA,6422,0,0,0,NA,0,0,50,3,46,1,0
+MARYLAND,University of Maryland:,Baltimore City,6276,13,0,0,NA,4,9,87,2,84,1,0
+MARYLAND,University of Maryland:,Baltimore County,13979,2,0,1,NA,0,1,73,4,68,1,0
+MARYLAND,University of Maryland:,College Park,37610,10,0,6,NA,1,3,444,48,367,29,0
+MARYLAND,University of Maryland:,Eastern Shore,4279,14,0,8,NA,1,5,64,21,43,0,1
+MASSACHUSETTS,Amherst College,NA,1792,12,0,12,NA,0,0,57,7,49,1,NA
+MASSACHUSETTS,Assumption College,NA,2719,4,0,2,NA,0,2,24,3,21,0,0
+MASSACHUSETTS,Babson College,NA,3049,14,0,13,NA,0,1,29,0,29,0,NA
+MASSACHUSETTS,Becker College,NA,2021,3,0,1,NA,0,2,17,1,16,0,NA
+MASSACHUSETTS,Bentley University,NA,5565,7,0,5,NA,0,2,47,13,34,0,NA
+MASSACHUSETTS,Boston College,NA,14317,4,0,2,NA,0,2,148,15,132,1,NA
+MASSACHUSETTS,Boston University,NA,32112,20,0,8,NA,3,9,402,16,382,4,0
+MASSACHUSETTS,Brandeis University,NA,5945,2,0,2,NA,0,0,55,6,49,0,NA
+MASSACHUSETTS,Bridgewater State University,NA,11187,16,0,8,NA,0,8,47,4,43,0,0
+MASSACHUSETTS,Bristol Community College,NA,9189,0,0,0,NA,0,0,12,0,12,0,NA
+MASSACHUSETTS,Bunker Hill Community College,NA,14253,1,0,0,NA,0,1,57,0,56,1,NA
+MASSACHUSETTS,Cape Cod Community College,NA,3818,0,0,0,NA,0,0,6,2,3,1,NA
+MASSACHUSETTS,Clark University,NA,3423,7,0,1,NA,2,4,64,8,56,0,NA
+MASSACHUSETTS,College of the Holy Cross,NA,2787,5,0,5,NA,0,0,27,7,19,1,NA
+MASSACHUSETTS,Curry College,NA,3141,0,0,0,NA,0,0,0,0,0,0,NA
+MASSACHUSETTS,Dean College,NA,1325,1,0,0,NA,0,1,34,3,31,0,0
+MASSACHUSETTS,Emerson College,NA,4545,5,0,1,NA,2,2,56,6,50,0,NA
+MASSACHUSETTS,Endicott College,NA,4429,0,0,0,NA,0,0,0,0,0,0,NA
+MASSACHUSETTS,Fisher College,NA,1875,4,0,0,NA,0,4,21,4,17,0,NA
+MASSACHUSETTS,Fitchburg State University,NA,6810,6,0,0,NA,0,6,32,1,31,0,NA
+MASSACHUSETTS,Framingham State University,NA,6499,0,0,0,NA,0,0,29,0,28,1,NA
+MASSACHUSETTS,Gordon College,NA,2105,1,0,1,NA,0,0,52,0,52,0,NA
+MASSACHUSETTS,Greenfield Community College,NA,2127,0,0,0,NA,0,0,13,0,13,0,NA
+MASSACHUSETTS,Hampshire College,NA,1376,1,0,1,NA,0,0,41,10,31,0,1
+MASSACHUSETTS,Harvard University,NA,28791,6,0,4,NA,2,0,531,43,484,4,NA
+MASSACHUSETTS,Lasell College,NA,2070,7,0,1,NA,0,6,25,2,23,0,NA
+MASSACHUSETTS,Massachusetts Bay Community College,NA,5369,1,0,0,NA,0,1,11,0,11,0,NA
+MASSACHUSETTS,Massachusetts College of Art,NA,2095,0,0,0,NA,0,0,52,0,52,0,NA
+MASSACHUSETTS,Massachusetts College of Liberal Arts,NA,1765,2,0,0,NA,1,1,22,2,20,0,0
+MASSACHUSETTS,Massachusetts Institute of Technology,NA,11319,6,0,0,NA,1,5,392,23,369,0,0
+MASSACHUSETTS,Massasoit Community College,NA,7905,0,0,0,NA,0,0,22,1,21,0,0
+MASSACHUSETTS,MCPHS University,NA,6935,1,0,0,NA,0,1,14,0,14,0,NA
+MASSACHUSETTS,Merrimack College,NA,3337,3,0,2,NA,0,1,41,8,33,0,NA
+MASSACHUSETTS,Mount Holyoke College,NA,2255,0,0,0,NA,0,0,52,5,47,0,0
+MASSACHUSETTS,Mount Ida College,NA,1320,3,0,2,NA,0,1,27,4,23,0,NA
+MASSACHUSETTS,Mount Waschusett Community College,NA,4336,0,0,0,NA,0,0,7,0,7,0,NA
+MASSACHUSETTS,Northeastern University,NA,19798,19,0,12,NA,1,6,430,8,421,1,NA
+MASSACHUSETTS,North Shore Community College,NA,7412,1,0,0,NA,0,1,6,0,6,0,NA
+MASSACHUSETTS,Regis College,NA,1912,1,0,0,NA,0,1,3,1,2,0,NA
+MASSACHUSETTS,Salem State University,NA,9267,5,0,2,NA,0,3,66,11,55,0,0
+MASSACHUSETTS,Smith College,NA,2989,1,0,1,NA,0,0,59,4,55,0,0
+MASSACHUSETTS,Springfield College,NA,3178,1,0,1,NA,0,0,40,2,38,0,NA
+MASSACHUSETTS,Springfield Technical Community College,NA,6622,3,0,0,NA,0,3,34,2,32,0,0
+MASSACHUSETTS,Stonehill College,NA,2284,10,0,6,NA,0,4,13,4,9,0,NA
+MASSACHUSETTS,Tufts University:,Medford,10907,8,0,2,NA,2,4,87,17,70,0,0
+MASSACHUSETTS,Tufts University:,Suffolk6,NA,1,0,1,NA,0,0,19,3,16,0,0
+MASSACHUSETTS,Tufts University:,Worcester6,NA,0,0,0,NA,0,0,3,0,3,0,0
+MASSACHUSETTS,University of Massachusetts:,Dartmouth,9111,14,0,7,NA,1,6,91,3,87,1,NA
+MASSACHUSETTS,University of Massachusetts:,"Harbor Campus, Boston",16756,4,0,0,NA,0,4,62,0,61,1,0
+MASSACHUSETTS,University of Massachusetts:,"Medical Center, Worcester",1103,9,0,0,NA,0,9,80,0,80,0,0
+MASSACHUSETTS,Wellesley College,NA,2323,0,0,0,NA,0,0,28,1,27,0,NA
+MASSACHUSETTS,Wentworth Institute of Technology,NA,4558,2,0,0,NA,1,1,56,0,56,0,NA
+MASSACHUSETTS,Western New England University,NA,3922,4,0,3,NA,0,1,47,3,44,0,NA
+MASSACHUSETTS,Westfield State University,NA,6321,5,0,2,NA,0,3,46,2,43,1,0
+MASSACHUSETTS,Wheaton College,NA,1587,1,0,0,NA,0,1,5,0,5,0,NA
+MASSACHUSETTS,Worcester Polytechnic Institute,NA,6381,2,0,0,NA,0,2,58,2,56,0,0
+MICHIGAN,Central Michigan University,NA,26879,4,0,3,NA,0,1,77,6,70,1,0
+MICHIGAN,Delta College,NA,9842,0,0,0,NA,0,0,15,0,15,0,0
+MICHIGAN,Eastern Michigan University,NA,22401,16,0,6,NA,5,5,154,10,138,6,7
+MICHIGAN,Ferris State University,NA,14600,1,0,1,NA,0,0,51,3,48,0,0
+MICHIGAN,Grand Rapids Community College,NA,15668,1,0,0,NA,1,0,57,1,56,0,0
+MICHIGAN,Kalamazoo Valley Community College,NA,9489,1,0,0,NA,0,1,31,0,30,1,0
+MICHIGAN,Kirtland Community College,NA,1773,0,0,0,NA,0,0,0,0,0,0,0
+MICHIGAN,Lansing Community College,NA,16031,1,0,0,NA,1,0,69,0,69,0,0
+MICHIGAN,Macomb Community College,NA,22914,0,0,0,NA,0,0,37,1,34,2,0
+MICHIGAN,Michigan State University,NA,50081,27,0,13,NA,3,11,546,66,456,24,2
+MICHIGAN,Michigan Technological University,NA,7099,1,0,1,NA,0,0,42,1,41,0,1
+MICHIGAN,Mott Community College,NA,8937,3,0,0,NA,1,2,66,5,59,2,1
+MICHIGAN,Northern Michigan University,NA,8781,0,0,0,NA,0,0,77,0,76,1,0
+MICHIGAN,Oakland Community College,NA,24031,1,0,0,NA,0,1,23,0,22,1,0
+MICHIGAN,Oakland University,NA,20519,4,0,2,NA,1,1,39,3,33,3,0
+MICHIGAN,Saginaw Valley State University,NA,9829,5,0,4,NA,0,1,50,6,43,1,0
+MICHIGAN,Schoolcraft College,NA,11542,0,0,0,NA,0,0,43,0,43,0,0
+MICHIGAN,University of Michigan:,Ann Arbor,43625,17,0,6,NA,5,6,681,18,656,7,4
+MICHIGAN,University of Michigan:,Dearborn,8923,0,0,0,NA,0,0,43,1,41,1,0
+MICHIGAN,University of Michigan:,Flint,8574,1,0,0,NA,1,0,78,5,72,1,0
+MICHIGAN,Western Michigan University,NA,23914,13,0,4,NA,4,5,133,2,131,0,1
+MINNESOTA,University of Minnesota:,Duluth,11093,1,0,1,NA,0,0,49,10,39,0,0
+MINNESOTA,University of Minnesota:,Morris,1899,0,0,0,NA,0,0,9,2,7,0,0
+MINNESOTA,University of Minnesota:,Twin Cities,51147,15,0,2,NA,8,5,486,31,445,10,0
+MISSISSIPPI,Coahoma Community College,NA,2045,2,0,NA,0,0,2,10,10,0,0,0
+MISSISSIPPI,Jackson State University,NA,9508,19,0,4,NA,12,3,221,37,183,1,0
+MISSISSIPPI,Mississippi State University,NA,20138,8,0,NA,3,1,4,193,12,176,5,0
+MISSISSIPPI,Northeast Mississippi Community College,NA,3538,0,0,NA,0,0,0,26,2,24,0,0
+MISSISSIPPI,University of Mississippi:,Medical Center6,NA,2,0,NA,0,1,1,107,3,103,1,0
+MISSISSIPPI,University of Mississippi:,Oxford,22503,10,0,NA,8,1,1,178,10,168,0,0
+MISSOURI,Jefferson College,NA,4882,0,0,0,NA,0,0,4,0,4,0,0
+MISSOURI,Metropolitan Community College,NA,18222,0,0,0,NA,0,0,51,0,48,3,0
+MISSOURI,Mineral Area College,NA,4632,0,0,0,NA,0,0,3,0,3,0,0
+MISSOURI,Missouri Southern State University,NA,5613,1,0,0,NA,1,0,43,4,38,1,0
+MISSOURI,Missouri University of Science and Technology,NA,8640,1,0,0,NA,1,0,58,5,52,1,0
+MISSOURI,Missouri Western State University,NA,5834,2,0,2,NA,0,0,14,2,12,0,0
+MISSOURI,Northwest Missouri State University,NA,6720,2,0,2,NA,0,0,59,3,56,0,0
+MISSOURI,Southeast Missouri State University,NA,12087,2,0,2,NA,0,0,26,5,19,2,0
+MISSOURI,St. Charles Community College,NA,7153,0,0,0,NA,0,0,10,0,10,0,0
+MISSOURI,St. Louis Community College:,Florissant Valley6,NA,0,0,0,NA,0,0,20,0,19,1,0
+MISSOURI,St. Louis Community College:,Meramec,21218,1,0,0,NA,0,1,16,0,16,0,0
+MISSOURI,Truman State University,NA,6248,0,0,0,NA,0,0,39,1,38,0,0
+MISSOURI,University of Central Missouri,NA,13379,12,0,3,NA,3,6,140,10,122,8,1
+MISSOURI,University of Missouri:,Columbia,35425,10,0,3,NA,2,5,271,7,255,9,0
+MISSOURI,University of Missouri:,Kansas City,16146,6,0,0,NA,3,3,66,20,44,2,0
+MISSOURI,University of Missouri:,St. Louis,17072,2,0,1,NA,0,1,61,5,54,2,0
+MISSOURI,Washington University,NA,14348,0,0,0,NA,0,0,73,1,72,0,0
+MONTANA,Montana State University,NA,14982,7,0,2,NA,0,5,165,5,155,5,4
+MONTANA,University of Montana,NA,13952,2,0,0,NA,0,2,100,6,92,2,0
+NEBRASKA,Metropolitan Community College,Douglas County,14675,2,0,NA,0,0,2,26,0,26,0,0
+NEBRASKA,University of Nebraska,Kearney7,6902,2,0,2,NA,0,0,31,3,28,0,1
+NEVADA,Truckee Meadows Community College,NA,11106,0,0,0,NA,0,0,15,1,14,0,0
+NEVADA,University of Nevada:,Las Vegas,28515,17,0,6,NA,6,5,293,23,246,24,0
+NEVADA,University of Nevada:,Reno,19934,4,0,1,NA,1,2,162,10,144,8,0
+NEW HAMPSHIRE,University of New Hampshire,NA,15117,27,0,25,NA,0,2,125,9,113,3,2
+NEW JERSEY7,Brookdale Community College,NA,14144,0,0,0,NA,0,0,27,0,26,1,0
+NEW JERSEY7,Essex County College,NA,11468,3,0,0,NA,1,2,86,2,82,2,0
+NEW JERSEY7,Kean University,NA,14359,3,0,1,NA,0,2,104,3,97,4,0
+NEW JERSEY7,Middlesex County College,NA,12059,1,0,0,NA,0,1,29,0,29,0,0
+NEW JERSEY7,Monmouth University,NA,6395,1,0,1,NA,0,0,30,1,29,0,0
+NEW JERSEY7,Montclair State University,NA,20022,2,0,1,NA,0,1,117,10,107,0,0
+NEW JERSEY7,New Jersey Institute of Technology,NA,10646,15,0,1,NA,10,4,104,2,91,11,0
+NEW JERSEY7,Princeton University,NA,8088,1,0,0,NA,0,1,382,18,354,10,1
+NEW JERSEY7,Rowan University,NA,14778,8,0,4,NA,0,4,137,17,120,0,0
+NEW JERSEY7,Rutgers University:,Camden,6321,2,0,0,NA,2,0,65,2,63,0,0
+NEW JERSEY7,Rutgers University:,Newark,11314,29,0,2,NA,24,3,256,0,253,3,0
+NEW JERSEY7,Rutgers University:,New Brunswick,48378,33,0,10,NA,7,16,527,55,469,3,1
+NEW JERSEY7,Stevens Institute of Technology,NA,6125,1,0,0,NA,0,1,34,2,32,0,0
+NEW JERSEY7,Stockton University,NA,8570,1,0,1,NA,0,0,31,1,29,1,0
+NEW JERSEY7,The College of New Jersey,NA,7409,3,0,3,NA,0,0,84,3,76,5,1
+NEW JERSEY7,William Paterson University,NA,11048,0,0,0,NA,0,0,59,1,57,1,0
+NEW MEXICO,Eastern New Mexico University,NA,5879,6,0,NA,3,0,3,40,5,35,0,NA
+NEW MEXICO,New Mexico Institute of Mining and Technology,NA,2127,1,0,NA,0,0,1,59,6,49,4,NA
+NEW MEXICO,New Mexico State University,NA,15829,13,0,NA,1,2,10,259,47,199,13,2
+NEW MEXICO,University of New Mexico,NA,27844,38,0,NA,8,5,25,613,49,502,62,NA
+NEW MEXICO,Western New Mexico University,NA,3557,4,0,NA,0,0,4,28,12,16,0,NA
+NEW YORK,Cornell University,NA,21679,3,0,2,NA,0,1,272,21,250,1,0
+NEW YORK,Ithaca College5,NA,6587,5,0,4,NA,1,0,108,13,95,0,0
+NEW YORK,Rensselaer Polytechnic Institute,NA,6835,0,0,NA,0,0,0,40,0,40,0,0
+NEW YORK,State University of New York:,Binghamton,16695,8,0,7,NA,1,0,225,12,213,0,0
+NEW YORK,State University of New York:,Buffalo,29995,10,0,4,NA,1,5,304,38,265,1,1
+NEW YORK,State University of New York:,Downstate Medical Center,1865,4,0,0,NA,0,4,57,0,57,0,0
+NEW YORK,State University of New York:,Maritime College5,1799,0,0,0,NA,0,0,18,3,15,0,0
+NEW YORK,State University of New York:,Stony Brook5,24607,10,0,1,NA,1,8,279,19,259,1,0
+NEW YORK,State University of New York:,Upstate Medical Center,1516,0,0,0,NA,0,0,84,5,78,1,0
+NEW YORK,State University of New York Agricultural and Technical College:,Alfred,3661,3,0,2,NA,0,1,52,7,44,1,0
+NEW YORK,State University of New York Agricultural and Technical College:,Canton,3278,1,0,1,NA,0,0,31,1,29,1,0
+NEW YORK,State University of New York Agricultural and Technical College:,Cobleskill,2535,5,0,3,NA,0,2,18,4,13,1,0
+NEW YORK,State University of New York Agricultural and Technical College:,Farmingdale,8394,2,0,1,NA,0,1,31,2,29,0,0
+NEW YORK,State University of New York Agricultural and Technical College:,Morrisville,2910,4,0,3,NA,1,0,42,11,31,0,0
+NEW YORK,State University of New York College:,Brockport,8106,5,0,4,NA,0,1,43,2,41,0,0
+NEW YORK,State University of New York College:,Buffalo,11083,14,0,3,NA,3,8,160,12,146,2,1
+NEW YORK,State University of New York College:,Cortland,6958,3,0,2,NA,0,1,44,6,36,2,0
+NEW YORK,State University of New York College:,Environmental Science and Forestry,2200,0,0,0,NA,0,0,25,0,25,0,0
+NEW YORK,State University of New York College:,Fredonia,5215,1,0,1,NA,0,0,34,8,26,0,0
+NEW YORK,State University of New York College:,Geneseo,5658,2,0,2,NA,0,0,84,10,71,3,0
+NEW YORK,State University of New York College:,New Paltz,7692,1,0,1,NA,0,0,35,0,35,0,0
+NEW YORK,State University of New York College:,Old Westbury,4504,1,0,0,NA,1,0,38,3,35,0,0
+NEW YORK,State University of New York College:,Oneonta,6101,3,0,3,NA,0,0,40,3,36,1,0
+NEW YORK,State University of New York College:,Optometry,363,0,0,0,NA,0,0,5,0,5,0,0
+NEW YORK,State University of New York College:,Oswego,8034,4,0,4,NA,0,0,76,6,70,0,0
+NEW YORK,State University of New York College:,Plattsburgh,5968,0,0,0,NA,0,0,70,2,68,0,0
+NEW YORK,State University of New York College:,Potsdam,3979,2,0,2,NA,0,0,58,7,50,1,0
+NEW YORK,State University of New York College:,Purchase,4225,1,0,1,NA,0,0,72,11,61,0,0
+NEW YORK,State University of New York College:,Technology,3598,1,0,NA,0,0,1,38,5,33,0,0
+NEW YORK,State University of New York College:,Utica-Rome,2740,1,0,1,NA,0,0,12,0,12,0,0
+NORTH CAROLINA,Appalachian State University,NA,18026,3,0,NA,2,0,1,58,8,47,3,0
+NORTH CAROLINA,Davidson College,NA,1770,3,0,NA,3,0,0,72,13,59,0,2
+NORTH CAROLINA,Duke University,NA,15856,6,0,NA,2,4,0,371,17,345,9,1
+NORTH CAROLINA,East Carolina University,NA,27511,11,0,NA,5,3,3,169,6,163,0,0
+NORTH CAROLINA,Elizabeth City State University,NA,1867,1,0,NA,0,0,1,64,17,46,1,1
+NORTH CAROLINA,Elon University,NA,6483,0,0,NA,0,0,0,10,0,10,0,0
+NORTH CAROLINA,Fayetteville State University,NA,5899,7,0,NA,4,1,2,60,8,48,4,0
+NORTH CAROLINA,Methodist University,NA,2461,2,0,NA,1,0,1,38,4,34,0,1
+NORTH CAROLINA,North Carolina Agricultural and Technical State University,NA,10725,5,0,NA,3,0,2,115,16,97,2,0
+NORTH CAROLINA,North Carolina Central University,NA,7687,15,0,NA,4,5,6,132,16,114,2,3
+NORTH CAROLINA,North Carolina School of the Arts,NA,958,0,0,NA,0,0,0,19,8,11,0,0
+NORTH CAROLINA,North Carolina State University,Raleigh,33989,14,0,NA,5,1,8,249,17,226,6,0
+NORTH CAROLINA,University of North Carolina:,Asheville,3845,3,0,NA,2,1,0,20,0,19,1,0
+NORTH CAROLINA,University of North Carolina:,Chapel Hill,29135,6,0,NA,2,4,0,260,20,219,21,0
+NORTH CAROLINA,University of North Carolina:,Charlotte,27238,1,0,NA,0,0,1,133,10,122,1,1
+NORTH CAROLINA,University of North Carolina:,Greensboro,18647,8,0,NA,4,0,4,116,4,111,1,1
+NORTH CAROLINA,University of North Carolina:,Wilmington,14570,6,0,NA,4,1,1,231,6,224,1,0
+NORTH CAROLINA,Wake Forest University,NA,7788,4,0,NA,3,1,0,138,23,109,6,0
+NORTH CAROLINA,Western Carolina University,NA,10382,3,0,NA,3,0,0,73,16,56,1,0
+NORTH CAROLINA,Winston-Salem State University,NA,5220,2,1,NA,0,1,0,68,12,54,2,0
+NORTH DAKOTA,North Dakota State College of Science,NA,3033,0,0,0,NA,0,0,26,3,23,0,0
+NORTH DAKOTA,North Dakota State University,NA,14747,1,0,1,NA,0,0,151,9,139,3,0
+NORTH DAKOTA,University of North Dakota,NA,14906,3,0,2,NA,0,1,128,7,118,3,0
+OHIO,Bowling Green State University,NA,16554,13,0,11,NA,0,2,16,6,10,0,2
+OHIO,Capital University,NA,3494,2,0,2,NA,0,0,56,20,35,1,0
+OHIO,Columbus State Community College,NA,24448,0,0,0,NA,0,0,68,0,67,1,0
+OHIO,Cuyahoga Community College,NA,27084,4,0,1,NA,2,1,74,2,70,2,0
+OHIO,Kent State University,NA,29477,6,0,NA,2,3,1,167,5,162,0,1
+OHIO,Lakeland Community College,NA,8250,0,0,0,NA,0,0,32,0,32,0,0
+OHIO,Miami University,NA,18620,17,0,7,NA,1,9,192,7,181,4,0
+OHIO,Notre Dame College,NA,2281,2,0,1,NA,0,1,36,5,31,0,0
+OHIO,Ohio State University,Columbus,58322,22,0,13,NA,4,5,793,17,771,5,0
+OHIO,Ohio University,NA,29217,10,0,10,NA,0,0,174,15,157,2,2
+OHIO,Otterbein University,NA,2791,0,0,0,NA,0,0,31,4,27,0,0
+OHIO,Shawnee State University,NA,4247,1,0,NA,1,0,0,40,0,39,1,0
+OHIO,Sinclair Community College,NA,19093,1,0,0,NA,1,0,56,0,56,0,0
+OHIO,University of Akron,NA,23962,9,0,2,NA,3,4,192,7,177,8,1
+OHIO,University of Cincinnati,NA,35313,5,0,NA,2,3,0,297,3,293,1,0
+OHIO,University of Toledo,NA,20626,3,0,2,NA,0,1,215,20,193,2,2
+OHIO,Wright State University,NA,16842,8,0,4,NA,3,1,105,15,86,4,0
+OKLAHOMA,Cameron University,NA,5537,3,0,2,NA,0,1,8,0,8,0,0
+OKLAHOMA,East Central University,NA,4428,0,0,0,NA,0,0,12,3,9,0,0
+OKLAHOMA,Langston University,NA,2482,10,0,2,NA,3,5,118,66,46,6,1
+OKLAHOMA,Northeastern Oklahoma A&M College,NA,2274,2,0,1,NA,1,0,50,17,31,2,2
+OKLAHOMA,Northeastern State University:,Broken Arrow6,NA,0,0,0,NA,0,0,0,0,0,0,0
+OKLAHOMA,Northeastern State University:,Tahlequah,8310,0,0,0,NA,0,0,0,0,0,0,0
+OKLAHOMA,Oklahoma City University,NA,3035,1,0,0,NA,0,1,41,5,36,0,0
+OKLAHOMA,Oklahoma State University:,Main Campus,25962,4,0,2,NA,2,0,229,48,176,5,0
+OKLAHOMA,Oklahoma State University:,Okmulgee,3379,1,0,1,NA,0,0,11,0,10,1,0
+OKLAHOMA,Oklahoma State University:,Tulsa,664,0,0,0,NA,0,0,2,0,2,0,0
+OKLAHOMA,Rogers State University,NA,4030,0,0,0,NA,0,0,4,0,4,0,0
+OKLAHOMA,Seminole State College,NA,1895,0,0,0,NA,0,0,6,2,4,0,0
+OKLAHOMA,Southeastern Oklahoma State University,NA,3878,2,0,2,NA,0,0,17,3,14,0,0
+OKLAHOMA,Southwestern Oklahoma State University,NA,4994,0,0,0,NA,0,0,10,0,10,0,0
+OKLAHOMA,Tulsa Community College,NA,17861,0,0,0,NA,0,0,5,0,5,0,0
+OKLAHOMA,University of Central Oklahoma,NA,16840,5,0,1,NA,0,4,79,10,69,0,0
+OKLAHOMA,University of Oklahoma:,Health Sciences Center,3499,6,0,0,NA,3,3,154,5,146,3,0
+OKLAHOMA,University of Oklahoma:,Norman,27261,7,0,4,NA,0,3,299,6,283,10,1
+OREGON,University of Oregon,NA,24096,8,0,3,NA,3,2,314,11,297,6,8
+PENNSYLVANIA,Bloomsburg University,NA,9998,4,0,3,NA,0,1,35,1,34,0,0
+PENNSYLVANIA,California University,NA,7978,1,0,1,NA,0,0,29,1,28,0,0
+PENNSYLVANIA,Cheyney University,NA,1022,8,0,5,NA,0,3,40,17,23,0,1
+PENNSYLVANIA,Clarion University,NA,5712,4,0,3,NA,0,1,32,0,32,0,0
+PENNSYLVANIA,Dickinson College,NA,2364,6,0,2,NA,0,4,105,10,94,1,0
+PENNSYLVANIA,East Stroudsburg University,NA,6819,1,0,0,NA,0,1,53,0,53,0,0
+PENNSYLVANIA,Edinboro University,NA,6837,4,0,3,NA,0,1,44,6,38,0,0
+PENNSYLVANIA,Elizabethtown College,NA,1822,3,0,2,NA,0,1,18,1,17,0,0
+PENNSYLVANIA,Indiana University,NA,14534,10,0,4,NA,3,3,57,3,54,0,1
+PENNSYLVANIA,Kutztown University,NA,9218,6,0,3,NA,0,3,54,1,53,0,0
+PENNSYLVANIA,Lehigh University,NA,7119,3,0,3,NA,0,0,26,0,26,0,0
+PENNSYLVANIA,Lock Haven University,NA,4917,2,0,2,NA,0,0,25,8,17,0,0
+PENNSYLVANIA,Mansfield University,NA,2752,0,0,0,NA,0,0,11,0,11,0,0
+PENNSYLVANIA,Millersville University,NA,8047,2,1,0,NA,0,1,33,1,32,0,0
+PENNSYLVANIA,Moravian College,NA,1970,4,0,0,NA,0,4,28,10,18,0,0
+PENNSYLVANIA,Pennsylvania State University:,Altoona,3903,2,0,2,NA,0,0,40,6,34,0,1
+PENNSYLVANIA,Pennsylvania State University:,Beaver,720,0,0,0,NA,0,0,4,0,4,0,1
+PENNSYLVANIA,Pennsylvania State University:,Behrend,4138,3,0,1,NA,0,2,31,6,25,0,0
+PENNSYLVANIA,Pennsylvania State University:,Berks,2839,1,0,1,NA,0,0,29,1,28,0,0
+PENNSYLVANIA,Pennsylvania State University:,Brandywine,1488,0,0,0,NA,0,0,4,0,4,0,0
+PENNSYLVANIA,Pennsylvania State University:,Harrisburg,4519,1,0,0,NA,0,1,14,0,14,0,0
+PENNSYLVANIA,Pennsylvania State University:,Hazleton,850,1,0,1,NA,0,0,6,0,6,0,0
+PENNSYLVANIA,Pennsylvania State University:,McKeesport,604,0,0,0,NA,0,0,6,0,6,0,0
+PENNSYLVANIA,Pennsylvania State University:,Mont Alto,940,0,0,0,NA,0,0,3,0,3,0,0
+PENNSYLVANIA,Pennsylvania State University:,Schuylkill,796,0,0,0,NA,0,0,11,5,6,0,0
+PENNSYLVANIA,Pennsylvania State University:,University Park,47040,39,0,24,NA,2,13,428,38,388,2,6
+PENNSYLVANIA,Shippensburg University,NA,7355,2,0,1,NA,0,1,36,5,30,1,1
+PENNSYLVANIA,Slippery Rock University,NA,8495,1,0,0,NA,0,1,39,1,36,2,0
+PENNSYLVANIA,University of Pittsburgh:,Bradford,1499,2,0,2,NA,0,0,17,4,13,0,0
+PENNSYLVANIA,University of Pittsburgh:,Greensburg,1578,0,0,0,NA,0,0,3,0,3,0,0
+PENNSYLVANIA,University of Pittsburgh:,Johnstown,2869,5,0,2,NA,1,2,33,1,31,1,0
+PENNSYLVANIA,University of Pittsburgh:,Pittsburgh,28617,27,0,8,NA,2,17,221,10,210,1,0
+PENNSYLVANIA,University of Pittsburgh:,Titusville,371,2,0,1,NA,0,1,7,0,7,0,0
+PENNSYLVANIA,West Chester University,NA,16086,8,0,5,NA,1,2,67,6,61,0,0
+RHODE ISLAND,Brown University,NA,9181,0,0,0,NA,0,0,117,10,107,0,0
+RHODE ISLAND,University of Rhode Island,NA,16571,4,0,4,NA,0,0,93,13,79,1,0
+SOUTH CAROLINA,Bob Jones University,NA,3108,0,0,0,NA,0,0,13,1,12,0,0
+SOUTH CAROLINA,Clemson University,NA,21857,7,0,3,NA,0,4,244,13,179,52,1
+SOUTH CAROLINA,Coastal Carolina University,NA,9976,14,0,5,NA,4,5,184,7,174,3,0
+SOUTH CAROLINA,College of Charleston,NA,11456,0,0,0,NA,0,0,93,2,90,1,0
+SOUTH CAROLINA,Columbia College,NA,1221,0,0,0,NA,0,0,9,2,6,1,0
+SOUTH CAROLINA,Erskine College,NA,753,1,0,1,NA,0,0,8,6,2,0,0
+SOUTH CAROLINA,Francis Marion University,NA,3944,0,0,0,NA,0,0,17,0,17,0,0
+SOUTH CAROLINA,Greenville Technical College,NA,12592,2,0,0,NA,0,2,32,4,28,0,0
+SOUTH CAROLINA,Lander University,NA,2787,1,0,1,NA,0,0,19,1,16,2,0
+SOUTH CAROLINA,Medical University of South Carolina,NA,2898,4,0,3,NA,0,1,110,6,102,2,0
+SOUTH CAROLINA,Midlands Technical College,NA,11424,1,0,0,NA,0,1,16,0,15,1,0
+SOUTH CAROLINA,Orangeburg-Calhoun Technical College,NA,3060,0,0,0,NA,0,0,0,0,0,0,0
+SOUTH CAROLINA,Presbyterian College,NA,1460,2,0,0,NA,0,2,21,2,18,1,1
+SOUTH CAROLINA,South Carolina State University,NA,3331,5,0,0,NA,5,0,91,28,59,4,0
+SOUTH CAROLINA,Spartanburg Methodist College,NA,793,1,0,0,NA,0,1,5,1,4,0,0
+SOUTH CAROLINA,The Citadel,NA,3592,1,0,0,NA,1,0,12,4,8,0,0
+SOUTH CAROLINA,Trident Technical College,NA,16136,0,0,0,NA,0,0,25,1,22,2,0
+SOUTH CAROLINA,University of South Carolina:,Aiken,3444,1,0,0,NA,1,0,23,0,23,0,0
+SOUTH CAROLINA,University of South Carolina:,Beaufort,1794,2,0,1,NA,0,1,8,2,6,0,0
+SOUTH CAROLINA,University of South Carolina:,Columbia,32971,7,1,2,NA,2,2,285,12,232,41,0
+SOUTH CAROLINA,University of South Carolina:,Upstate,5585,4,0,0,NA,0,4,26,1,25,0,0
+SOUTH CAROLINA,Winthrop University,NA,6024,2,0,1,NA,1,0,35,7,28,0,0
+SOUTH DAKOTA,South Dakota State University,NA,12543,0,0,0,NA,0,0,31,0,31,0,0
+TENNESSEE,Austin Peay State University,NA,10111,6,0,4,NA,0,2,64,10,52,2,0
+TENNESSEE,Chattanooga State Community College,NA,9332,2,0,0,NA,0,2,15,0,15,0,0
+TENNESSEE,Christian Brothers University,NA,1667,2,0,0,NA,0,2,22,5,17,0,0
+TENNESSEE,Cleveland State Community College,NA,3522,0,0,0,NA,0,0,10,1,9,0,0
+TENNESSEE,East Tennessee State University,NA,14434,7,0,4,NA,1,2,72,7,65,0,2
+TENNESSEE,Jackson State Community College,NA,4924,0,0,0,NA,0,0,0,0,0,0,0
+TENNESSEE,Lincoln Memorial University,NA,3735,0,0,0,NA,0,0,0,0,0,0,0
+TENNESSEE,Middle Tennessee State University,NA,22729,8,0,3,NA,3,2,166,19,147,0,0
+TENNESSEE,Northeast State Community College,NA,5865,0,0,0,NA,0,0,4,0,4,0,0
+TENNESSEE,Roane State Community College,NA,5832,0,0,0,NA,0,0,8,0,8,0,0
+TENNESSEE,Southwest Tennessee Community College,NA,10227,3,0,1,NA,1,1,28,1,27,0,0
+TENNESSEE,Tennessee State University,NA,9027,13,1,3,NA,5,4,54,16,36,2,1
+TENNESSEE,Tennessee Technological University,NA,11339,3,0,1,NA,0,2,60,7,51,2,0
+TENNESSEE,University of Memphis,NA,21059,3,0,1,NA,2,0,139,17,118,4,0
+TENNESSEE,University of Tennessee:,Chattanooga,11670,9,0,7,NA,2,0,79,15,60,4,0
+TENNESSEE,University of Tennessee:,Health Science Center6,NA,0,0,0,NA,0,0,30,2,28,0,0
+TENNESSEE,University of Tennessee:,Knoxville,30386,5,0,2,NA,1,2,268,30,227,11,2
+TENNESSEE,University of Tennessee:,Martin,7042,2,0,1,NA,0,1,32,5,27,0,0
+TENNESSEE,University of the South,NA,1714,10,0,10,NA,0,0,76,21,54,1,2
+TENNESSEE,Vanderbilt University,NA,12686,38,0,15,NA,4,19,394,7,385,2,0
+TENNESSEE,Volunteer State Community College,NA,7664,0,0,0,NA,0,0,18,0,18,0,0
+TENNESSEE,Walters State Community College,NA,6005,0,0,0,NA,0,0,8,0,7,1,0
+TEXAS,Abilene Christian University,NA,4427,0,0,0,NA,0,0,67,5,62,0,0
+TEXAS,Alamo Community College District,NA,55967,3,0,0,NA,1,2,204,32,166,6,3
+TEXAS,Alvin Community College,NA,4837,0,0,0,NA,0,0,14,0,13,1,0
+TEXAS,Amarillo College,NA,10336,0,0,0,NA,0,0,20,0,20,0,0
+TEXAS,Angelo State University,NA,6494,2,0,1,NA,0,1,47,3,44,0,0
+TEXAS,Austin College,NA,1301,1,0,0,NA,0,1,33,3,28,2,0
+TEXAS,Baylor Health Care System6,NA,NA,3,0,2,NA,1,0,471,7,454,10,0
+TEXAS,Baylor University,Waco,16263,11,0,3,NA,0,8,172,15,149,8,1
+TEXAS,Brookhaven College,NA,12403,0,0,0,NA,0,0,24,1,22,1,0
+TEXAS,Central Texas College,NA,20547,2,0,0,NA,0,2,16,0,16,0,0
+TEXAS,College of the Mainland,NA,3858,0,0,0,NA,0,0,8,0,8,0,0
+TEXAS,El Paso Community College,NA,28308,0,0,0,NA,0,0,46,0,45,1,0
+TEXAS,Grayson College,NA,4636,0,0,0,NA,0,0,7,0,7,0,0
+TEXAS,Hardin-Simmons University,NA,2084,1,0,0,NA,0,1,34,8,25,1,0
+TEXAS,Houston Baptist University,NA,3128,3,0,1,NA,1,1,45,13,32,0,0
+TEXAS,Houston Community College,NA,58276,9,0,2,NA,5,2,164,20,133,11,0
+TEXAS,Lamar University,Beaumont,14895,8,0,1,NA,2,5,74,5,65,4,0
+TEXAS,Laredo Community College,NA,8307,3,0,0,NA,0,3,11,1,10,0,0
+TEXAS,McLennan Community College,NA,8294,0,0,0,NA,0,0,12,0,12,0,0
+TEXAS,Midwestern State University,NA,5874,3,0,1,NA,1,1,60,18,42,0,0
+TEXAS,Mountain View College,NA,8950,1,0,0,NA,0,1,15,0,13,2,0
+TEXAS,North Lake College,NA,10744,1,0,0,NA,0,1,19,2,17,0,0
+TEXAS,Paris Junior College,NA,5086,1,0,1,NA,0,0,15,3,12,0,0
+TEXAS,Rice University,NA,6621,4,0,0,NA,3,1,206,8,194,4,0
+TEXAS,Richland College,NA,19343,1,0,0,NA,1,0,28,0,25,3,0
+TEXAS,Southern Methodist University,NA,11272,4,0,3,NA,0,1,154,2,152,0,0
+TEXAS,Southwestern University,NA,1538,0,0,0,NA,0,0,34,11,16,7,0
+TEXAS,Stephen F. Austin State University,NA,12801,2,0,2,NA,0,0,56,3,52,1,0
+TEXAS,St. Mary's University,NA,3712,1,0,1,NA,0,0,18,2,14,2,0
+TEXAS,Sul Ross State University,NA,2873,0,0,0,NA,0,0,57,10,47,0,0
+TEXAS,Tarleton State University,NA,11681,2,0,2,NA,0,0,83,10,72,1,0
+TEXAS,Texas A&M International University,NA,7554,5,0,5,NA,0,0,36,6,28,2,0
+TEXAS,Texas A&M University:,Central Texas6,NA,0,0,0,NA,0,0,7,3,4,0,0
+TEXAS,Texas A&M University:,College Station,61642,4,0,3,NA,0,1,488,28,448,12,0
+TEXAS,Texas A&M University:,Commerce,12111,6,0,5,NA,1,0,85,12,72,1,1
+TEXAS,Texas A&M University:,Corpus Christi,11256,3,0,1,NA,0,2,63,5,54,4,0
+TEXAS,Texas A&M University:,Galveston6,NA,1,0,0,NA,0,1,11,0,11,0,0
+TEXAS,Texas A&M University:,Kingsville,13246,0,0,0,NA,0,0,98,31,67,0,0
+TEXAS,Texas A&M University:,San Antonio6,NA,0,0,0,NA,0,0,8,1,6,1,0
+TEXAS,Texas Christian University,NA,10033,8,0,5,NA,1,2,131,9,120,2,0
+TEXAS,Texas Southern University,NA,9233,12,2,1,NA,4,5,220,49,168,3,6
+TEXAS,Texas State Technical College:,Harlingen,5225,2,0,1,NA,0,1,15,0,15,0,0
+TEXAS,Texas State Technical College:,Waco,4114,5,0,3,NA,0,2,74,32,42,0,0
+TEXAS,Texas State Technical College:,West Texas,1453,0,0,0,NA,0,0,2,1,1,0,0
+TEXAS,Texas State University,San Marcos,36739,9,0,0,NA,6,3,217,20,193,4,0
+TEXAS,Texas Tech University,Lubbock,35158,7,0,5,NA,1,1,403,12,390,1,0
+TEXAS,Texas Woman's University,NA,15071,3,0,1,NA,0,2,49,3,46,0,0
+TEXAS,Tyler Junior College,NA,11168,2,0,1,NA,0,1,50,4,46,0,0
+TEXAS,University of Houston:,Central Campus,40914,21,0,4,NA,11,6,498,42,433,23,0
+TEXAS,University of Houston:,Clearlake,8665,0,0,0,NA,0,0,19,1,18,0,0
+TEXAS,University of Houston:,Downtown Campus,14439,2,0,0,NA,1,1,46,2,42,2,0
+TEXAS,University of Mary Hardin-Baylor,NA,3740,1,0,0,NA,0,1,65,2,60,3,0
+TEXAS,University of North Texas:,Denton,36486,5,0,2,NA,0,3,171,16,153,2,3
+TEXAS,University of North Texas:,Health Science Center,2243,0,0,0,NA,0,0,10,0,10,0,0
+TEXAS,University of Texas:,Arlington,39740,5,0,1,NA,2,2,148,8,140,0,0
+TEXAS,University of Texas:,Austin,51313,6,0,2,NA,2,2,397,36,354,7,0
+TEXAS,University of Texas:,Dallas,23095,3,0,2,NA,0,1,151,4,145,2,0
+TEXAS,University of Texas:,El Paso,23079,11,0,1,NA,0,10,146,27,117,2,0
+TEXAS,University of Texas:,"Health Science Center, San Antonio",3147,4,0,1,NA,1,2,60,2,56,2,0
+TEXAS,University of Texas:,"Health Science Center, Tyler6",NA,0,0,0,NA,0,0,11,1,9,1,0
+TEXAS,University of Texas:,Houston,4859,21,0,3,NA,5,13,311,21,288,2,1
+TEXAS,University of Texas:,Medical Branch,3211,0,0,0,NA,0,0,114,0,109,5,0
+TEXAS,University of Texas:,Permian Basin,5560,0,0,0,NA,0,0,22,7,12,3,0
+TEXAS,University of Texas:,San Antonio,28628,4,0,3,NA,1,0,128,6,115,7,0
+TEXAS,University of Texas:,Southwestern Medical School,2341,4,0,0,NA,1,3,130,17,109,4,0
+TEXAS,University of Texas:,Tyler,8036,0,0,0,NA,0,0,42,9,32,1,0
+TEXAS,West Texas A&M University,NA,8972,3,0,3,NA,0,0,71,21,49,1,0
+UTAH,Brigham Young University,NA,30484,1,0,1,NA,0,0,148,9,135,4,0
+UTAH,Snow College,NA,4779,1,0,NA,0,0,1,18,1,15,2,0
+UTAH,Southern Utah University,NA,7656,1,0,1,NA,0,0,27,7,19,1,1
+UTAH,University of Utah,NA,31515,12,0,NA,4,0,8,506,42,435,29,1
+UTAH,Utah State University,Eastern6,NA,0,0,NA,0,0,0,47,2,45,0,0
+UTAH,Utah Valley University,NA,31332,1,0,NA,0,1,0,76,5,69,2,0
+UTAH,Weber State University,NA,25954,1,0,NA,0,0,1,55,4,50,1,0
+VERMONT,University of Vermont,NA,12856,3,0,2,NA,0,1,176,15,161,0,2
+VIRGINIA,Bridgewater College,NA,1785,0,0,0,NA,0,0,15,4,10,1,0
+VIRGINIA,Christopher Newport University,NA,5221,3,0,1,NA,0,2,152,4,146,2,0
+VIRGINIA,College of William and Mary,NA,8437,3,0,3,NA,0,0,167,10,156,1,0
+VIRGINIA,Eastern Virginia Medical School,NA,1049,0,0,0,NA,0,0,28,1,27,0,0
+VIRGINIA,Emory and Henry College,NA,1038,0,0,0,NA,0,0,0,0,0,0,0
+VIRGINIA,Ferrum College,NA,1451,2,0,0,NA,0,2,17,1,16,0,0
+VIRGINIA,George Mason University,NA,33729,8,0,4,NA,2,2,148,7,139,2,3
+VIRGINIA,Hampton University,NA,4393,2,0,1,NA,1,0,50,14,36,0,0
+VIRGINIA,James Madison University,NA,20855,2,0,0,NA,1,1,110,10,98,2,1
+VIRGINIA,J. Sargeant Reynolds Community College,NA,11861,1,0,0,NA,0,1,27,0,27,0,0
+VIRGINIA,Longwood University,NA,5096,6,0,5,NA,0,1,47,8,38,1,0
+VIRGINIA,Lord Fairfax Community College,NA,6996,0,0,0,NA,0,0,0,0,0,0,0
+VIRGINIA,Norfolk State University,NA,6027,0,0,0,NA,0,0,17,1,13,3,5
+VIRGINIA,Northern Virginia Community College,NA,51487,1,0,0,NA,0,1,56,1,55,0,0
+VIRGINIA,Old Dominion University,NA,24932,19,0,4,NA,5,10,258,9,246,3,0
+VIRGINIA,Radford University,NA,9798,9,0,7,NA,2,0,83,3,80,0,6
+VIRGINIA,Richard Bland College,NA,1525,2,0,2,NA,0,0,20,3,17,0,0
+VIRGINIA,University of Richmond,NA,4182,7,0,7,NA,0,0,109,20,84,5,3
+VIRGINIA,University of Virginia,NA,23732,10,0,1,NA,3,6,189,30,157,2,0
+VIRGINIA,University of Virginia's College at Wise,NA,2183,0,0,0,NA,0,0,19,6,13,0,0
+VIRGINIA,Virginia Commonwealth University,NA,30848,14,0,3,NA,3,8,447,14,426,7,1
+VIRGINIA,Virginia Military Institute,NA,1700,0,0,0,NA,0,0,31,12,19,0,0
+VIRGINIA,Virginia Polytechnic Institute and State University,NA,31224,7,0,4,NA,1,2,168,34,131,3,1
+VIRGINIA,Virginia State University,NA,5025,11,0,2,NA,4,5,78,21,55,2,0
+VIRGINIA,Virginia Western Community College,NA,8632,0,0,0,NA,0,0,2,0,2,0,0
+WASHINGTON,Central Washington University,NA,11799,8,0,7,NA,1,0,96,6,85,5,0
+WASHINGTON,Eastern Washington University,NA,13453,6,0,5,NA,1,0,63,17,43,3,1
+WASHINGTON,Evergreen State College,NA,4219,4,0,4,NA,0,0,104,19,80,5,0
+WASHINGTON,University of Washington,NA,44784,7,0,3,NA,2,2,670,38,620,12,1
+WASHINGTON,Washington State University:,Pullman,28686,8,0,6,NA,1,1,175,28,144,3,1
+WASHINGTON,Washington State University:,Vancouver6,NA,0,0,0,NA,0,0,12,1,11,0,0
+WASHINGTON,Western Washington University,NA,15060,3,0,1,NA,1,1,127,11,114,2,0
+WEST VIRGINIA,Potomac State College,NA,1540,3,0,0,NA,0,3,4,3,1,0,0
+WEST VIRGINIA,Shepherd University,NA,4041,3,0,3,NA,0,0,12,1,11,0,0
+WEST VIRGINIA,West Virginia State University,NA,2884,2,0,2,NA,0,0,29,5,22,2,1
+WEST VIRGINIA,West Virginia Tech,NA,1261,1,0,0,NA,0,1,5,1,4,0,0
+WEST VIRGINIA,West Virginia University,NA,29175,22,0,2,NA,2,18,102,7,94,1,0
+WISCONSIN,University of Wisconsin:,Eau Claire,10721,0,0,NA,0,0,0,83,0,83,0,0
+WISCONSIN,University of Wisconsin:,Green Bay,6927,1,1,NA,0,0,0,12,0,12,0,0
+WISCONSIN,University of Wisconsin:,La Crosse,10669,1,0,NA,1,0,0,79,0,79,0,0
+WISCONSIN,University of Wisconsin:,Madison,42598,7,0,NA,3,1,3,244,18,225,1,0
+WISCONSIN,University of Wisconsin:,Milwaukee,27596,5,0,NA,4,1,0,181,17,164,0,1
+WISCONSIN,University of Wisconsin:,Oshkosh,14541,7,0,NA,7,0,0,63,5,58,0,5
+WISCONSIN,University of Wisconsin:,Parkside,4543,0,0,NA,0,0,0,23,4,19,0,0
+WISCONSIN,University of Wisconsin:,Platteville,8901,5,0,5,NA,0,0,58,5,52,1,0
+WISCONSIN,University of Wisconsin:,River Falls,6198,1,0,1,NA,0,0,55,3,51,1,1
+WISCONSIN,University of Wisconsin:,Stevens Point,9330,1,0,NA,1,0,0,47,1,46,0,1
+WISCONSIN,University of Wisconsin:,Stout,9394,5,0,NA,3,0,2,70,8,62,0,0
+WISCONSIN,University of Wisconsin:,Superior,2600,0,0,NA,0,0,0,16,0,15,1,0
+WISCONSIN,University of Wisconsin:,Whitewater,12176,3,0,NA,1,1,1,62,9,51,2,0
+WYOMING,Northern Wyoming Community College District,NA,4374,3,0,1,NA,0,2,1,0,1,0,0
+WYOMING,University of Wyoming,NA,12820,1,0,0,NA,0,1,156,11,144,1,0
