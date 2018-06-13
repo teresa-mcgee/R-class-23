@@ -30,7 +30,7 @@ data(primers)
 
 ## Contributing
 
-See [CONTRIBUTING.md](rclass/CONTRIBUTING.md) for instructions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
 
 ## Plotting lectures
 Different small groups have used different methods for teaching plotting. Here is the list of available plotting lectures with a summary of each. 
