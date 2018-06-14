@@ -1,0 +1,138 @@
+---
+title: "HTLTC-R: Plotting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Plotting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+```
+
+### Using this document
+
+* Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
+* \# indicates a comment, and anything after a comment will not be evaluated in R
+* The comments beginning with \#\# under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
+* While you can copy and paste code into R, you will learn faster if you type out the commands yourself. 
+* Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
+
+### Goals
+1. Understand the basics of the graphics system
+2. Know the different plotting regions
+3. Know the different coordinate systems
+4. Learn the basic graphics tools to draw & annotate custom plots
+
+### The R graphics system
+
+R has two engines for graphing: the *graphics* engine and the *grid* engine. The grid engine is arguably more flexible, but also more complicated. In this class we will only discuss the graphics engine. Before we start discussing the details of the engine, we will illustrate some of the basic plotting functionality. The most common starting for a plot is calling the `plot` function. This function is essentially a wrapper for MANY functions that give you an easy way to make a very basic plot. 
+
+```{r,fig.width=4,fig.height=3,fig.align='center'}
+plot(0)
+```
+
+The `plot` function will take many data types and structures, and will produce different plots based on the input. 
+
+```{r,fig.show='hold',fig.width=3.4}
+plot(matrix(1:10, ncol = 2)) # scatterplot
+plot(data.frame(rep(letters[1:5], each = 2), 1:10)) # boxplot
+```
+
+There are many guides on how to change the parameters of `plot`, as well as other high-level functions like `barplot`, `boxplot`, `hist`, etc. A good first step is to read through `?plot`. Rather than belabor lists of arguments, we will discuss the fundamentals of the grahics system. 
+
+### Plotting devices
+
+Both the graphics and the grid system start with the generation of a plotting device. The creation and management of devices are controlled by the `dev.*` functions. In addition to the `dev.*` functions there are many special device functions (`pdf`, `png`, etc.) that open a device and write directly to a file. Note: when using one of the special graphics drivers none of the graphics are shown until the device is closed and the generated file is opened. Using these device calls will allow generating high-quality manuscript-ready figures. At any time we can look at the open devices using `dev.list()` and `dev.cur()`.
+
+```{r,echo=-1}
+invisible(dev.off(2))
+# We start with no open devices
+dev.list()
+dev.cur() # lists the active device, here null because no device open
+pdf() # open a new pdf device
+dev.list() # 1 is not shown, but always represents the null device
+dev.cur()
+pdf()
+dev.list()
+dev.cur()
+dev.set(2)
+dev.cur()
+dev.off(2); dev.off(3)
+```
+
+With the exception of `dev.list`, the value returned by the `dev.` functions is the current device after the function call. We can see opening and closing devices change the current device. 
+
+### Drawing regions
+
+The next step in the process is to define the drawing regions. The drawing regions are set by calling `plot.new()`. `plot.new()` establishes the drawing regions in the device based on the current settings of `par()`. The `par()` function stores the current plotting parameters. Reading `?par` is incredibly valuable. Here, we will only go over a select number of the plotting parameters. Running `par()` returns a named list with one element per parameter.
+
+```{r}
+length(par()) # There are MANY parameters
+# Easiest to call the parameter of interest by name, here we are just
+# telling R to subset the returned list with the `$` operator.
+par()$mar 
+# The values for parameters can be changed by setting them within the
+# function.
+par(mar = c(1, 1, 1, 1))
+par()$mar
+```
+
+`par()` controls everything from default colors and plotting symbols to the style of the default axes. Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
+
+```{r,echo=FALSE,fig.width=4,fig.height=3,fig.align='center'}
+line2user <- function(line, side) {
+  lh <- par('cin')[2] * par('cex') * par('lheight')
+  x_off <- diff(grconvertX(c(0, lh), 'inches', 'npc'))
+  y_off <- diff(grconvertY(c(0, lh), 'inches', 'npc'))
+  switch(side,
+         `1` = grconvertY(-line * y_off, 'npc', 'user'),
+         `2` = grconvertX(-line * x_off, 'npc', 'user'),
+         `3` = grconvertY(1 + line * y_off, 'npc', 'user'),
+         `4` = grconvertX(1 + line * x_off, 'npc', 'user'),
+         stop("Side must be 1, 2, 3, or 4", call.=FALSE))
+}
+labelLines <- function(outer = FALSE) {
+  if (outer) {
+    col <- "darkgreen"
+    p <- "oma"
+  } else {
+    col <- "darkred"
+    p <- "mar"
+  }
+  nline <- par()[[p]]
+  side <- unlist(mapply(rep, 1:4, each = nline))
+  line <- unlist(sapply(nline - 1, seq, from = 0))
+  txt <- paste0("Line", line)
+  mtext(txt, side, line, col = col, outer = outer)
+}
+setupPlot <- function(log = "", label.lines = FALSE) {
+  par(mar = c(2, 5, 2, 2), oma = c(2, 5, 2, 2))
+  plot.new()
+  plot.window(xlim = c(1, 10), ylim = c(1, 10), log = log)
+  box(which = "plot", lwd = 2, col = "gray40")
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(which = "outer", lwd = 4, col = "darkgreen")
+  if (label.lines) {
+    labelLines()
+    labelLines(TRUE)
+  } else {
+    mtext(side = 3, text = "Plot region", line = -1.5, col = "gray40")
+    mtext(side = 3, text = "Figure region", line = 0.5, col = "darkred")
+    mtext(side = 3, text = "Device region", line = 2.5, col = "darkgreen")
+  }
+}
+setupPlot()
+```
+
+
+The device region is simply the device we are plotting in -- controlled by the size of the device. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the `width` and `height` parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both `oma` and `mar` to `c(2, 5, 2, 2)`.
+
+```{r,echo=FALSE,fig.width=4,fig.height=3,fig.align='center'}
+setupPlot(label.lines = TRUE)
+```
+
+
+
+### Exercises
