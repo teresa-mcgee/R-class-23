@@ -444,6 +444,8 @@ hist, barplot, boxplot, pairs
 
 mention how to store the output, such that you know the coordinates
 
+follow up
+
 ### Exercises -- Dayne
 
 1. Create a ruler
