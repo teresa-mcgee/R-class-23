@@ -79,9 +79,9 @@ par(mar = c(1, 1, 1, 1))
 par()$mar
 ```
 
-`par()` controls everything from default colors and plotting symbols to the style of the default axes. Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
+`par()` controls everything from default colors and plotting symbols to the style of the default axes. ***It is important to understand that everytime a new device is created `par()` is reset to the defaults.*** Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
 
-```{r,echo=FALSE,fig.width=4,fig.height=3,fig.align='center'}
+```{r,echo=FALSE}
 line2user <- function(line, side) {
   lh <- par('cin')[2] * par('cex') * par('lheight')
   x_off <- diff(grconvertX(c(0, lh), 'inches', 'npc'))
@@ -93,27 +93,38 @@ line2user <- function(line, side) {
          `4` = grconvertX(1 + line * x_off, 'npc', 'user'),
          stop("Side must be 1, 2, 3, or 4", call.=FALSE))
 }
-labelLines <- function(outer = FALSE) {
+col2alpha <- function(col, alpha = 0.5) {
+  tmp <- col2rgb(col)
+  rgb(tmp[1]/255, tmp[2]/255, tmp[3]/255, alpha)  
+}
+labelLines <- function(outer = FALSE, alpha = 1) {
+  opar <- par(no.readonly = TRUE)
+  on.exit(par(opar))
+  par(xpd = NA, lty = 3)
   if (outer) {
-    col <- "darkgreen"
+    par(col = col2alpha("darkgreen", alpha))
     p <- "oma"
+    a <- par()$mar
   } else {
-    col <- "darkred"
+    par(col = col2alpha("darkred", alpha))
     p <- "mar"
+    a <- rep(0, 4)
   }
   nline <- par()[[p]]
   side <- unlist(mapply(rep, 1:4, each = nline))
-  line <- unlist(sapply(nline - 1, seq, from = 0))
+  line <- unlist(sapply(nline, seq)) - 1
   txt <- paste0("Line", line)
-  mtext(txt, side, line, col = col, outer = outer)
+  mtext(txt, side, line, outer = outer)
+  mtext(paste0("Side", 1:4), 1:4, -1, col = col2alpha("gray40", alpha))
+  abline(h = line2user(0:nline[1] + a[1], 1))
+  abline(v = line2user(0:nline[2] + a[2], 2))
+  abline(h = line2user(0:nline[3] + a[3], 3))
+  abline(v = line2user(0:nline[4] + a[4], 4))
 }
-setupPlot <- function(log = "", label.lines = FALSE) {
+setupPlot <- function(label.lines = FALSE) {
   par(mar = c(2, 5, 2, 2), oma = c(2, 5, 2, 2))
   plot.new()
-  plot.window(xlim = c(1, 10), ylim = c(1, 10), log = log)
-  box(which = "plot", lwd = 2, col = "gray40")
-  box(which = "figure", lwd = 2, col = "darkred")
-  box(which = "outer", lwd = 4, col = "darkgreen")
+  plot.window(xlim = c(1, 10), ylim = c(1, 10))
   if (label.lines) {
     labelLines()
     labelLines(TRUE)
@@ -122,17 +133,168 @@ setupPlot <- function(log = "", label.lines = FALSE) {
     mtext(side = 3, text = "Figure region", line = 0.5, col = "darkred")
     mtext(side = 3, text = "Device region", line = 2.5, col = "darkgreen")
   }
+  box(which = "plot", lwd = 2, col = "gray40")
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(which = "outer", lwd = 4, col = "darkgreen")
 }
+```
+```{r,echo=FALSE,fig.width=6,fig.height=4.5,fig.align='center'}
 setupPlot()
 ```
 
 
 The device region is simply the device we are plotting in -- controlled by the size of the device. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the `width` and `height` parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both `oma` and `mar` to `c(2, 5, 2, 2)`.
 
-```{r,echo=FALSE,fig.width=4,fig.height=3,fig.align='center'}
-setupPlot(label.lines = TRUE)
+```{r,echo=FALSE,fig.width=6,fig.height=4.5,fig.align='center'}
+setupPlot(TRUE)
 ```
 
+The above plot is key in understanding how to draw things within the graphics engine. Many of the drawing functions rely on specifying the side, line, and whether to draw in the outer margins. Notice the "0" line rests on the interior drawing region, eg. the inner line 0 rests on the plotting region and the outer line 0 rests on the figure region. Here the text is drawn such that it is justfied above the line. 
 
+By default, `par()$oma = c(0, 0, 0, 0)` -- meaning that R does not typically include any outer margins and the figure region fills the whole device. We can think of the plotting region as the space where the data goes, and the figure margin space as where we draw the axes, axis labels, title, etc. WHen using the high-level plotting functions, such as `plot`, R will define the scale of the plotting region based on the supplied data. Here the scale means what values fit into the x and y axes, eg. x ranges from 0 to 100 and y ranges from 5 to 6. Only data within the scale of the plotting region will be included (unless we tell R otherwise -- more on that later). The scale of the plotting region is stored by `usr`. Now we will go through the first couple steps of constructing a plot from scratch, tracking how each step effects `par()$usr`. 
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+# usr is c(x-min, x-max, y-min, y-max)
+par()$usr # c(0, 1, 0, 1) by default
+plot.new() # setup a new plot 
+par()$usr
+plot.window(xlim = c(0, 100), ylim = c(5, 6))
+par()$usr
+# Note the default margins
+labelLines(alpha = 0.5) # custom function for illustration (ignore)
+par()$mar
+```
+
+First note you do not need to call a new device manually, `plot.new` will handle that for you. Second, note that `plot.window` behaves differently than setting `usr` directly with `par`. Using `plot.window` adds 4\% to the given range (the default behavior). When using `plot`, R finds the range of the given data and adds 4\%. Here we can see the span of 5 and 6 is 1, so 0.04 is added and subtracted giving the final `usr` values. 
+
+### Drawing in graphics
+
+Now that we have the ability to call a new device define the drawing regions, we will discuss how to draw the plot elements in the device. Both the graphics and grid engines use follow a paint-like system for drawing. Each addition to the device is "painted" on, meaning that the first of overlapping drawings will be covered by subsequent drawings. The following code illustrates this.
+
+```{r,fig.width=6,fig.height=4,fig.align='center'}
+plot.new()
+par(mar = rep(0, 4), usr = c(0, 3, 0, 2))
+polygon(x = c(0.9, 0.9,  1.1, 1.1), 
+        y = c(0.9, 1.1,  1.1, 0.9),
+        col = col2alpha("darkblue", 0.5),
+        border = NA)
+polygon(x = c(0.6, 0.6,  1.4, 1.4), 
+        y = c(0.6, 1.4,  1.4, 0.6),
+        col = col2alpha("darkred", 0.5),
+        border = NA)
+polygon(x = c(0.9, 0.9,  1.1, 1.1) + 1, 
+        y = c(0.9, 1.1,  1.1, 0.9),
+        col = "darkblue",
+        border = NA)
+polygon(x = c(0.6, 0.6,  1.4, 1.4) + 1, 
+        y = c(0.6, 1.4,  1.4, 0.6),
+        col = "darkred",
+        border = NA)
+```
+
+Here we use a custom function to make the colors transparent for the left squares, drawn by the function `polygon`. You can see R draws the blue square first, then the red square over the blue square. `polygon` works by drawing a polygon with vertices at the given x and y cooridnates. Note that `polygon` will complete the path to the starting point, ie. we did not need to add the starting point at the end of each vector. (We chose to use `par` to set the scale of the plotting region without margins, so that we could specify the device size -- 6\"x4\" -- such that the drawings were exactly square.) 
+
+We will now go through the functions needed to add the common plot elements, discussing how to customize each element. Consider the following plot:
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+x <- seq(0, 100, length.out = 10)
+y <- seq(5, 6,   length.out = 10)
+plot.new()
+plot.window(xlim = c(0, 100), ylim = c(5, 6))
+box() # Draws the outer frame
+axis(side = 1) # Draws the x-axis (recall the side definitions!)
+axis(side = 2) 
+mtext(side = 1, "x-axis", line = 3) # Draws text in the margin 
+mtext(side = 2, "y-axis", line = 3) 
+title(main = "A plot to learn from") # Draws the title
+points(x = x, y = y) # Draw points on the plot
+legend(x = "topleft", legend = "Some data", pch = 1) # Finally, draw a legend
+```
+
+First note, the above plot (excluding the legend) can be created using the `plot` command:
+
+```{r,eval=FALSE}
+plot(x = x, y = y, 
+     xlab = "x-axis", 
+     ylab = "y-axis", 
+     main = "A plot to learn from")
+```
+
+However, we want to understand the individual components so that we can easily customize the plot to prepare manuscript-ready figures without any manual manipulation. 
+
+Keep in mind there are many ways to skin a cat! We will use `x` and `y` as defined above and initiate each plot with `plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")`. This is a shortcut to calling `plot.new` and then `plot.window`. The call to `plot` says plot this data with no annotations (axis labels or title), no axes, and with type "n" (meaning don't draw the points, either). Note, the `axes = FALSE` also suppresses the plot frame. It saves a couple lines of code and does the dirty work of defining the scale of the plotting region for us. Best of all, it demonstrates another way to accomplish the same task. For each of the following sections we will discuss one aspect of the plot. For each function we encourage reading the help page. 
+
+### Plot frame
+
+To frame or not to frame? As mentioned above, setting `axes = FALSE` when calling `plot` suppresses the plotting frame. Some people like include a frame around the plot, others do not. When starting with a blank canvas the `box` function draws a frame around the plotting region.
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+par(oma = rep(1, 4))
+plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
+box() # default, which = "plot"
+box(which = "inner", col = "red")
+box(which = "outer", col = "blue")
+```
+
+By default, `box` draws a frame around the figure region. Here we see it can also draw frames around the figure and device regions. Notice the blue line (device region) is half as thick as the others -- this occurs because the line is drawn on the border, so half of the line is off the device. One way to remedy this is by changing the line thickness, controlled by the parameter `lwd`, eg. `box(which = "outer", col = "blue", lwd = 2)`.
+
+### Axes
+
+The default position of the axes is controlled by the `mgp` setting, which specifies the margin line location for the axis title, tick labels, and axis line, respectively. By default `mgp` is `c(3, 1, 0)`. This gives some insight as to why the default margin sizes are `c(5, 4, 4, 2) + 0.1`. R leaves room for axes on the bottom and left sides (sides 1 and 2, respectively). There is additional room left on the bottom for a subtitle, and room left on the top for the title. We draw axes with the `axis` function, which allows you to override any of the defaults. Consider the following: 
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
+box()
+axis(side = 1, line = 1)
+axis(side = 2, line = 1)
+```
+
+We used the `line` parameter to override the default axis location, drawing the axis at margin line 1 rather than 0. Suppose we want a plot where the x and y axes lay on the 0 lines rather than the edge of the plot. Here we need to use the `pos` parameter. We do not know which `line` represents the center of the plot, but `pos` takes values in the plotting region. Note, specifying `pos` overrides any specification of `line`.
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+plot(x = -5:5, y = -5:5, ann = FALSE, axes = FALSE, type = "n")
+axis(side = 1, pos = 0, line = 0) # this shows how pos overrides line
+axis(side = 2, pos = 0)
+```
+
+Now the axes are where we want, but the ticks and labels still need work. 
+
+```{r,fig.width=4.5,fig.height=4.5,fig.align='center'}
+par(mar = rep(0, 4))
+plot(x = -5:5, y = -5:5, ann = FALSE, axes = FALSE, type = "n")
+loc <- c(-5:-1, 1:5)
+lbl <- c(-5, rep("", 8), 5)
+axis(side = 1, pos = 0, at = loc, labels = NA, tcl = 0.5)
+axis(side = 2, pos = 0, at = loc, labels = NA, tcl = 0.5)
+axis(side = 1, pos = 0, at = loc, cex.axis = 0.75, labels = lbl)
+axis(side = 2, pos = 0, at = loc, cex.axis = 0.75, labels = lbl, las = 2)
+```
+
+The `axis` function only draws tick marks on one side of the axis. The length of the tick marks is controlled by `tcl`, which specifies the length as a fraction of the height of a line of text. The default is -0.5, meaning draw a half-character height tick mark away from the plotting region. Here we used two calls to `axis` for each axis to create ticks that point in both directions. We also specified the tick locations with `at` and the tick labels with `labels`. The label sizes are controlled by `cex.axis` and the y-axis labels were rotated with `las`. Again, it is really helpful to read `?par` to better understand each of these settings. `cex` controls text size, specifying how much the "plotting text and symbols should be magnified relative to the default". Here, `cex.axis` is a special setting which only affects the axis label text. 
+
+### Titles
+
+Titles are most simply drawn with the `title` function.
+
+```{r,fig.width=4.5,fig.height=4.5,fig.align='center'}
+par(mar = c(5, 4, 8, 2) + 0.1)
+# bty = "n" suppresses the frame; read ?par for more info!
+plot(x = x, y = y, ann = FALSE, bty = "n", type = "n")
+labelLines(alpha = 0.2)
+title(main = "Title w/\n2 lines", xlab = "x", ylab = "y", sub = "Sub title")
+```
+
+Notice in "A plot to learn from" we used `mtext` in place of `title` to draw the axis titles. We can think of `title`  as making calls to `mtext` to specify the axis titles and the subtitle (although not technically true). Again, the location of the axis titles is controlled by `mgp[1]`, and the location of the subtitle defaults to `mgp[1] + 1` (which is why the default bottom margin has 1 more line than the default left margin!). We see the the position of the main title is centered in the top margin space. The main title can be moved to the outer margins by setting `outer = TRUE`. 
+
+### Adding data
+
+As with `title` and `mtext`, we can think of `plot` calling another function -- `points` -- to draw the data (again, technically not true, but useful to conceptualize the plotting). 
+
+### Other objects
+
+### plotmath
+
+We will not discuss the details of using plotmat, but it is helpful to know it exists.
 
 ### Exercises
+
