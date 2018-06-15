@@ -409,6 +409,11 @@ polypath(x = c(2, 2, 6, 6, NA, 3, 6, 4),
 Text alignment 
 Identify function
 
+```{r}
+plot.new()
+```
+
+
 ### Colors in R? -- Siyao
 
 ### Coordinate systems -- Dayne
