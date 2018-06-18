@@ -13,7 +13,7 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Spencer Nystrom",
                     role = c("aut"))) 
 Description: Add later
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 LazyData: true
