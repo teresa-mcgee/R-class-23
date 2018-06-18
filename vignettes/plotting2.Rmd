@@ -414,184 +414,68 @@ plot.new()
 ```
 
 
-### Colors in R? -- Siyao
+### Colors
 
-In this section, we will briefly talk about the color basics in R, and then introduce a couple of popular and useful color packages that generate sets of colors. 
-
-First, let's start off by looking at what colors are available in R? The `colors()` function (or `colours()`) provides the names of all 657 colors built-in colors in R.
+In this section, we will briefly talk about the color basics, and then introduce a couple of popular and useful color packages that generate sets of colors. First, we will explore the colors built into R. R recognizes 657 named colors which are returned by the `colors()` (or `colours()`) function.
 
 ```{r}
-head(colors()) #or colours()
-tail(colors()) 
+head(colors()) 
+tail(colors())
 ```
 
-This is probably the easiest way to specify a color in R is: using the color's name. An excellent reference for color names: http://research.stowers.org/mcm/efg/R/Color/Chart/ColorChart.pdf
+Using the named colors is the easiest ways to specify a color in R. An excellent reference for color names: http://research.stowers.org/mcm/efg/R/Color/Chart/ColorChart.pdf
 
-What about other ways to specify colors?
-
-You can also use the `rgb()` function (a Red-Green-Blue (RGB) triplet of intensities) to specify colors. The function `col2rgb()` can be used to see the RGB values. 
+What about other ways to specify colors? In addition to the named colors, R accepts hexadecimal colors of the form "#RRGGBB" where each pair "RR", "GG", and "BB" consist of two hexadecimal digits giving a value in the range zero (00) to 255 (FF). The "RR", "GG", and "BB" refer to color intensity in the red, green, and blue channels, respectively. R provides two functions, (1) `rgb()` and (2) `col2rgb()` to work with the red-green-blue scale. By default, `rgb` returns the hexadecimal color based on the given red, green, and blue scales from 0 to 1. `rgb` will take values from 0 to 255 if we specify *`maxColorValue = 255`*. `col2rgb` takes either an integer or named color and returns the rgb values from 0 to 255. Unfortunately, these functions do not play nice together.
 
 ```{r}
+rgb(red = 255, green = 0, blue = 0, maxColorValue = 255)
 col2rgb("red")
+col2rgb(2)
+col2rgb(1:8)
+rgb(t(col2rgb(1:8)), maxColorValue = 255) # rgb will take a matrix, but 
 ```
 
-Instead of specifying colors by their color names (small positive integers and Crayola-style names), another way to specify a color is to give an RGB color specification by providing a string of the form __"#RRGGBB"__, where it starts with the leading `#` is by convention, and each of the pairs __RR__, __GG__, __BB__ consist of two hexadecimal digits giving a value in the range zero (00) to 255 (FF). The `RR`, `GG`, and `BB` refer to color intensity in the red, green, and blue channels, respectively. This is also called __"hexadecimal RGB color specification"__. In this specification, the color red is given as "#FF0000". 
+Notice that `col2rgb` returns an RGB by input matrix, but `rgb` requires an input by RGB matrix. The RGB color model corresponds to color generation on a computer screen rather than human color perception, and it is virtually impossible for humans to control the perceptual properties of a color in this color space. R also provides the `hcl` function to specify colors in the hue-chroma-luminance model, which can be more intuitive.
 
-The __RGB color models__ corresponds to color generation on a computer screen rather than human color perception, and it is virtually impossible for humans to control the perceptual properties of a color in this color space.
-
-So, other than the __RGB color models__, are there any other color models that are good for perception? 
-
-Yes, but we will introduce the __Hue-Chroma-Luminance (HCL)-based model__ later when we talk about the add-on packages: __RColorBrewer__ palettes and __colorspace__ (Note: ggplot2 uses this color model too). 
-
+By default, R has a palette of colors, returned by the `palette` function. We can specify colors by integer, giving the index in the current palette. Note, these colors are repeated if the integer given is greater than the size of the palette. 
 One final way to specify a color is to index an integer into a predefined set of colors using the `palette()` function:
 
-```{r}
+```{r,fig.width=6,fig.height=1.5,fig.align='center'}
 palette()
+par(mar = rep(0.5, 4))
+barplot(rep(1, 8), col = 1:8, ann = FALSE, axes = FALSE)
 ```
 
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-#barplot(rep(1,8), yaxt="n", col=1:8)
-#barplot(rep(1,8), yaxt="n", col=c("black", "red","green3", "blue", "cyan","magenta", "yellow","gray"))
-barplot(rep(1,8), yaxt="n", col=palette())
+We can also change the palette using `palette`:
+
+```{r,fig.width=6,fig.height=1.5,fig.align='center'}
+palette(rainbow(8))
+par(mar = rep(0.5, 4))
+barplot(rep(1, 8), col = 1:8, ann = FALSE, axes = FALSE)
 ```
 
-You can also recycle the colors if needed:
+`rainbow` is a built in color ramping function. R has two types of color ramping functions: (1) a function that takes values between 0 and 1 and returns a matrix of RGB values, used less often and (2) a function that takes an integer, n, and returns n hexadecimal colors. `rainbow` is the second type. Below we see we can specify 100 colors, and `rainbow` will return 100 colors equally spaced along ROY-G-BIV. 
 
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-# colors are "recycled" if necessary
-barplot(rep(1,24),col=1:24, yaxt="n")
+```{r,fig.width=6,fig.height=1.5,fig.align='center'}
+palette(rainbow(100))
+par(mar = rep(0.5, 4))
+barplot(rep(1, 100), col = 1:100, ann = FALSE, axes = FALSE)
 ```
 
-In summary, R colors can be specified by:
+R provides two functions for creating custom palettes. For type (1) we can use `colorRamp`, and for type (2) we can use `colorRampPalette`. These functions return functions, that we will store and use. Here, we will create a blue-gray-red "diverging" palette. 
 
-* color name
-
-* hex constant (24-bit "True Color": 256^3 colors = 16,777,216 colors)
-
-* index into palette
-
-However, not everyone is good at picking colors (or has time to tinker with colors) for their figures. We can use the base R function `rainbow()` to generate sets of colors by specifying the number of colors:
-
-```{r}
-rainbow(12)
+```{r,fig.width=6,fig.height=1.5,fig.align='center'}
+grayPal <- colorRampPalette(c("darkblue", "gray80", "darkred"), bias = 0.5)
+palette(grayPal(30))
+par(mar = rep(0.5, 4))
+barplot(rep(1, 30), col = 1:30, ann = FALSE, axes = FALSE)
 ```
 
-To visualize the 12 rainbow colors in a pie chart:
+Note the *`bias`* parameter changes the palette center, which would be grey at the default *`bias`* value of 1. Creating custom palettes can be daunting. We suggest using the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) and [colorspace](https://cran.r-project.org/web/packages/colorspace/) packages, which both provide functionality for creating visually appealing and colorblind-safe palettes. More information about the packages is available as a supplemental vignette in this package called "palettes". 
 
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-## convenience demo functions
-wheel <- function(col, radius = 1, ...) {
-  pie(rep(1, length(col)), col = col, radius = radius, ...)
-}
-##conventional rainbow color wheel
-wheel(rainbow(12))
-```
+We yield to Edward Tufte for some final thoughts on using color in visualizing data[^2].
 
-Many add-on packages have been developed to help users generate sets of colors. For example:
-
-The __RColorBrewer__ package [ColorBrewer](http://colorbrewer2.org/) developed by Cynthia Brewer, provides designed palettes of colors to use. 
-
-```{r}
-#install package
-#install.packages("RColorBrewer")
-#load package
-library(RColorBrewer)
-```
-
-Now, let's display the __ColorBrewer__ palettes:
-
-```{r, fig.width=8,fig.height=10, fig.align='center'}
-display.brewer.all()
-```
-
-There are three main classes of palettes in __RColorBrewer__:
-
-* Sequential: 
-    + useful for showing numerical values from low-to-high, where one is interesting and the other is not, e.g. p-values, correlations
-    + typical application: heatmap
-
-* Qualitative: 
-    + equal perceptual weight/importance
-    + useful for showing categories, groups. Special case: "Paired" palette is good for non-experimental factors (e.g. cell lines, strains of mice), or binary experiment factors (e.g. Treated Vs Non-treated)
-    + typical application: bar plot
-
-* Diverging: 
-    + similar to Sequential palette
-    + useful for showing values ranging from extreme negative to extreme positive by going through neutral (non-extreme & non-interesting) values, e.g. z-scores, t-statistics
-
-We can also see a single __RColorBrewer__ palette by defining the name and size of the palette using the `brewer.pal()`. For example, the following code selects "Dark2" palette that contains eight colors.
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-display.brewer.pal(n = 8, name = 'Dark2')
-```
-
-Another package to generate the sets of colors is the __colorspace__ package written by [Zeileis, et al](https://cran.r-project.org/web/packages/colorspace/vignettes/hcl-colors.pdf), which creates colors in a number of color spaces as well as functions to convert between color spaces. By contrast, the palettes in __RColorBrewer__ are fixed. 
-
-The three dimensions of the HCL color model:
-
-* Hue: "color or shade". $H \in [0,360]$
-
-* Chroma: "colorfulness, or intensity of color as compared to gray". $C \in [0,100]$
-
-* Luminance: "brightness", or amount of gray. $L \in [0,100]$
-
-```{r}
-#install.packages("colorspace")
-library(colorspace)
-```
-
-The `rainbow_hcl()` function provides a qualitative palette that is good for coding a categorical variable:
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-pal <- function(col, border = "light gray", ...) {
-  n <- length(col)
-  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
-       axes = FALSE, xlab = "", ylab = "", ...)
-  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-  }
-#pal(rainbow_hcl(4, start = 30, end = 300), main = "dynamic")
-## qualitative palette
-wheel(rainbow_hcl(12))
-```
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-## compare base and colorspace palettes
-par(mfrow = c(1, 2))
-## rainbow color wheel
-wheel(rainbow_hcl(12))
-wheel(rainbow(12))
-```
-
-The `sequential_hcl()` function provides a sequential palette that is good for coding numerical information that ranges in a certain interval (low values are considered to be uninteresting and high values are interesting). Below is an example of sequential palette that only varies luminance.
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-pal(sequential_hcl(12, c = 0, power = 2.2))
-#power control parameter determining how quickly or slowly chroma and/or luminance should be changed through the palette (1 = linear, 2 = quadratic, etc.).
-```
-
-The `diverge_hcl()` function provides a diverging palette that is also good for coding numerical information that ranges in a certain interval but with a neutral value. Below are examples for several diverging palettes that have different pairs of hues and decreasing luminance contrasts:
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-par(mar = rep(0, 4), mfrow = c(4, 1))
-## diverging red-blue colors
-pal(diverge_hcl(7))
-pal(diverge_hcl(7, c = 100, l = c(50, 90), power = 1))
-pal(diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
-## diverging cyan-magenta colors
-pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
-```
-
-Many R objects can take on different colors: points, lines, axes, text, legends, background. A simple example is given below using points:
-
-```{r, fig.width=6.5,fig.height=4.5, fig.align='center'}
-n = 12
-#n = 20
-plot(1:n, pch=CIRCLE<-16, cex=1:n, col=rainbow(n))
-```
-
-__Some guidelines/principles about using colors in data visualization:__
-
-Quotes from Edward Tufte:
+[^2]: Edward Tufte. _The Visual Display of Quantitative Information and Envisioning Information_, Graphics Press, PO Box 430, Cheshire, CT 06410.
 
 > The fundamental uses of color in information design (are): to label, to measure, to represent or imitate reality, to enliven or decorate. 
 
@@ -603,19 +487,7 @@ Quotes from Edward Tufte:
 
 > The primary colors (yellow, red, blue) and black provides maximum differentiation (no four colors differ more).
 
-> In color maps, use a single hue, Don't use up the entire color spectrum, or even all of a hue's levels. Particularly avoid Roy G. Biv (red, orange, yellow, green, blue, indigo, violet), the color spectrum of the rainbow. It's good physics, but poor human factors. Like all multi-hue color maps, the non-equidistant hue changes are perceived as especially important contours, which they usually are not. Furthermore, the lighter middle parts of the spectrum are often perceived as the higher values. Finally, one needs to constantly remind oneself which color means high vs. low values. Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
-
-References:
-
-* Jennifer Bryan et al, Stat 545A _Overview of using colors in R_. <https://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html>
-
-* Earl F. Glynn (Stowers Institute for Medical Research)
-
-* Edward Tufte. _The Visual Display of Quantitative Information and Envisioning Information_, Graphics Press, PO Box 430, Cheshire, CT 06410.
-
-* Achim Zeileis, Kurt Hornik, Paul Murrell (2009). Escaping RGBland: Selecting Colors for Statistical Graphics. Computational Statistics & Data Analysis, 53(9), 3259-3270. <doi:10.1016/j.csda.2008.11.033>
-
-* Ross Ihaka, Paul Murrell, Kurt Hornik, Jason C. Fisher, Achim Zeileis (2016). colorspace: Color Space Manipulation. R package version 1.3-2. <https://CRAN.R-project.org/package=colorspace>
+> In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
 
 ### Coordinate systems -- Dayne
 
