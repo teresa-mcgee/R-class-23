@@ -235,7 +235,7 @@ repeat {
 i
 ```
 
-Somtimes using a repeat-statement greatly simplifies the syntax over a while-statement. See exercise 4. Repeat statements also allow for much more complicated termination criteria, eg. there could be multiple break points, each with their own multivariable criteria. 
+Somtimes using a repeat-statement greatly simplifies the syntax over a while-statement. See exercise 5. Repeat statements also allow for much more complicated termination criteria, eg. there could be multiple break points, each with their own multivariable criteria. 
 
 ### Next
 
