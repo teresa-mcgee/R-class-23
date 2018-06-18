@@ -38,7 +38,7 @@ str(primers)
 
 There are 562 primers in the list, so if you wanted to find the length of all of them, you probably wouldn't want to count the length of each one by hand. Similarly, if you wanted to find the molecular weight of all of them, doing so by hand would be extremely time consuming. Control statements can help us make these tasks quicker. 
 
-#### For-loops
+### For-loops
 Each programming language has its own syntax for the different control statements. In R, you create a for-loop according to the following basic syntax:
 
 ```{r,eval=FALSE}
@@ -187,20 +187,6 @@ if (y < 100 && y > 10) {
 }
 ```
 
-
-### Exercises 
-
-These exercises are to help you solidify and expand on the information given above and in the supplemental material.  
-
-1. Write a for loop that prints the first 3 nucleotides of each primer. Hint: you might want to use the `substr()` function.
-
-2. Write a for loop that prints "primer is longer than 24 bases" if the primer is longer than 20 bases, "primer is exactly 24 bases" if the primer is 20 bases, and "primer is shorter than 24 bases" if the primer is shorter than 24 bases. 
-
-3. Write a for loop that prints "primer is between 20 and 24 bases" if the primer has 20 or more bases and 24 or fewer bases. 
-
-4. Challenge. Write a script that calculates the melting temperature (Tm) of each primer. For primers that are 13 bases or less the formula for Tm in Celcius is: $Tm= (A+T) * 2 + (G+C) * 4$, where A, T, G, and C represent the number of each base.  For primers that are 14 bases or more the formula for Tm in Celcius is: $Tm= 64.9 +41*(G+C-16.4)/(A+T+G+C)$. Refer to the example given in the supplemental material. Hint: the `str_count` function in the library `stringr` can be used to count the number of times a given letter appears in a string. To load the `stringr` library simply type `library(stringr)`. 
-
-### Supplemental Material
 ### While statements
 The final control statement we will discuss are while statements. Although while statements are rarely used in R, they are often used in other languages and are good to understand. The while syntax in R is:
 
@@ -223,27 +209,74 @@ while (val < 10) {
 
 If you omit the second part that updates `val` R would have printed `3` until you manually killed the process.
 
-### Combining control statements
-The following example combines for loops and if/else statements. Let's revisit our primer list example. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively. 
+### Repeat and break
+
+Repeat-statements are very similar to while-statements, but do not include the termination criteria in in the statement call. This amounts to a difference of when the criteria are checked. `while` always checks the criteria at the beginning of each call, but `repeat` allows the user to define when to check the criteria. `break` provides the necessary ability to terminate the repeat. 
+
+The repeat syntax in R is:
+
+```{r,eval=FALSE}
+repeat {
+  do something 
+  if (condition) break
+  update condition
+}
+```
+
+Suppose we want to find the first primer starting with C, and return it. 
+
 ```{r}
-masses <- numeric(length=length(primers$V1)) #make empty numeric vector with the same length as the primers vector
-for (i in 1:length(primers$V1)){
+i <- 1
+repeat {
+  startBase <- substr(x = primers$V1[i], start = 1, stop = 1)
+  if (startBase == "C") break
+  i <- i + 1
+}
+i
+```
+
+Somtimes using a repeat-statement greatly simplifies the syntax over a while-statement. See exercise 4. Repeat statements also allow for much more complicated termination criteria, eg. there could be multiple break points, each with their own multivariable criteria. 
+
+### Next
+
+Sometimes it is useful to skip iterations in loops without exiting the loop; `next` provides this functionality. The following shows how to use both `next` and `break` in a for-loop. 
+
+```{r}
+set.seed(1234)
+letterJumble <- sample(letters)
+for (i in letterJumble) {
+  if (i == "r") break
+  if (i > "r") next
+  print(i)
+}
+```
+
+First, we randomized the order of the letters using `sample` (setting the seed using `set.seed` just ensures the "random" sample is the same every time). Then we look loop through the letters printing the letters that come before "r" until we find "r". 
+
+### Combining control statements
+
+The following example combines for loops and if/else statements. Let's revisit our primer list example. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively.
+
+```{r}
+# make empty numeric vector with the same length as the primers vector
+masses <- numeric(length = length(primers$V1)) 
+for (i in 1:length(primers$V1)) {
   plen <- nchar(primers[i,1]) #get length of ith primer
-  pmass <- 0 #set mass of primer equal to zero
+  pmass <- 0 # set mass of primer equal to zero
   for (j in 1:plen){
-    l <- substr(primers[i,1],j,j) #get jth nucleic acid of ith primer
-    if (l=="C"){
+    l <- substr(primers[i,1], j, j) # get jth nucleic acid of ith primer
+    if (l == "C") {
       m <- 467.2
-    } else if (l=="A"){
+    } else if (l == "A") {
       m <- 491.2
-    } else if (l=="G"){
+    } else if (l == "G") {
       m <- 507.2
-    } else if (l=="T"){
+    } else if (l == "T") {
       m <- 482.2
-    } #get mass of jth nucleic acid of ith primer
-    pmass <- pmass+m #add mass of jth nucleic acid to the mass of the primer
+    } # get mass of jth nucleic acid of ith primer
+    pmass <- pmass + m #add mass of jth nucleic acid to the mass of the primer
   }
-  masses[i]<-pmass #store the mass of the ith primer in the vector "masses"
+  masses[i] <- pmass # store the mass of the ith primer in the vector "masses"
 }
 ```
 
@@ -251,3 +284,17 @@ You can now look at the results:
 ```{r}
 masses
 ```
+
+### Exercises 
+
+These exercises are to help you solidify and expand on the information given above and in the supplemental material.  
+
+1. Write a for loop that prints the first 3 nucleotides of each primer. Hint: you might want to use the `substr()` function.
+
+2. Write a for loop that prints "primer is longer than 24 bases" if the primer is longer than 20 bases, "primer is exactly 24 bases" if the primer is 20 bases, and "primer is shorter than 24 bases" if the primer is shorter than 24 bases. 
+
+3. Write a for loop that prints "primer is between 20 and 24 bases" if the primer has 20 or more bases and 24 or fewer bases. 
+
+4. Write a script that calculates the melting temperature ($T_m$) of each primer. For primers that are 13 bases or less the formula for $T_m$ in Celcius is: $T_m = (A + T)* 2 + (G + C)*4$, where A, T, G, and C represent the number of each base.  For primers that are 14 bases or more the formula for $T_m$ in Celcius is: $T_m = 64.9 + 41*(G + C - 16.4)/(A + T + G + C)$. 
+
+5. Write a while-loop that finds the first primer that starts with "C". Ensure it returns the same index as the repeat statement above.
