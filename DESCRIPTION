@@ -11,6 +11,8 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Sarah Taylor",
                     role = c("aut")),
              person("Spencer Nystrom",
+                    role = c("aut")),
+             person("Siyao Liu",
                     role = c("aut"))) 
 Description: Add later
 Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer
