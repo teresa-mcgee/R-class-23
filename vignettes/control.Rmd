@@ -90,7 +90,7 @@ The example above iterates first by row, then by column. In other words, start w
 Let's look at an example with our list of primers. We are interested in knowing the length of each of our primers. 
 
 ```{r}
-for (i in primers[1]) {
+for (i in primers[[1]]) { # could also use primers$V1 or other subsetting here
   print(nchar(i))
 }
 ```
@@ -101,8 +101,8 @@ This is helpful, but we might want to use this data later. To do so, we will wan
 
 ```{r}
 len <- numeric(length = length(primers$V1))
-for (i in 1:length(primers$V1)){
-  len[i] <- nchar(primers[i,1])
+for (i in 1:length(primers$V1)) {
+  len[i] <- nchar(primers[i, 1])
 }
 ```
 
@@ -261,10 +261,10 @@ The following example combines for loops and if/else statements. Let's revisit o
 # make empty numeric vector with the same length as the primers vector
 masses <- numeric(length = length(primers$V1)) 
 for (i in 1:length(primers$V1)) {
-  plen <- nchar(primers[i,1]) #get length of ith primer
+  plen <- nchar(primers[i, 1]) #get length of ith primer
   pmass <- 0 # set mass of primer equal to zero
-  for (j in 1:plen){
-    l <- substr(primers[i,1], j, j) # get jth nucleic acid of ith primer
+  for (j in 1:plen) {
+    l <- substr(primers[i, 1], j, j) # get jth nucleic acid of ith primer
     if (l == "C") {
       m <- 467.2
     } else if (l == "A") {
@@ -291,7 +291,7 @@ These exercises are to help you solidify and expand on the information given abo
 
 1. Write a for loop that prints the first 3 nucleotides of each primer. Hint: you might want to use the `substr()` function.
 
-2. Write a for loop that prints "primer is longer than 24 bases" if the primer is longer than 20 bases, "primer is exactly 24 bases" if the primer is 20 bases, and "primer is shorter than 24 bases" if the primer is shorter than 24 bases. 
+2. Write a for loop that prints "primer is longer than 24 bases" if the primer is longer than 24 bases, "primer is exactly 24 bases" if the primer is 24 bases, and "primer is shorter than 24 bases" if the primer is shorter than 24 bases. 
 
 3. Write a for loop that prints "primer is between 20 and 24 bases" if the primer has 20 or more bases and 24 or fewer bases. 
 
