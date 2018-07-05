@@ -513,6 +513,52 @@ There are multiple coordinate systems used by the graphics system, listed in the
 | "npc"     | Normalized plot coordinates with (0, 0) at bottom left of the plot           |
 | "nic"     | Normalized inner coordinates with (0, 0) at bottom left of the inner region  |
 
+We can convert x and y values between the different coordinate systems using the `grconvertX` and `grconvertY` functions, respectively. Note, for drawings with a single plotting region and no outer margins 'ndc', 'nfc' and 'nic' are identical. The following example comes from the R documentation for `grconvertX`:
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+plot(1:4)
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  print(grconvertX(c(1.0, 4.0), "user", tp))
+}
+```
+
+If we add another plotting region and outer margins the values change. 
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4)
+```
+```{r,echo=-c(1,2),fig.show='hide'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4)
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  print(grconvertX(c(1.0, 4.0), "user", tp))
+}
+```
+
+For the above plot, consider the locations of (0, 0) and (1, 1) is in each of the cooridnate systems.
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4, ann = FALSE, axes = FALSE, type = "n")
+box(col = "gray40")
+box(which = "figure", col = "darkred")
+box(which = "inner", col = "darkblue")
+box(which = "outer", col = "darkgreen")
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  mcol <- switch(tp,
+                 `in` = "darkorange2",
+                 `dev` = "purple3",
+                 `ndc` = "darkgreen",
+                 `nfc` = "darkred",
+                 `npc` = "gray40",
+                 `nic` = "darkblue")
+  points(x = grconvertX(0:1, tp, "user"), 
+        y = grconvertY(0:1, tp, "user"),
+        col = mcol, cex = 2, xpd = NA, pch = 16, type = "o", lty = "dashed")
+}
+```
+
 Consider the following example, where we determine the line location in user cooridnates. Recall, the size of the inner and outer margins are defined by the number of lines on each side of the plotting/figure regions, respectively. The number lines, here, refers to the number of lines of text that will fit. We can get the text height using the *`cin`*, *`cex`*, and *`lheight`* parameters stored in `par`. *`cin`* is a length two vector, defining the width and height (`[width, height]`) of a character in inches. *`cex`* provides the size multiplier. *`lheight`* defines the line height multiplier, or the spacing between lines of text. Therefore, we can get the height of a line (in inches) by multiplying the values:
 
 ```{r,fig.show='hide'}
@@ -522,13 +568,13 @@ par('cin')[2]*par('cex')*par('lheight')
 
 We can then convert that line height to 'npc' units, and finally to 'user' units. (Note: using 'user' units becomes problematic if you have an axis on log scale because the 'user' coordinates are not linear.) The following function illustrates how:
 
-```{r,fig.show='hide'}
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
 line2user <- function(line, side) {
-  lh <- par('cin')[2] * par('cex') * par('lheight') # Get the line height (in)
+  lH <- par('cin')[2] * par('cex') * par('lheight') # Get the line height (in)
   # Converting to npc requires taking the difference between 0 and lh, because
   # 0 in inches does not equal 0 in npc
-  xOff <- diff(grconvertX(c(0, lh), 'inches', 'npc')) # Convert to npc for x
-  yOff <- diff(grconvertY(c(0, lh), 'inches', 'npc')) # Convert to npc for y
+  xOff <- diff(grconvertX(c(0, lH), 'inches', 'npc')) # Convert to npc for x
+  yOff <- diff(grconvertY(c(0, lH), 'inches', 'npc')) # Convert to npc for y
   switch(side,
          `1` = grconvertY(-line*yOff, 'npc', 'user'),
          `2` = grconvertX(-line*xOff, 'npc', 'user'),
@@ -537,10 +583,10 @@ line2user <- function(line, side) {
          stop("Side must be 1, 2, 3, or 4", call.=FALSE)) 
 }
 plot.new()
-line2user(line = 3, side = 2)
+box()
+abline(v = line2user(line = 2, side = 2), lty = "dashed", xpd = NA)
+mtext("Side 2; Line 2", side = 2, line = 2)
 ```
-
-
 
 ### Legends -- Siyao
 
