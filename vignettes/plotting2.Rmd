@@ -599,20 +599,20 @@ We will not discuss the details of using plotmat, but it is helpful to know it e
 
 ### Organizing multiple plots -- Siyao
 
-```{r,fig.width=6.5,fig.height=4.5,fig.align='center'}
-par(mfrow = c(1, 2), oma = c(2, 1, 4, 1), mar = c(5, 4, 4, 2))
-plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+par(mfrow = c(2, 2), oma = c(2, 1, 4, 1), mar = c(5, 4, 4, 2))
+for (i in as.character(1:4)) {
+  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(lwd = 2, col = "gray40")
+  labelLines(alpha = 0.5)
+}
 box(which = "inner", lwd = 4, col = "darkblue")
-labelLines(outer = TRUE)
-box(which = "outer", col = "darkgreen", lwd = 4)
-box(lwd = 2, col = "gray40")
-box(which = "figure", lwd = 2, col = "darkred")
-labelLines()
-plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
-box(lwd = 2, col = "gray40")
-box(which = "figure", lwd = 2, col = "darkred")
-labelLines()
+box(which = "outer", lwd = 4, col = "darkgreen")
+labelLines(outer = TRUE, alpha = 0.5)
 ```
+
+Rerun the above chunk changing `mfrow = c(2, 2)` to `mfcol = c(2, 2)` to note the difference.
 
 ### Common plotting functions -- Siyao
 
