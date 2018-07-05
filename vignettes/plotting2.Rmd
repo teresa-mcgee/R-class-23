@@ -82,15 +82,16 @@ par()$mar
 `par()` controls everything from default colors and plotting symbols to the style of the default axes. ***It is important to understand that everytime a new device is created `par()` is reset to the defaults.*** Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
 
 ```{r,echo=FALSE}
-line2user <- function(line, side) {
+line2user <- function(line, side, outer = FALSE) {
+  unit <- if (outer) "nic" else "npc"
   lh <- par('cin')[2] * par('cex') * par('lheight')
-  x_off <- diff(grconvertX(c(0, lh), 'inches', 'npc'))
-  y_off <- diff(grconvertY(c(0, lh), 'inches', 'npc'))
+  x_off <- diff(grconvertX(c(0, lh), 'inches', unit))
+  y_off <- diff(grconvertY(c(0, lh), 'inches', unit))
   switch(side,
-         `1` = grconvertY(-line * y_off, 'npc', 'user'),
-         `2` = grconvertX(-line * x_off, 'npc', 'user'),
-         `3` = grconvertY(1 + line * y_off, 'npc', 'user'),
-         `4` = grconvertX(1 + line * x_off, 'npc', 'user'),
+         `1` = grconvertY(-line * y_off, unit, 'user'),
+         `2` = grconvertX(-line * x_off, unit, 'user'),
+         `3` = grconvertY(1 + line * y_off, unit, 'user'),
+         `4` = grconvertX(1 + line * x_off, unit, 'user'),
          stop("Side must be 1, 2, 3, or 4", call.=FALSE))
 }
 col2alpha <- function(col, alpha = 0.5) {
@@ -101,11 +102,9 @@ labelLines <- function(outer = FALSE, alpha = 1) {
   if (outer) {
     col <- col2alpha("darkgreen", alpha)
     p <- "oma"
-    a <- par()$mar
   } else {
     col <- col2alpha("darkred", alpha)
     p <- "mar"
-    a <- rep(0, 4)
   }
   nline <- par()[[p]]
   side <- unlist(mapply(rep, 1:4, each = nline))
@@ -113,10 +112,11 @@ labelLines <- function(outer = FALSE, alpha = 1) {
   txt <- paste0("Line", line)
   mtext(txt, side, line, outer = outer, col = col)
   mtext(paste0("Side", 1:4), 1:4, -1, col = col2alpha("gray40", alpha))
-  abline(h = line2user(0:nline[1] + a[1], 1), xpd = NA, lty = 3, col = col)
-  abline(v = line2user(0:nline[2] + a[2], 2), xpd = NA, lty = 3, col = col)
-  abline(h = line2user(0:nline[3] + a[3], 3), xpd = NA, lty = 3, col = col)
-  abline(v = line2user(0:nline[4] + a[4], 4), xpd = NA, lty = 3, col = col)
+  xpd <- if (outer) NA else TRUE
+  abline(h = line2user(0:nline[1], 1, outer), xpd = xpd, lty = 3, col = col)
+  abline(v = line2user(0:nline[2], 2, outer), xpd = xpd, lty = 3, col = col)
+  abline(h = line2user(0:nline[3], 3, outer), xpd = xpd, lty = 3, col = col)
+  abline(v = line2user(0:nline[4], 4, outer), xpd = xpd, lty = 3, col = col)
 }
 setupPlot <- function(label.lines = FALSE) {
   par(mar = c(2, 5, 2, 2), oma = c(2, 5, 2, 2))
@@ -568,7 +568,7 @@ par('cin')[2]*par('cex')*par('lheight')
 
 We can then convert that line height to 'npc' units, and finally to 'user' units. (Note: using 'user' units becomes problematic if you have an axis on log scale because the 'user' coordinates are not linear.) The following function illustrates how:
 
-```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE}
 line2user <- function(line, side) {
   lH <- par('cin')[2] * par('cex') * par('lheight') # Get the line height (in)
   # Converting to npc requires taking the difference between 0 and lh, because
@@ -582,10 +582,6 @@ line2user <- function(line, side) {
          `4` = grconvertX(1 + line*xOff, 'npc', 'user'),
          stop("Side must be 1, 2, 3, or 4", call.=FALSE)) 
 }
-plot.new()
-box()
-abline(v = line2user(line = 2, side = 2), lty = "dashed", xpd = NA)
-mtext("Side 2; Line 2", side = 2, line = 2)
 ```
 
 ### Legends -- Siyao
@@ -600,14 +596,14 @@ We will not discuss the details of using plotmat, but it is helpful to know it e
 ### Organizing multiple plots -- Siyao
 
 ```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
-par(mfrow = c(2, 2), oma = c(2, 1, 4, 1), mar = c(5, 4, 4, 2))
+par(mfrow = c(2, 2), oma = c(2, 3, 4, 1), mar = c(5, 4, 4, 2))
 for (i in as.character(1:4)) {
   plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
   box(which = "figure", lwd = 2, col = "darkred")
   box(lwd = 2, col = "gray40")
   labelLines(alpha = 0.5)
 }
-box(which = "inner", lwd = 4, col = "darkblue")
+box(which = "inner", lwd = 2, col = "darkblue")
 box(which = "outer", lwd = 4, col = "darkgreen")
 labelLines(outer = TRUE, alpha = 0.5)
 ```
