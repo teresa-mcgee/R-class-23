@@ -140,7 +140,7 @@ setupPlot()
 ```
 
 
-The device region is simply the device we are plotting in -- controlled by the size of the device. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
+The device region is simply the device we are plotting in -- controlled by the size of the device. The device region is also known as the "outer" region. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
 
 ```{r,echo=FALSE,fig.width=6,fig.height=4.5,fig.align='center'}
 setupPlot(TRUE)
@@ -229,7 +229,7 @@ To frame or not to frame? As mentioned above, setting *`axes = FALSE`* when call
 par(oma = rep(1, 4))
 plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
 box() # default, which = "plot"
-box(which = "inner", col = "red")
+box(which = "figure", col = "red")
 box(which = "outer", col = "blue")
 ```
 
@@ -394,7 +394,17 @@ pchShow(symbolsize = 2)
 
 ### Other objects
 
-lines, polygon, abline, arrows, curve, segments
+The following gives a mostly complete list of other the functions for drawing in the graphics system. 
+
+| Function   | Description                                         |
+|------------|-----------------------------------------------------|
+| `lines`    | Draw lines between the given coordinates            | 
+| `polygon`  | Draw polygon with vertices at the given coordinates | 
+| `abline`   | Draw lines according to $y = ax + b$                | 
+| `arrows`   | Draw lines with arrow heads                         | 
+| `curve`    | Draw the given expression                           | 
+| `segments` | Draw segments between the given pairs of points     |
+
 
 ```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE,echo=FALSE}
 plot.new()
@@ -465,13 +475,13 @@ barplot(rep(1, 100), col = 1:100, ann = FALSE, axes = FALSE)
 R provides two functions for creating custom palettes. For type (1) we can use `colorRamp`, and for type (2) we can use `colorRampPalette`. These functions return functions, that we will store and use. Here, we will create a blue-gray-red "diverging" palette. 
 
 ```{r,fig.width=6,fig.height=1.5,fig.align='center'}
-grayPal <- colorRampPalette(c("darkblue", "gray80", "darkred"), bias = 0.5)
-palette(grayPal(30))
+cbrhPal <- colorRampPalette(c("blue3", "gray80", "red3"), bias = 0.5)
+palette(cbrhPal(30))
 par(mar = rep(0.5, 4))
-barplot(rep(1, 30), col = 1:30, ann = FALSE, axes = FALSE)
+barplot(rep(1, 60), col = 1:60, ann = FALSE, axes = FALSE)
 ```
 
-Note the *`bias`* parameter changes the palette center, which would be grey at the default *`bias`* value of 1. Creating custom palettes can be daunting. We suggest using the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) and [colorspace](https://cran.r-project.org/web/packages/colorspace/) packages, which both provide functionality for creating visually appealing and colorblind-safe palettes. More information about the packages is available as a supplemental vignette in this package called "palettes". 
+Note the *`bias`* parameter changes the palette center, which would be grey at the default *`bias`* value of 1. Also note, the palette will recycle when the integer values exceed the number of unique colors in the palette. Creating custom palettes can be daunting. We suggest using the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) and [colorspace](https://cran.r-project.org/web/packages/colorspace/) packages, which both provide functionality for creating visually appealing and colorblind-safe palettes. More information about the packages is available as a supplemental vignette in this package called "palettes". 
 
 We yield to Edward Tufte for some final thoughts on using color in visualizing data[^2].
 
@@ -489,7 +499,48 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 > In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
 
-### Coordinate systems -- Dayne
+### Coordinate systems
+
+There are multiple coordinate systems used by the graphics system, listed in the table below.
+
+| Name      | Description                                                                  |
+|-----------|------------------------------------------------------------------------------|
+| "user"    | Most commonly used, the xy coordinates defined by the plotting region        |
+| "inches"  | Cooridnates in inches with (0, 0) at bottom left of the device               |
+| "device"  | Cooridnates in pixels or 1/72 inches with (0, 0) at top left of the device   | 
+| "ndc"     | Normalized device coordinates with (0, 0) at bottom left of the device       | 
+| "nfc"     | Normalized figure coordinates with (0, 0) at bottom left of the figure       |
+| "npc"     | Normalized plot coordinates with (0, 0) at bottom left of the plot           |
+| "nic"     | Normalized inner coordinates with (0, 0) at bottom left of the inner region  |
+
+Consider the following example, where we determine the line location in user cooridnates. Recall, the size of the inner and outer margins are defined by the number of lines on each side of the plotting/figure regions, respectively. The number lines, here, refers to the number of lines of text that will fit. We can get the text height using the *`cin`*, *`cex`*, and *`lheight`* parameters stored in `par`. *`cin`* is a length two vector, defining the width and height (`[width, height]`) of a character in inches. *`cex`* provides the size multiplier. *`lheight`* defines the line height multiplier, or the spacing between lines of text. Therefore, we can get the height of a line (in inches) by multiplying the values:
+
+```{r,fig.show='hide'}
+plot.new()
+par('cin')[2]*par('cex')*par('lheight') 
+```
+
+We can then convert that line height to 'npc' units, and finally to 'user' units. (Note: using 'user' units becomes problematic if you have an axis on log scale because the 'user' coordinates are not linear.) The following function illustrates how:
+
+```{r,fig.show='hide'}
+line2user <- function(line, side) {
+  lh <- par('cin')[2] * par('cex') * par('lheight') # Get the line height (in)
+  # Converting to npc requires taking the difference between 0 and lh, because
+  # 0 in inches does not equal 0 in npc
+  xOff <- diff(grconvertX(c(0, lh), 'inches', 'npc')) # Convert to npc for x
+  yOff <- diff(grconvertY(c(0, lh), 'inches', 'npc')) # Convert to npc for y
+  switch(side,
+         `1` = grconvertY(-line*yOff, 'npc', 'user'),
+         `2` = grconvertX(-line*xOff, 'npc', 'user'),
+         `3` = grconvertY(1 + line*yOff, 'npc', 'user'),
+         `4` = grconvertX(1 + line*xOff, 'npc', 'user'),
+         stop("Side must be 1, 2, 3, or 4", call.=FALSE)) 
+}
+plot.new()
+line2user(line = 3, side = 2)
+```
+
+
 
 ### Legends -- Siyao
 
@@ -505,6 +556,7 @@ We will not discuss the details of using plotmat, but it is helpful to know it e
 ```{r,fig.width=6.5,fig.height=4.5,fig.align='center'}
 par(mfrow = c(1, 2), oma = c(2, 1, 4, 1), mar = c(5, 4, 4, 2))
 plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
+box(which = "inner", lwd = 4, col = "darkblue")
 labelLines(outer = TRUE)
 box(which = "outer", col = "darkgreen", lwd = 4)
 box(lwd = 2, col = "gray40")
