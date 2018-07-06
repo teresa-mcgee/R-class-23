@@ -393,6 +393,24 @@ pchShow(symbolsize = 2)
 
 ``` 
 
+It also is important to note that drawing is generally clipped to the plotting region. The clippingi is controlled by `par('xpd')`. When `xpd = FALSE` (the default) all drawing is clipped to the plotting region; when `xpd = TRUE` all drawing is clipped to the figure region; when `xpd = NA` drawing is not clipped. Consider the following:
+
+```{r,out.width=215,fig.width=3,fig.height=3,fig.show='hold'}
+demoPlot <- function(xpd) {
+  par(oma = rep(2, 4), mar = rep(2, 4))
+  plot.new()
+  plot.window(xlim = c(3, 7), ylim = c(3, 7))
+  title(paste("xpd =", xpd))
+  box(col = "gray40")
+  box(which = "inner", col = "darkred")
+  box(which = "outer", col = "darkgreen", lwd = 2)
+  points(1:10, 1:10, xpd = xpd, pch = as.character(1:10))
+}
+demoPlot(FALSE)
+demoPlot(TRUE)
+demoPlot(NA)
+```
+
 ### Other objects
 
 The following gives a mostly complete list of other the functions for drawing in the graphics system. 
