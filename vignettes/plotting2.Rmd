@@ -140,7 +140,7 @@ setupPlot()
 ```
 
 
-The device region is simply the device we are plotting in -- controlled by the size of the device. The device region is also known as the "outer" region. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
+The device region is simply the device we are plotting in -- controlled by the size of the device. The device region is also known as the "outer" region. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. There is another drawing region not shown above called the "inner" region, which will be addressed during the discussion about organizing multiple plots in one device (below). The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
 
 ```{r,echo=FALSE,fig.width=6,fig.height=4.5,fig.align='center'}
 setupPlot(TRUE)
@@ -148,7 +148,7 @@ setupPlot(TRUE)
 
 The above plot is key in understanding how to draw things within the graphics engine. Many of the drawing functions rely on specifying the side, line, and whether to draw in the outer margins. Notice the "0" line rests on the interior drawing region, eg. the inner line 0 rests on the plotting region and the outer line 0 rests on the figure region. Here the text is drawn such that it is justfied above the line. 
 
-By default, `par()$oma = c(0, 0, 0, 0)` -- meaning that R does not typically include any outer margins and the figure region fills the whole device. We can think of the plotting region as the space where the data goes, and the figure margin space as where we draw the axes, axis labels, title, etc. WHen using the high-level plotting functions, such as `plot`, R will define the scale of the plotting region based on the supplied data. Here the scale means what values fit into the x and y axes, eg. x ranges from 0 to 100 and y ranges from 5 to 6. Only data within the scale of the plotting region will be included (unless we tell R otherwise -- more on that later). The scale of the plotting region is stored by `usr`. Now we will go through the first couple steps of constructing a plot from scratch, tracking how each step effects `par()$usr`. 
+By default, `par()$oma = c(0, 0, 0, 0)` -- meaning that R does not typically include any outer margins and the figure region fills the whole device. We can think of the plotting region as the space where the data goes, and the figure margin space as where we draw the axes, axis labels, title, etc. When using the high-level plotting functions, such as `plot`, R will define the scale of the plotting region based on the supplied data. Here the scale means what values fit into the x and y axes, eg. x ranges from 0 to 100 and y ranges from 5 to 6. Only data within the scale of the plotting region will be included (unless we tell R otherwise -- more on that later). The scale of the plotting region is stored by `usr`. Now we will go through the first couple steps of constructing a plot from scratch, tracking how each step effects `par()$usr`. 
 
 ```{r,fig.width=6,fig.height=4.5,fig.align='center'}
 # usr is c(x-min, x-max, y-min, y-max)
@@ -499,6 +499,63 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 > In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
 
+
+### Legends -- Siyao
+
+Mention columns. Show line vs fill vs points. Mention bty. Mention alignment
+is analagous to text alignment. 
+
+### Plotmath -- Dayne
+
+We will not discuss the details of using plotmat, but it is helpful to know it exists.
+
+### Organizing multiple plots
+
+The graphics system provides two ways of organzing multiple plots in one device. The first way is the *`mfrow`* or *`mfcol`* parameter in `par`. The  *`mfrow`*/*`mfcol`* parameters take a length two vector defining the number of rows and columns (`[nrow, ncol]`) to create a grid of plots.
+
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+par(mfrow = c(2, 2), oma = c(2, 3, 4, 1), mar = c(5, 4, 4, 2))
+for (i in as.character(1:4)) {
+  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(lwd = 2, col = "gray40")
+  labelLines(alpha = 0.5)
+}
+box(which = "inner", lwd = 2, col = "darkblue")
+box(which = "outer", lwd = 4, col = "darkgreen")
+labelLines(outer = TRUE, alpha = 0.5)
+```
+
+Rerun the above chunk changing `mfrow = c(2, 2)` to `mfcol = c(2, 2)` to note the difference. Note the use of "inner". The "inner" region is drawing region defined by the sum of the figure regions (or NOT the outer region). The inner region will equal the figure region when there is only one plot in a device. 
+
+The second way to organize multiple plots in the graphics engine is the `layout` function. `layout` takes a matrix of integers specifying the plot to occupy the cell in the matrix. It also allows users to specify the heights and widths of the rows and columns. For example:
+
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+layout(mat = matrix(c(1, 2, 1, 3), ncol = 2), heights = 2:1, widths = 2:1)
+for (i in as.character(1:3)) {
+  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(lwd = 2, col = "gray40")
+  labelLines(alpha = 0.5)
+}
+```
+
+Finally, consider how layout can be used to overlay plots. (However, when constructing complicated overlaying plots it would be best to use the grid engine that is not discussed in this course.)
+
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+layout(mat = matrix(c(2, 2, 1, 2), ncol = 2), heights = 1:2)
+par(mar = rep(0, 4))
+# First plot
+plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = "1", cex = 3)
+box(lwd = 24, col = "red2")
+# Second plot
+plot(x = 1, y = 1, ann = FALSE, axes = FALSE)
+abline(0, 1, lwd = 40, col = "white")
+points(1, 1, pch = "2", cex = 3)
+```
+
+Notice how changing the numbers in the matrix specifies the order of the drawing. In the example above the white line drawn during the second plot draws over the red box drawn in the first. 
+
 ### Coordinate systems
 
 There are multiple coordinate systems used by the graphics system, listed in the table below.
@@ -583,32 +640,6 @@ line2user <- function(line, side) {
          stop("Side must be 1, 2, 3, or 4", call.=FALSE)) 
 }
 ```
-
-### Legends -- Siyao
-
-Mention columns. Show line vs fill vs points. Mention bty. Mention alignment
-is analagous to text alignment. 
-
-### Plotmath -- Dayne
-
-We will not discuss the details of using plotmat, but it is helpful to know it exists.
-
-### Organizing multiple plots -- Siyao
-
-```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
-par(mfrow = c(2, 2), oma = c(2, 3, 4, 1), mar = c(5, 4, 4, 2))
-for (i in as.character(1:4)) {
-  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
-  box(which = "figure", lwd = 2, col = "darkred")
-  box(lwd = 2, col = "gray40")
-  labelLines(alpha = 0.5)
-}
-box(which = "inner", lwd = 2, col = "darkblue")
-box(which = "outer", lwd = 4, col = "darkgreen")
-labelLines(outer = TRUE, alpha = 0.5)
-```
-
-Rerun the above chunk changing `mfrow = c(2, 2)` to `mfcol = c(2, 2)` to note the difference.
 
 ### Common plotting functions -- Siyao
 
