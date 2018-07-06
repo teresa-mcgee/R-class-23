@@ -666,24 +666,24 @@ follow up
 # save(AAPL, file = "data/AAPL.RData")
 ```
 
-```{r,fig.width=6.5,fig.height=4.5,fig.align='center',echo=FALSE,results='hide'}
-data(AAPL)
-par(mar = c(3, 4, 1, 1))
-plot(price ~ date, data = AAPL, axes = FALSE,
-     bty = "n", ylab = "Closing Price (USD)", type = "n", xlab = "")
-axDates <- as.Date(sprintf("2018-%02d-01", 1:7))
-sdate <- as.Date(AAPL$date[1]); edate <- as.Date(tail(AAPL, 1)$date)
-sprice <- AAPL$price[1]; eprice <- tail(AAPL, 1)$price
-polygon(x = c(sdate, AAPL$date, edate), 
-        y = c(par('usr')[3], AAPL$price, par('usr')[3]), 
-        col = "dodgerblue", border = "white")
-polygon(x = c(sdate, sdate, edate, edate), 
-        y = c(par('usr')[3], sprice, sprice, par('usr')[3]), 
-        col = "white", border = "white")
-abline(h = sprice)
-points(price ~ date, data = AAPL, type = "l")
-axis(side = 1, at = axDates, labels = format(axDates, "%b")); axis(2)
-```
+    ```{r,fig.width=6.5,fig.height=4.5,fig.align='center',echo=FALSE,results='hide'}
+    data(AAPL)
+    par(mar = c(3, 4, 1, 1))
+    plot(price ~ date, data = AAPL, axes = FALSE,
+         bty = "n", ylab = "Closing Price (USD)", type = "n", xlab = "")
+    axDates <- as.Date(sprintf("2018-%02d-01", 1:7))
+    sdate <- as.Date(AAPL$date[1]); edate <- as.Date(tail(AAPL, 1)$date)
+    sprice <- AAPL$price[1]; eprice <- tail(AAPL, 1)$price
+    polygon(x = c(sdate, AAPL$date, edate), 
+            y = c(par('usr')[3], AAPL$price, par('usr')[3]), 
+            col = "dodgerblue", border = "white")
+    polygon(x = c(sdate, sdate, edate, edate), 
+            y = c(par('usr')[3], sprice, sprice, par('usr')[3]), 
+            col = "white", border = "white")
+    abline(h = sprice)
+    points(price ~ date, data = AAPL, type = "l")
+    axis(side = 1, at = axDates, labels = format(axDates, "%b")); axis(2)
+    ```
 
 
 2. Create a ruler with your hand length (from bottom of palm to longest finger tip) in inches rounded to the nearest quarter inch. The ruler should be 2 inches tall, have an outer border, have dashes from inch down to sixteenth inch with the height of the dash corresponding to the unit (eg. the quater inch dashes should be 1/4" tall), have the inch marks labeled above the lines, and have your name (eg. "Dayne's Ruler") centered at 1.5" above the bottom of the ruler. See the example below.
