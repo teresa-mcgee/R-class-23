@@ -415,15 +415,62 @@ polypath(x = c(2, 2, 6, 6, NA, 3, 6, 4),
          col = "gray", rule = "evenodd")
 ```
 
-### Adding text -- Dayne
+### Adding text
 
-Text alignment 
-Identify function
+Text is drawn using the `text` function. 
 
-```{r}
-plot.new()
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+xpos <- c(1, 2, 1, 2)
+ypos <- c(2, 2, 1, 1)
+tstr <- c("this", "is", "adding", "text")
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+text(xpos, ypos, tstr)
 ```
 
+Notice the text is centered in for both x and y dimensions on the given point. We can change the position of the text, relative to the point, with the *`adj`* parameter (stored by `par`). When `adj = 0.5` (the default) it means to center in both dimensions. However, we can give separate values for the x and y dimensions (`c(x, y)`). Both x and y can be given values `[0, 1]` where 0 means left/bottom jusified and 1 means right/top justified. Note: *`adj`* when set by `par` will also control the alignment of `title` and `mtext`.
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+for (i in 1:length(xpos)) {
+  adjX <- c(0, 0, 1, 1)[i]
+  adjY <- c(0, 1, 0, 1)[i]
+  text(xpos[i], ypos[i], tstr[i], adj = c(adjX, adjY))
+}
+```
+
+Text can be rotated by the *`srt`* parameter (also stored by `par`). *`srt`* accepts numeric values indicating the degrees of rotation from the anchor point for the text. When `adj = 0.5` the anchor point is the center of the text. When `adj = c(0, 1)` the top-left corner of the "box" surrounding the text is the anchor point.
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+for (i in 1:length(xpos)) {
+  adjX <- c(0, 0, 1, 1)[i]
+  adjY <- c(0, 1, 0, 1)[i]
+  srt <- c(0, 45, 90, 135)[i]
+  text(xpos[i], ypos[i], tstr[i], adj = c(adjX, adjY), srt = srt)
+}
+```
+
+
+Finally, the *`font`* and *`family`* parameters control the type of letters (normal, bold, italic, bold & italic) and the font family ("serif", "sans", "mono"). The default value for *`family`* is `""`, which indicates to use the default family for the current device. 
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot.new()
+plot.window(xlim = c(0, 5), ylim = c(0, 4))
+for (i in 1:3) {
+  fam <- c("serif", "sans", "mono")[i]
+  text(1:4, i, gsub("adding", fam, tstr), family = fam, font = 1:4)
+}
+```
+
+
+For scientific plotting, you should read `?plotmath` which describes how to add special symbols and forumulae to your plots.  
 
 ### Colors
 
@@ -505,10 +552,6 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 Mention columns. Show line vs fill vs points. Mention bty. Mention alignment
 is analagous to text alignment. 
-
-### Plotmath -- Dayne
-
-We will not discuss the details of using plotmat, but it is helpful to know it exists.
 
 ### Organizing multiple plots
 
