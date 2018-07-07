@@ -566,7 +566,6 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 > In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
 
-
 ### Legends
 
 The `legend()` function draws a legend or key to a plot in the traditional graphics system. Typically, the legned is drawn within the plot region, and located relative to the user coordinates. 
@@ -827,7 +826,7 @@ follow up
 # save(AAPL, file = "data/AAPL.RData")
 ```
 
-    ```{r,fig.width=6.5,fig.height=4.5,fig.align='center',echo=FALSE,results='hide'}
+   ```{r,fig.width=6.5,fig.height=4.5,fig.align='center',echo=FALSE,results='hide'}
     data(AAPL)
     par(mar = c(3, 4, 1, 1))
     plot(price ~ date, data = AAPL, axes = FALSE,
