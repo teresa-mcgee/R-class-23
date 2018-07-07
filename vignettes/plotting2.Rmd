@@ -1,4 +1,5 @@
----
+  
+  ---
 title: "HTLTC-R: Plotting"
 output: rmarkdown::html_vignette
 vignette: >
@@ -491,10 +492,109 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 ### Coordinate systems -- Dayne
 
-### Legends -- Siyao
+### Legends
 
-Mention columns. Show line vs fill vs points. Mention bty. Mention alignment
-is analagous to text alignment. 
+The `legend()` function draws a legend or key to a plot in the traditional graphics system. Typically, the legned is drawn within the plot region, and located relative to the user coordinates. 
+
+Now let's take a look at a simple example using the iris dataset:
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+data(iris)
+palette("default")
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16)
+```
+
+Add a legend to the plot:
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")),
+     pch = 16, cex = 1.2)
+legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
+       col = c(1:3), pch = 16, title = "Species")
+```
+
+Several arguments are used in the `legend()` function. You can type `?legend` for details in R documentation. Here, we will point out a few common ones.
+
+The x and y coordinates are used to position the legend in the graph. The position of the legend can also be specified using the following keywords: "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right" and "center":
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16, cex = 1.2)
+legend(x = 7, y = 3, legend = c("setosa","versicolor","virginica"), 
+       col = c(1:3), pch = 16, title = "Species")
+```
+
+The *`fill`* argument indicates the colors to use for filling the legend boxes beside the legend text. *`border`* is the border color of the legend boxes, and is used only if *`fill`* is specified:
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+boxplot(iris$Sepal.Length ~ iris$Species, 
+        col = c('magenta', 'orange', 'blue'), pch = 15, cex = 1.2)
+legend(x = "topleft", legend = c("setosa","versicolor","virginica"), title = "Species",
+       fill = c('magenta', 'orange', 'blue'), border = "green")
+```
+
+The *`ncol`* argument indicates the number of columns in the legend items (by default R uses 1, a vertical legend):
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16, cex = 1.2)
+legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
+       col = c(1:3), ncol = 3, pch = 16, title = "Species")
+```
+
+You can specify lines in the legend by using *`lty`* instead of *`pch`*:
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+plot(x = iris$Sepal.Length, type = "h", 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16, cex = 1.2)
+legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"),
+       col = c(1:3), lty = "solid", title = "Species")
+```
+
+The *`bty`* argument specifies the type of box to be drawn around the legend. Default is "o":
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16, cex = 1.2)
+legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
+       col = c(1:3), pch = 16, title = "Species", bty = "n")
+```
+
+The alignment of the legend is analagous to text alignment. The *`xjust`* and *`yjust`* arguments determine how the legend is justified relative to the legend x and y locations. A value of 0 means left justified, 0.5 means centered and 1 means right justified. `legend()` returns a list with list components. *`rect`* is a list with components: *`w`*, *`h`* are positive numbers indicating the width and height of the legend. *`left`* and *`top`* are the xy coordinates of upper left corner of the box. Below is an example of how to right-justify the legend labels.
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+## right-justifying a set of labels
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16, cex = 1.2)
+temp <- legend("bottomright", legend = c(" ", " "," "), pch = 16, 
+       text.width = strwidth("1,000,000"), xjust = 1, yjust = 1,
+       title = "Species", col = c(1:3))
+#legend returns a list with list components
+text(temp$rect$left + temp$rect$w, temp$text$y,
+     c("setosa","versicolor","virginica"), pos = 2)
+```
+
+We can also add a legend outside of the graph by setting *`xpd = TRUE`* and by specifying the x and y coordinates of the legend.
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+# Add extra space to right of plot area; change clipping to figure
+par(xpd = TRUE, mar = c(5.1, 4.1, 4.1, 8.1))
+plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
+          col = match(iris$Species, c("setosa", "versicolor", "virginica")),
+          pch = 16, cex = 1.2)
+# Add legend to top right, outside plot region
+legend(legend = c("setosa","versicolor","virginica"), "topright", 
+       inset = c(-0.3, 0), # specify distance(s) from the margins as a fraction of the plot region
+       col = c(1:3), pch = 16, title = "Species")
+```
 
 ### Plotmath -- Dayne
 
