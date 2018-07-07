@@ -10,6 +10,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+library(htltcR)
 ```
 
 ### Using this document
@@ -83,15 +84,16 @@ par()$mar
 `par()` controls everything from default colors and plotting symbols to the style of the default axes. ***It is important to understand that everytime a new device is created `par()` is reset to the defaults.*** Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
 
 ```{r,echo=FALSE}
-line2user <- function(line, side) {
+line2user <- function(line, side, outer = FALSE) {
+  unit <- if (outer) "nic" else "npc"
   lh <- par('cin')[2] * par('cex') * par('lheight')
-  x_off <- diff(grconvertX(c(0, lh), 'inches', 'npc'))
-  y_off <- diff(grconvertY(c(0, lh), 'inches', 'npc'))
+  x_off <- diff(grconvertX(c(0, lh), 'inches', unit))
+  y_off <- diff(grconvertY(c(0, lh), 'inches', unit))
   switch(side,
-         `1` = grconvertY(-line * y_off, 'npc', 'user'),
-         `2` = grconvertX(-line * x_off, 'npc', 'user'),
-         `3` = grconvertY(1 + line * y_off, 'npc', 'user'),
-         `4` = grconvertX(1 + line * x_off, 'npc', 'user'),
+         `1` = grconvertY(-line * y_off, unit, 'user'),
+         `2` = grconvertX(-line * x_off, unit, 'user'),
+         `3` = grconvertY(1 + line * y_off, unit, 'user'),
+         `4` = grconvertX(1 + line * x_off, unit, 'user'),
          stop("Side must be 1, 2, 3, or 4", call.=FALSE))
 }
 col2alpha <- function(col, alpha = 0.5) {
@@ -102,11 +104,9 @@ labelLines <- function(outer = FALSE, alpha = 1) {
   if (outer) {
     col <- col2alpha("darkgreen", alpha)
     p <- "oma"
-    a <- par()$mar
   } else {
     col <- col2alpha("darkred", alpha)
     p <- "mar"
-    a <- rep(0, 4)
   }
   nline <- par()[[p]]
   side <- unlist(mapply(rep, 1:4, each = nline))
@@ -114,10 +114,11 @@ labelLines <- function(outer = FALSE, alpha = 1) {
   txt <- paste0("Line", line)
   mtext(txt, side, line, outer = outer, col = col)
   mtext(paste0("Side", 1:4), 1:4, -1, col = col2alpha("gray40", alpha))
-  abline(h = line2user(0:nline[1] + a[1], 1), xpd = NA, lty = 3, col = col)
-  abline(v = line2user(0:nline[2] + a[2], 2), xpd = NA, lty = 3, col = col)
-  abline(h = line2user(0:nline[3] + a[3], 3), xpd = NA, lty = 3, col = col)
-  abline(v = line2user(0:nline[4] + a[4], 4), xpd = NA, lty = 3, col = col)
+  xpd <- if (outer) NA else TRUE
+  abline(h = line2user(0:nline[1], 1, outer), xpd = xpd, lty = 3, col = col)
+  abline(v = line2user(0:nline[2], 2, outer), xpd = xpd, lty = 3, col = col)
+  abline(h = line2user(0:nline[3], 3, outer), xpd = xpd, lty = 3, col = col)
+  abline(v = line2user(0:nline[4], 4, outer), xpd = xpd, lty = 3, col = col)
 }
 setupPlot <- function(label.lines = FALSE) {
   par(mar = c(2, 5, 2, 2), oma = c(2, 5, 2, 2))
@@ -141,7 +142,7 @@ setupPlot()
 ```
 
 
-The device region is simply the device we are plotting in -- controlled by the size of the device. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
+The device region is simply the device we are plotting in -- controlled by the size of the device. The device region is also known as the "outer" region. The figure and plotting regions are defined relative to the size of the device. The size interactive devices -- like the one built into RStudio -- can be changed. The size of static devices (like the device created by `pdf()`) are defined when the device is created (eg. the *`width`* and *`height`* parameters in `pdf`). The figure and plotting regions are defined by the `oma` and `mar` settings in `par()`. `oma` stands for "outter margins" -- meaning the number of lines of text between the figure region and the edge of the device. `mar` stands for "margins" -- meaning the number of lines of text between the plotting region and the edge of the figure region. Each setting takes a numeric vector of the format `c(bottom, left, top, right)`. There is another drawing region not shown above called the "inner" region, which will be addressed during the discussion about organizing multiple plots in one device (below). The above figure was created by setting both *`oma`* and *`mar`* to `c(2, 5, 2, 2)`.
 
 ```{r,echo=FALSE,fig.width=6,fig.height=4.5,fig.align='center'}
 setupPlot(TRUE)
@@ -149,7 +150,7 @@ setupPlot(TRUE)
 
 The above plot is key in understanding how to draw things within the graphics engine. Many of the drawing functions rely on specifying the side, line, and whether to draw in the outer margins. Notice the "0" line rests on the interior drawing region, eg. the inner line 0 rests on the plotting region and the outer line 0 rests on the figure region. Here the text is drawn such that it is justfied above the line. 
 
-By default, `par()$oma = c(0, 0, 0, 0)` -- meaning that R does not typically include any outer margins and the figure region fills the whole device. We can think of the plotting region as the space where the data goes, and the figure margin space as where we draw the axes, axis labels, title, etc. WHen using the high-level plotting functions, such as `plot`, R will define the scale of the plotting region based on the supplied data. Here the scale means what values fit into the x and y axes, eg. x ranges from 0 to 100 and y ranges from 5 to 6. Only data within the scale of the plotting region will be included (unless we tell R otherwise -- more on that later). The scale of the plotting region is stored by `usr`. Now we will go through the first couple steps of constructing a plot from scratch, tracking how each step effects `par()$usr`. 
+By default, `par()$oma = c(0, 0, 0, 0)` -- meaning that R does not typically include any outer margins and the figure region fills the whole device. We can think of the plotting region as the space where the data goes, and the figure margin space as where we draw the axes, axis labels, title, etc. When using the high-level plotting functions, such as `plot`, R will define the scale of the plotting region based on the supplied data. Here the scale means what values fit into the x and y axes, eg. x ranges from 0 to 100 and y ranges from 5 to 6. Only data within the scale of the plotting region will be included (unless we tell R otherwise -- more on that later). The scale of the plotting region is stored by `usr`. Now we will go through the first couple steps of constructing a plot from scratch, tracking how each step effects `par()$usr`. 
 
 ```{r,fig.width=6,fig.height=4.5,fig.align='center'}
 # usr is c(x-min, x-max, y-min, y-max)
@@ -230,7 +231,7 @@ To frame or not to frame? As mentioned above, setting *`axes = FALSE`* when call
 par(oma = rep(1, 4))
 plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
 box() # default, which = "plot"
-box(which = "inner", col = "red")
+box(which = "figure", col = "red")
 box(which = "outer", col = "blue")
 ```
 
@@ -393,9 +394,37 @@ pchShow(symbolsize = 2)
 
 ``` 
 
+It also is important to note that drawing is generally clipped to the plotting region. The clippingi is controlled by `par('xpd')`. When `xpd = FALSE` (the default) all drawing is clipped to the plotting region; when `xpd = TRUE` all drawing is clipped to the figure region; when `xpd = NA` drawing is not clipped. Consider the following:
+
+```{r,out.width=215,fig.width=3,fig.height=3,fig.show='hold'}
+demoPlot <- function(xpd) {
+  par(oma = rep(2, 4), mar = rep(2, 4))
+  plot.new()
+  plot.window(xlim = c(3, 7), ylim = c(3, 7))
+  title(paste("xpd =", xpd))
+  box(col = "gray40")
+  box(which = "inner", col = "darkred")
+  box(which = "outer", col = "darkgreen", lwd = 2)
+  points(1:10, 1:10, xpd = xpd, pch = as.character(1:10))
+}
+demoPlot(FALSE)
+demoPlot(TRUE)
+demoPlot(NA)
+```
+
 ### Other objects
 
-lines, polygon, abline, arrows, curve, segments
+The following gives a mostly complete list of other the functions for drawing in the graphics system. 
+
+| Function   | Description                                         |
+|------------|-----------------------------------------------------|
+| `lines`    | Draw lines between the given coordinates            | 
+| `polygon`  | Draw polygon with vertices at the given coordinates | 
+| `abline`   | Draw lines according to $y = ax + b$                | 
+| `arrows`   | Draw lines with arrow heads                         | 
+| `curve`    | Draw the given expression                           | 
+| `segments` | Draw segments between the given pairs of points     |
+
 
 ```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE,echo=FALSE}
 plot.new()
@@ -405,15 +434,62 @@ polypath(x = c(2, 2, 6, 6, NA, 3, 6, 4),
          col = "gray", rule = "evenodd")
 ```
 
-### Adding text -- Dayne
+### Adding text
 
-Text alignment 
-Identify function
+Text is drawn using the `text` function. 
 
-```{r}
-plot.new()
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+xpos <- c(1, 2, 1, 2)
+ypos <- c(2, 2, 1, 1)
+tstr <- c("this", "is", "adding", "text")
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+text(xpos, ypos, tstr)
 ```
 
+Notice the text is centered in for both x and y dimensions on the given point. We can change the position of the text, relative to the point, with the *`adj`* parameter (stored by `par`). When `adj = 0.5` (the default) it means to center in both dimensions. However, we can give separate values for the x and y dimensions (`c(x, y)`). Both x and y can be given values `[0, 1]` where 0 means left/bottom jusified and 1 means right/top justified. Note: *`adj`* when set by `par` will also control the alignment of `title` and `mtext`.
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+for (i in 1:length(xpos)) {
+  adjX <- c(0, 0, 1, 1)[i]
+  adjY <- c(0, 1, 0, 1)[i]
+  text(xpos[i], ypos[i], tstr[i], adj = c(adjX, adjY))
+}
+```
+
+Text can be rotated by the *`srt`* parameter (also stored by `par`). *`srt`* accepts numeric values indicating the degrees of rotation from the anchor point for the text. When `adj = 0.5` the anchor point is the center of the text. When `adj = c(0, 1)` the top-left corner of the "box" surrounding the text is the anchor point.
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot(0:3, 0:3, type = "n", axes = FALSE, ann = FALSE)
+points(xpos, ypos, pch = 3, col = "red", cex = 2)
+for (i in 1:length(xpos)) {
+  adjX <- c(0, 0, 1, 1)[i]
+  adjY <- c(0, 1, 0, 1)[i]
+  srt <- c(0, 45, 90, 135)[i]
+  text(xpos[i], ypos[i], tstr[i], adj = c(adjX, adjY), srt = srt)
+}
+```
+
+
+Finally, the *`font`* and *`family`* parameters control the type of letters (normal, bold, italic, bold & italic) and the font family ("serif", "sans", "mono"). The default value for *`family`* is `""`, which indicates to use the default family for the current device. 
+
+```{r,fig.align='center'}
+par(mar = rep(0, 4), pty = "s")
+plot.new()
+plot.window(xlim = c(0, 5), ylim = c(0, 4))
+for (i in 1:3) {
+  fam <- c("serif", "sans", "mono")[i]
+  text(1:4, i, gsub("adding", fam, tstr), family = fam, font = 1:4)
+}
+```
+
+
+For scientific plotting, you should read `?plotmath` which describes how to add special symbols and forumulae to your plots.  
 
 ### Colors
 
@@ -466,13 +542,13 @@ barplot(rep(1, 100), col = 1:100, ann = FALSE, axes = FALSE)
 R provides two functions for creating custom palettes. For type (1) we can use `colorRamp`, and for type (2) we can use `colorRampPalette`. These functions return functions, that we will store and use. Here, we will create a blue-gray-red "diverging" palette. 
 
 ```{r,fig.width=6,fig.height=1.5,fig.align='center'}
-grayPal <- colorRampPalette(c("darkblue", "gray80", "darkred"), bias = 0.5)
-palette(grayPal(30))
+cbrhPal <- colorRampPalette(c("blue3", "gray80", "red3"), bias = 0.5)
+palette(cbrhPal(30))
 par(mar = rep(0.5, 4))
-barplot(rep(1, 30), col = 1:30, ann = FALSE, axes = FALSE)
+barplot(rep(1, 60), col = 1:60, ann = FALSE, axes = FALSE)
 ```
 
-Note the *`bias`* parameter changes the palette center, which would be grey at the default *`bias`* value of 1. Creating custom palettes can be daunting. We suggest using the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) and [colorspace](https://cran.r-project.org/web/packages/colorspace/) packages, which both provide functionality for creating visually appealing and colorblind-safe palettes. More information about the packages is available as a supplemental vignette in this package called "palettes". 
+Note the *`bias`* parameter changes the palette center, which would be grey at the default *`bias`* value of 1. Also note, the palette will recycle when the integer values exceed the number of unique colors in the palette. Creating custom palettes can be daunting. We suggest using the [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html) and [colorspace](https://cran.r-project.org/web/packages/colorspace/) packages, which both provide functionality for creating visually appealing and colorblind-safe palettes. More information about the packages is available as a supplemental vignette in this package called "palettes". 
 
 We yield to Edward Tufte for some final thoughts on using color in visualizing data[^2].
 
@@ -490,7 +566,6 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 
 > In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
 
-### Coordinate systems -- Dayne
 
 ### Legends
 
@@ -596,24 +671,136 @@ legend(legend = c("setosa","versicolor","virginica"), "topright",
        col = c(1:3), pch = 16, title = "Species")
 ```
 
-### Plotmath -- Dayne
+### Organizing multiple plots
 
-We will not discuss the details of using plotmat, but it is helpful to know it exists.
+The graphics system provides two ways of organzing multiple plots in one device. The first way is the *`mfrow`* or *`mfcol`* parameter in `par`. The  *`mfrow`*/*`mfcol`* parameters take a length two vector defining the number of rows and columns (`[nrow, ncol]`) to create a grid of plots.
 
-### Organizing multiple plots -- Siyao
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+par(mfrow = c(2, 2), oma = c(2, 3, 4, 1), mar = c(5, 4, 4, 2))
+for (i in as.character(1:4)) {
+  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(lwd = 2, col = "gray40")
+  labelLines(alpha = 0.5)
+}
+box(which = "inner", lwd = 2, col = "darkblue")
+box(which = "outer", lwd = 4, col = "darkgreen")
+labelLines(outer = TRUE, alpha = 0.5)
+```
 
-```{r,fig.width=6.5,fig.height=4.5,fig.align='center'}
-par(mfrow = c(1, 2), oma = c(2, 1, 4, 1), mar = c(5, 4, 4, 2))
-plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
-labelLines(outer = TRUE)
-box(which = "outer", col = "darkgreen", lwd = 4)
-box(lwd = 2, col = "gray40")
-box(which = "figure", lwd = 2, col = "darkred")
-labelLines()
-plot(x = x, y = y, ann = FALSE, axes = FALSE, type = "n")
-box(lwd = 2, col = "gray40")
-box(which = "figure", lwd = 2, col = "darkred")
-labelLines()
+Rerun the above chunk changing `mfrow = c(2, 2)` to `mfcol = c(2, 2)` to note the difference. Note the use of "inner". The "inner" region is drawing region defined by the sum of the figure regions (or NOT the outer region). The inner region will equal the figure region when there is only one plot in a device. 
+
+The second way to organize multiple plots in the graphics engine is the `layout` function. `layout` takes a matrix of integers specifying the plot to occupy the cell in the matrix. It also allows users to specify the heights and widths of the rows and columns. For example:
+
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+layout(mat = matrix(c(1, 2, 1, 3), ncol = 2), heights = 2:1, widths = 2:1)
+for (i in as.character(1:3)) {
+  plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = i, cex = 3)
+  box(which = "figure", lwd = 2, col = "darkred")
+  box(lwd = 2, col = "gray40")
+  labelLines(alpha = 0.5)
+}
+```
+
+Finally, consider how layout can be used to overlay plots. (However, when constructing complicated overlaying plots it would be best to use the grid engine that is not discussed in this course.)
+
+```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
+layout(mat = matrix(c(2, 2, 1, 2), ncol = 2), heights = 1:2)
+par(mar = rep(0, 4))
+# First plot
+plot(x = 1, y = 1, ann = FALSE, axes = FALSE, pch = "1", cex = 3)
+box(lwd = 24, col = "red2")
+# Second plot
+plot(x = 1, y = 1, ann = FALSE, axes = FALSE)
+abline(0, 1, lwd = 40, col = "white")
+points(1, 1, pch = "2", cex = 3)
+```
+
+Notice how changing the numbers in the matrix specifies the order of the drawing. In the example above the white line drawn during the second plot draws over the red box drawn in the first. 
+
+### Coordinate systems
+
+There are multiple coordinate systems used by the graphics system, listed in the table below.
+
+| Name      | Description                                                                  |
+|-----------|------------------------------------------------------------------------------|
+| "user"    | Most commonly used, the xy coordinates defined by the plotting region        |
+| "inches"  | Cooridnates in inches with (0, 0) at bottom left of the device               |
+| "device"  | Cooridnates in pixels or 1/72 inches with (0, 0) at top left of the device   | 
+| "ndc"     | Normalized device coordinates with (0, 0) at bottom left of the device       | 
+| "nfc"     | Normalized figure coordinates with (0, 0) at bottom left of the figure       |
+| "npc"     | Normalized plot coordinates with (0, 0) at bottom left of the plot           |
+| "nic"     | Normalized inner coordinates with (0, 0) at bottom left of the inner region  |
+
+We can convert x and y values between the different coordinate systems using the `grconvertX` and `grconvertY` functions, respectively. Note, for drawings with a single plotting region and no outer margins 'ndc', 'nfc' and 'nic' are identical. The following example comes from the R documentation for `grconvertX`:
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+plot(1:4)
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  print(grconvertX(c(1.0, 4.0), "user", tp))
+}
+```
+
+If we add another plotting region and outer margins the values change. 
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4)
+```
+```{r,echo=-c(1,2),fig.show='hide'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4)
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  print(grconvertX(c(1.0, 4.0), "user", tp))
+}
+```
+
+For the above plot, consider the locations of (0, 0) and (1, 1) is in each of the cooridnate systems.
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center'}
+par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
+plot(1:4, ann = FALSE, axes = FALSE, type = "n")
+box(col = "gray40")
+box(which = "figure", col = "darkred")
+box(which = "inner", col = "darkblue")
+box(which = "outer", col = "darkgreen")
+for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+  mcol <- switch(tp,
+                 `in` = "darkorange2",
+                 `dev` = "purple3",
+                 `ndc` = "darkgreen",
+                 `nfc` = "darkred",
+                 `npc` = "gray40",
+                 `nic` = "darkblue")
+  points(x = grconvertX(0:1, tp, "user"), 
+        y = grconvertY(0:1, tp, "user"),
+        col = mcol, cex = 2, xpd = NA, pch = 16, type = "o", lty = "dashed")
+}
+```
+
+Consider the following example, where we determine the line location in user cooridnates. Recall, the size of the inner and outer margins are defined by the number of lines on each side of the plotting/figure regions, respectively. The number lines, here, refers to the number of lines of text that will fit. We can get the text height using the *`cin`*, *`cex`*, and *`lheight`* parameters stored in `par`. *`cin`* is a length two vector, defining the width and height (`[width, height]`) of a character in inches. *`cex`* provides the size multiplier. *`lheight`* defines the line height multiplier, or the spacing between lines of text. Therefore, we can get the height of a line (in inches) by multiplying the values:
+
+```{r,fig.show='hide'}
+plot.new()
+par('cin')[2]*par('cex')*par('lheight') 
+```
+
+We can then convert that line height to 'npc' units, and finally to 'user' units. (Note: using 'user' units becomes problematic if you have an axis on log scale because the 'user' coordinates are not linear.) The following function illustrates how:
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE}
+line2user <- function(line, side) {
+  lH <- par('cin')[2] * par('cex') * par('lheight') # Get the line height (in)
+  # Converting to npc requires taking the difference between 0 and lh, because
+  # 0 in inches does not equal 0 in npc
+  xOff <- diff(grconvertX(c(0, lH), 'inches', 'npc')) # Convert to npc for x
+  yOff <- diff(grconvertY(c(0, lH), 'inches', 'npc')) # Convert to npc for y
+  switch(side,
+         `1` = grconvertY(-line*yOff, 'npc', 'user'),
+         `2` = grconvertX(-line*xOff, 'npc', 'user'),
+         `3` = grconvertY(1 + line*yOff, 'npc', 'user'),
+         `4` = grconvertX(1 + line*xOff, 'npc', 'user'),
+         stop("Side must be 1, 2, 3, or 4", call.=FALSE)) 
+}
 ```
 
 ### Common plotting functions -- Siyao
@@ -624,10 +811,57 @@ mention how to store the output, such that you know the coordinates
 
 follow up
 
-### Exercises -- Dayne
+### Exercises
 
-1. Create a ruler
+1. Recreate the following graph of `AAPL` below. (`AAPL` can be loaded by running `data(APPL)`). The color used for shading is "dodgerblue". Hint: the `plot` function will convert the dates to numeric. Take a look at `?as.Date` and try running `as.numeric(AAPL$date)`. You can create the plot without explicilty using the "date" class. 
 
-2. 
+```{r,eval=FALSE,include=FALSE}
+# This code block generates the dataset for the package
+# library(quantmod)
+# start <- as.Date("2018-01-01"); end <- as.Date("2018-07-01")
+# getSymbols("AAPL", src = "yahoo", from = start, to = end)
+# stockPrices <- as.vector(AAPL[ , "AAPL.Close"])
+# stockDates  <- index(AAPL)
+# AAPL <- data.frame(price = as.vector(AAPL[ , "AAPL.Close"]), 
+#                    date  = index(AAPL))
+# save(AAPL, file = "data/AAPL.RData")
+```
+
+    ```{r,fig.width=6.5,fig.height=4.5,fig.align='center',echo=FALSE,results='hide'}
+    data(AAPL)
+    par(mar = c(3, 4, 1, 1))
+    plot(price ~ date, data = AAPL, axes = FALSE,
+         bty = "n", ylab = "Closing Price (USD)", type = "n", xlab = "")
+    axDates <- as.Date(sprintf("2018-%02d-01", 1:7))
+    sdate <- as.Date(AAPL$date[1]); edate <- as.Date(tail(AAPL, 1)$date)
+    sprice <- AAPL$price[1]; eprice <- tail(AAPL, 1)$price
+    polygon(x = c(sdate, AAPL$date, edate), 
+            y = c(par('usr')[3], AAPL$price, par('usr')[3]), 
+            col = "dodgerblue", border = "white")
+    polygon(x = c(sdate, sdate, edate, edate), 
+            y = c(par('usr')[3], sprice, sprice, par('usr')[3]), 
+            col = "white", border = "white")
+    abline(h = sprice)
+    points(price ~ date, data = AAPL, type = "l")
+    axis(side = 1, at = axDates, labels = format(axDates, "%b")); axis(2)
+    ```
+
+
+2. Create a ruler with your hand length (from bottom of palm to longest finger tip) in inches rounded to the nearest quarter inch. The ruler should be 2 inches tall, have an outer border, have dashes from inch down to sixteenth inch with the height of the dash corresponding to the unit (eg. the quater inch dashes should be 1/4" tall), have the inch marks labeled above the lines, and have your name (eg. "Dayne's Ruler") centered at 1.5" above the bottom of the ruler. See the example below.
+
+    ```{r,fig.width=6.5,fig.height=2,fig.align='center',echo=FALSE,results='hide'}
+    rl <- 6.5
+    par(mar = rep(0, 4))
+    plot.new()
+    par(usr = c(0, rl, 0, 2))
+    drawLines <- function(x) segments(seq(0, 10, x), 0, seq(0, 10, x), x)
+    sapply(1/2^(4:0), drawLines)
+    text(x = rl/2, y = 1.5, labels = "Julie's Ruler", adj = c(0.5, 0.5), cex = 2)
+    text(x = 1:9, y = 1, labels = 1:9, adj = c(0.5, -0.5))
+    box(lwd = 2)
+    ```
+
+
+3. Challenge question: modify the `line2user` function with an *`outer`* parameter such that the function will return the correct position of the outer lines (in user coordinates for the current plot) despite the number of plots in the device region. Hint: think about where the outer lines start relative to the different drawing regions.  
 
 
