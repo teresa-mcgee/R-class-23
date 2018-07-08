@@ -1,8 +1,8 @@
 ---
-title: "HTLTC-R: Plotting"
+title: "HTLTC-R: Graphics"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Plotting}
+  %\VignetteIndexEntry{HTLTC-R: Graphics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -411,6 +411,8 @@ demoPlot(TRUE)
 demoPlot(NA)
 ```
 
+Note, there is also the `clip()` function for defining a custom clipping region. 
+
 ### Other objects
 
 The following gives a mostly complete list of other the functions for drawing in the graphics system. 
@@ -573,7 +575,7 @@ is analagous to text alignment.
 
 ### Organizing multiple plots
 
-The graphics system provides two ways of organzing multiple plots in one device. The first way is the *`mfrow`* or *`mfcol`* parameter in `par`. The  *`mfrow`*/*`mfcol`* parameters take a length two vector defining the number of rows and columns (`[nrow, ncol]`) to create a grid of plots.
+The graphics system provides three ways of organzing multiple plots in one device. The first way is the *`mfrow`* or *`mfcol`* parameter in `par`. The  *`mfrow`*/*`mfcol`* parameters take a length two vector defining the number of rows and columns (`[nrow, ncol]`) to create a grid of plots.
 
 ```{r,fig.width=6.5,fig.height=6.5,fig.align='center'}
 par(mfrow = c(2, 2), oma = c(2, 3, 4, 1), mar = c(5, 4, 4, 2))
@@ -616,7 +618,7 @@ abline(0, 1, lwd = 40, col = "white")
 points(1, 1, pch = "2", cex = 3)
 ```
 
-Notice how changing the numbers in the matrix specifies the order of the drawing. In the example above the white line drawn during the second plot draws over the red box drawn in the first. 
+Notice how changing the numbers in the matrix specifies the order of the drawing. In the example above the white line drawn during the second plot draws over the red box drawn in the first. The third way to organize multiple plots is with the `screen` functions (`?screen`), but they are more complicated than layout and are rarely (if ever) necessary.
 
 ### Coordinate systems
 
