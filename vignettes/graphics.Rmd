@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 ---
 title: "HTLTC-R: Graphics"
-=======
-  
-  ---
-title: "HTLTC-R: Plotting"
->>>>>>> 768e3ec24f2c797a4a7244c1f170a1af20bde789
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HTLTC-R: Graphics}
@@ -419,28 +413,6 @@ demoPlot(NA)
 
 Note, there is also the `clip()` function for defining a custom clipping region. 
 
-### Other objects
-
-The following gives a mostly complete list of other the functions for drawing in the graphics system. 
-
-| Function   | Description                                         |
-|------------|-----------------------------------------------------|
-| `lines`    | Draw lines between the given coordinates            | 
-| `polygon`  | Draw polygon with vertices at the given coordinates | 
-| `abline`   | Draw lines according to $y = ax + b$                | 
-| `arrows`   | Draw lines with arrow heads                         | 
-| `curve`    | Draw the given expression                           | 
-| `segments` | Draw segments between the given pairs of points     |
-
-
-```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE,echo=FALSE}
-plot.new()
-par(usr = c(0, 8, 0, 10), mar = rep(0, 4))
-polypath(x = c(2, 2, 6, 6, NA, 3, 6, 4),
-         y = c(2, 6, 6, 2, NA, 4, 8, 4),
-         col = "gray", rule = "evenodd")
-```
-
 ### Adding text
 
 Text is drawn using the `text` function. 
@@ -495,8 +467,125 @@ for (i in 1:3) {
 }
 ```
 
+In addition to the `text` function, we can use the `mtext` function to easily label axes. `mtext` draws text outside the margins (without specifying *`xpd`*) based on the given side and margin line. Using the *`outer`* parameter, `mtext` will also draw text in the outer margins.
+
+```{r,fig.width=6.5,fig.height=5.5, fig.align='center'}
+par(mar = c(2, 2, 1, 1), oma = c(1, 1, 2, 1))
+plot(1:10, ann = FALSE, axes = FALSE, type = "s")
+box(col = "gray40", lwd = 2)
+box(which = "figure", col = "darkred", lwd = 2)
+box(which = "outer", col = "darkgreen", lwd = 4)
+mtext(text = "text for x axis", side = 1, line = 1)
+mtext(text = "text for y axis", side = 2, line = 1)
+mtext(text = "text for outer title", side = 3, line = 2)
+```
 
 For scientific plotting, you should read `?plotmath` which describes how to add special symbols and forumulae to your plots.  
+
+### Legends
+
+The `legend()` function draws a legend or key. Let's take a look at a simple example using the iris dataset:
+
+```{r,fig.width=6.5,fig.height=5.5, fig.align='center'}
+data(iris)
+irisScatter <- function() {
+  plot(x = iris$Sepal.Length, 
+     y = iris$Petal.Length, 
+     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
+     pch = 16)
+}
+irisScatter()
+legend(x = 4.5, 
+       y = 7, 
+       legend = c("setosa", "versicolor", "virginica"), 
+       col = c(1:3),
+       pch = 16)
+points(x = 4.5, y = 7, pch = 3, col = "red", cex = 3)
+```
+
+Notice the x and y coordinates are used to position the legend in the graph. By default, the given x and y coordinates specify the top left corner of the legend. The position of the legend can also be specified using the following keywords: "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right" and "center":
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+irisScatter()
+legend(x = "bottomright", 
+       legend = c("setosa", "versicolor", "virginica"), 
+       fill = c(1:3),
+       border = "white",
+       title = "Species",
+       bty = "n")
+```
+
+The *`fill`* argument indicates the colors to use for filling the legend boxes beside the legend text. *`border`* is the border color of the legend boxes, and is used only if *`fill`* is specified. *`title`* adds a title at the top of the legend. Similar to when calling `plot`, *`bty`* indicates the type of box to be drawn around the legend (above, none).
+
+We generally only want to specify *`pch`*, *`fill`*, or *`lty`* arguments. However, combining *`pch`* and *`lty`* can provide desireable results: 
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+y1 <- seq(1, 20, length.out = 10); y2 <- seq(5, 15, length.out = 10)
+plot(1:10, y1, type = "o", pch = 17, lty = "dashed", axes = FALSE, ann = FALSE)
+points(1:10, y2, type = "o", pch = 16, lty = "dotted")
+legend(x = 2,
+       y = 15,
+       xjust = 0.5,
+       legend = c("y1", "y2"), 
+       lty = c("dashed", "dotted"),
+       pch = c(17, 16),
+       ncol = 2)
+points(2, 15, pch = 3, col = "red", cex = 3)
+```
+
+The *`ncol`* argument indicates the number of columns in the legend items (by default R uses 1, a vertical legend). Setting `horiz = TRUE` will also make a horizontal legend without explicitly defining the number of columns. Analagous to text alignment, the *`xjust`* and *`yjust`* arguments determine how the legend is justified relative to the legend x and y locations. A value of 0 means left justified, 0.5 means centered and 1 means right justified.
+
+`legend()` returns a nested list describing the location and size of the legend. The first element, `rect`, contains four elements: (1) `w` indicating the legend width, (2) `h` indicating the legend height, (3) `left` the x coordiante of the left edge, and (4) `top` the y coordinate of the top edge. The second element, `text`, contains two elements: (1) `x` giving the x coordinates of the "anchor" point for the text (in the order given by *`legend`*), and (2) `y` giving the y coordinates of the "anchor" point for the text. Like when using `text`, the *`adj`* parameter will define the alignment for the legend text.
+
+We can also add a legend outside of the graph by setting `xpd = TRUE`.
+
+```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+# Add extra space to right of plot area; change clipping to figure
+par(xpd = TRUE, mar = c(5.1, 4.1, 4.1, 8.1))
+irisScatter()
+lgnd1 <- legend(x = "topright",
+                legend = c("setosa", "versicolor", "virginica"),
+                title = "Species",
+                text.col = "white",
+                box.lty = "dashed",
+                box.col = "red")
+lgnd2 <- legend(x = "topright",
+                legend = c("setosa", "versicolor", "virginica"), 
+                inset = c(-0.3, 0), 
+                col = 1:3, 
+                pch = 16, 
+                title = "Species")
+arrows(x0 = lgnd1$rect$left, 
+       x1 = lgnd1$rect$left + diff(par('usr')[1:2])*0.3,
+       y0 = lgnd1$rect$top - lgnd1$rect$h/2,
+       col = "red")
+lgnd1$rect$left + diff(par('usr')[1:2])*0.3
+lgnd2
+```
+
+We could have also passed `xpd = TRUE` to `legend` and not changed the clipping for the whole figure. When specifying the legend location by keyword, *`inset`* defines how to position the legend with respect to the edge of the plotting region as a fraction of the plot region. Above, `inset = c(-0.3, 0)` says to position the legend to the right of the original x position by 0.3\*(plot region width), given by `diff(par('usr')[1:2])*0.3`. The `diff` function just takes the difference of the given vector. Also notice the use of *`text.col`*, *`box.lty`*, and *`box.col`* in the first `legend` call above. As we might guess, these parameters define the text color, line type for the box, and color for the box, respectively. A complete list of parameters can be found in `?legend`.
+
+### Other objects
+
+The following gives a mostly complete list of other the functions for drawing in the graphics system. 
+
+| Function   | Description                                         |
+|------------|-----------------------------------------------------|
+| `lines`    | Draw lines between the given coordinates            | 
+| `polygon`  | Draw polygon with vertices at the given coordinates | 
+| `abline`   | Draw lines according to $y = ax + b$                | 
+| `arrows`   | Draw lines with arrow heads                         | 
+| `curve`    | Draw the given expression                           | 
+| `segments` | Draw segments between the given pairs of points     |
+
+
+```{r,fig.width=6,fig.height=4.5,fig.align='center',eval=FALSE,echo=FALSE}
+plot.new()
+par(usr = c(0, 8, 0, 10), mar = rep(0, 4))
+polypath(x = c(2, 2, 6, 6, NA, 3, 6, 4),
+         y = c(2, 6, 6, 2, NA, 4, 8, 4),
+         col = "gray", rule = "evenodd")
+```
 
 ### Colors
 
@@ -572,109 +661,6 @@ We yield to Edward Tufte for some final thoughts on using color in visualizing d
 > The primary colors (yellow, red, blue) and black provides maximum differentiation (no four colors differ more).
 
 > In color maps, use a single hue... Using a single hue with variations in intensity allows instant interpretation, multiple color maps without ambiguity, and leaves graphical space for layering and separation.
-
-### Legends
-
-The `legend()` function draws a legend or key to a plot in the traditional graphics system. Typically, the legned is drawn within the plot region, and located relative to the user coordinates. 
-
-Now let's take a look at a simple example using the iris dataset:
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-data(iris)
-palette("default")
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16)
-```
-
-Add a legend to the plot:
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")),
-     pch = 16, cex = 1.2)
-legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
-       col = c(1:3), pch = 16, title = "Species")
-```
-
-Several arguments are used in the `legend()` function. You can type `?legend` for details in R documentation. Here, we will point out a few common ones.
-
-The x and y coordinates are used to position the legend in the graph. The position of the legend can also be specified using the following keywords: "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right" and "center":
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16, cex = 1.2)
-legend(x = 7, y = 3, legend = c("setosa","versicolor","virginica"), 
-       col = c(1:3), pch = 16, title = "Species")
-```
-
-The *`fill`* argument indicates the colors to use for filling the legend boxes beside the legend text. *`border`* is the border color of the legend boxes, and is used only if *`fill`* is specified:
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-boxplot(iris$Sepal.Length ~ iris$Species, col = c('magenta', 'orange', 'blue'), cex = 1.2)
-legend(x = "topleft", legend = c("setosa","versicolor","virginica"), title = "Species",
-       fill = c('magenta', 'orange', 'blue'), border = "green")
-```
-
-The *`ncol`* argument indicates the number of columns in the legend items (by default R uses 1, a vertical legend):
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16, cex = 1.2)
-legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
-       col = c(1:3), ncol = 3, pch = 16, title = "Species")
-```
-
-You can specify lines in the legend by using *`lty`* instead of *`pch`*:
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-plot(x = iris$Sepal.Length, type = "h", 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16, cex = 1.2)
-legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"),
-       col = c(1:3), lty = "solid", title = "Species")
-```
-
-The *`bty`* argument specifies the type of box to be drawn around the legend. Default is "o":
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16, cex = 1.2)
-legend(x = 4.5, y = 7, legend = c("setosa","versicolor","virginica"), 
-       col = c(1:3), pch = 16, title = "Species", bty = "n")
-```
-
-The alignment of the legend is analagous to text alignment. The *`xjust`* and *`yjust`* arguments determine how the legend is justified relative to the legend x and y locations. A value of 0 means left justified, 0.5 means centered and 1 means right justified. `legend()` returns a list with list components. *`rect`* is a list with components: *`w`*, *`h`* are positive numbers indicating the width and height of the legend. *`left`* and *`top`* are the xy coordinates of upper left corner of the box. Below is an example of how to right-justify the legend labels.
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-## right-justifying a set of labels
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-     col = match(iris$Species, c("setosa", "versicolor", "virginica")), 
-     pch = 16, cex = 1.2)
-temp <- legend("bottomright", legend = c(" ", " "," "), pch = 16, 
-       text.width = strwidth("1,000,000"), xjust = 1, yjust = 1,
-       title = "Species", col = c(1:3))
-#legend returns a list with list components
-text(temp$rect$left + temp$rect$w, temp$text$y,
-     c("setosa","versicolor","virginica"), pos = 2)
-```
-
-We can also add a legend outside of the graph by setting *`xpd = TRUE`* and by specifying the x and y coordinates of the legend.
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-# Add extra space to right of plot area; change clipping to figure
-par(xpd = TRUE, mar = c(5.1, 4.1, 4.1, 8.1))
-plot(x = iris$Sepal.Length, y = iris$Petal.Length, 
-          col = match(iris$Species, c("setosa", "versicolor", "virginica")),
-          pch = 16, cex = 1.2)
-# Add legend to top right, outside plot region
-legend(legend = c("setosa","versicolor","virginica"), "topright", 
-       inset = c(-0.3, 0), # specify distance(s) from the margins as a fraction of the plot region
-       col = c(1:3), pch = 16, title = "Species")
-```
 
 ### Organizing multiple plots
 
@@ -834,12 +820,14 @@ hist(iris$Sepal.Length, breaks = 40)
 
 2. Barplot
 
-A barplot is another common type of graphics and it plots the relationship between a numeric variable and a categorical variable. For example, sometimes we need to plot the count of each item as bar plots from a categorical dataset. You can use a base R function *barplot()* to make a barplot. The input data is a numeric vector, which gives the height of the bars.
+A barplot is another common type of graphics and it plots the relationship between a numeric variable and a categorical variable. For example, sometimes we need to plot the count of each item as bar plots from a categorical dataset. You can use a base R function `barplot` to make a barplot. The input data is a numeric vector, which gives the height of the bars.
 
 ```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
 # count the number of species in the iris dataset using the table() function
 data(iris)
 table(iris$Species)
+# reset the color palette
+palette("default")
 # plot this count data
 barplot(table(iris$Species), main = "Count of Species", col = c(1:3),
         xlab = "Species", ylab = "Count")
@@ -847,27 +835,19 @@ barplot(table(iris$Species), main = "Count of Species", col = c(1:3),
 
 3. Boxplot
 
-A boxplot provides a way of displaying the distribution of data based on the median, quartiles, minimum and maximum. You can make a boxplot using the *boxplot()* function, which takes its first argument as a formula. The formula has a form of y-axis ~ x-axis. Here, we are plotting sepal length by species, and the right hand side of the ~ indicates the species variable. 
+A boxplot provides a way of displaying the distribution of data based on the median, quartiles, minimum and maximum. You can make a boxplot using the `boxplot` function, which takes its first argument as a formula. The formula has a form of `y-axis ~ x-axis`. Here, we are plotting sepal length by species, and the right hand side of the `~` indicates the species variable. 
 
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+```{r,fig.width=6.5,fig.height=5.5,fig.align='center'}
 boxplot(iris$Sepal.Length ~ iris$Species, xlab = "Species", ylab = "Sepal Length")
 ```
 
 Each boxplot shows the median (the line inside the box), $25^{th}$ and $75^{th}$ percentiles of the data (the "box"), as well as +/- 1.5 times the interquartile range (IQR) of the data (the "whiskers"). Data points that are beyond 1.5 times the IQR of the data are represented separately by the circles.
 
-4. Scatterplot
+4. Paired scatterplots
 
-A scatterplot provides a way to visualize the relationship between two sets of numbers. In the 'Iris' dataset, we have four variables for observation: sepal length, sepal width, petal length, and petal width. We can look at the relationship between any of the four variables using *plot()*: function:
+A scatterplot provides a way to visualize the relationship between two sets of numbers. In the 'Iris' dataset, we have four variables for observation: sepal length, sepal width, petal length, and petal width. We can look at the relationship between any of the four variables using `plot`, or we can look at all pairs of relationships using the `pairs` function:
 
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
-data(iris)
-head(iris)
-plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species, xlab = "Sepal length", ylab = "Sepal width", main = "Relationship between sepal length and sepal width")
-```
-
-What if we want to look at the relationships for all pairs of data points? You can use the *pair()* function to achieve this:
-
-```{r, fig.width=6.5,fig.height=5.5, fig.align='center'}
+```{r,fig.width=6.5,fig.height=5.5,fig.align='center'}
 pairs(iris, col = iris$Species)
 ```
 
