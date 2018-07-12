@@ -21,7 +21,7 @@ data(primers)
 ## Class sequence
 * Class 1-2: operators (Operators)
 * Class 3: structures (Data structures)
-* Class 4: (Input/Output)
+* Class 4: io (Input/Output)
 * Class 5-6: (Plotting)
 * Class 7: control (Control statements)
 * Class 8: functions (Functions)
@@ -35,5 +35,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
 ## Plotting lectures
 Different small groups have used different methods for teaching plotting. Here is the list of available plotting lectures with a summary of each. 
 
-### plotting1
+### plotting
 This is a very basic plotting lecture. It jumps right into base plot and focuses on `plot()`, `points()`, and `legend()`. The homework activies use a different data set and also teach `hist()` and `boxplot()`. 
+
+### graphics
+This lecture dives into the fundamentals of the graphics engine. It is recommended to put this lecture after the functions lecture, because the lecture includes information about how to write a few helpful functions. The recommened sequence would be operators, structures, control, functions, io, graphics, package.
