@@ -91,89 +91,104 @@ The don't repeat yourself (DRY) principle states that
 
 > every piece of knowledge must have a single, unambigous, authorative representation within a system - Dave Thomas and Andy Hunt. 
 
-There is a lot to think about when using the DRY principle, like not repeating variable names throughout your code. The DRY principle is particularly useful when thinking about functional programming. If you find yourself writing the same code more than once, or copying and pasting, consider writing a function. Think back to the primer list discussed in last class, and consider the following code to generate two sets of fruit:
+There is a lot to think about when using the DRY principle, like not repeating variable names throughout your code. The DRY principle is particularly useful when thinking about functional programming. If you find yourself writing the same code more than once, or copying and pasting, consider writing a function. Think back to the primer list discussed in last class, and consider the following code to generate random primers:
 
 ```{r}
-library(stringi)
-lengths1 <- sample(15:35, 25,replace=TRUE)
-primers1 <- list(primer = stri_rand_strings(25, lengths1, '[ACTG]'),
-                 length = lengths1)
-lengths2 <- sample(20:40, 25,replace=TRUE)
-primers2 <- list(primer = stri_rand_strings(25, lengths1, '[ACTG]'),
-                 length = lengths1)
+bases <- c('A', 'T', 'C', 'G')
+l1 <- sample(15:35, 25, replace = TRUE)
+p1 <- character(length = length(l1))
+for (i in 1:length(p1)) {
+  p1[i] <- paste(sample(bases, l1[i], replace = TRUE), collapse = "")
+}
+l2 <- sample(15:35, 25, replace = TRUE)
+p2 <- character(length = length(l2))
+for (i in 1:length(p2)) {
+  p2[i] <- paste(sample(bases, l2[i], replace = TRUE), collapse = "")
+}
 ```
 
-Now imagine you have to create 100 primer lists. After you fininsh you realize you need to change the list of possible primer lengths. If you wrote code like above you would have to edit each line. However, you may see how the code above could be functionalized. Consider what may be variable in the code above, and create a function parameter for each variable part of the code. You may wish to change the minimum primer length, the maximum primer length, the number of primers in each list, and even the possible bases. 
+Now imagine you have to create 100 sets of primers. After you fininsh you realize you need to change the list of possible primer lengths. If you wrote code like above you would have to edit each line. Notice how similar the code is to generate the two sets of primers above. You may see how the code above could be functionalized. Consider what may be variable in the code above, and create a function parameter for each variable part of the code. You may wish to change the minimum primer length, the maximum primer length, the number of primers in each list, and even the possible bases. 
 
 ```{r}
-## Create a funciton to primer lists. 
-genPrimer <- function(minlen, maxlen, nprimers, bases = '[ACTG]') {
+# Create a funciton to primer lists. 
+genPrimer <- function(minlen, maxlen, nprimers, bases = c('A', 'T', 'C', 'G')) {
   
-  lengths <- lengths1 <- sample(minlen:maxlen, nprimers,replace=TRUE)
-  res <- list(primer = stri_rand_strings(nprimers, lengths, bases),
-              length = lengths)
-  return(res)
+  l <- sample(minlen:maxlen, nprimers, replace = TRUE)
+  p <- character(length = length(l1))
+  for (i in 1:length(p)) {
+    p[i] <- paste(sample(bases, l[i], replace = TRUE), collapse = "")
+  }
+  return(list(primers = p, lengths = l))
   
 }
 primers1 <- genPrimer(minlen = 15, maxlen = 35, nprimers = 25)
 primers2 <- genPrimer(minlen = 20, maxlen = 40, nprimers = 25)
 ```
 
-Notice two things: (1) now any change needed in the fruit generation only requires the code to change in one place -- greatly reducing the amount of work, and more importantly, the change for error; (2) notice how 'bases' is defined in the function with a default value. You can probably imagine how many functions benefit from default parameter values. For the `genPrimer` function above you will most often only generate sequences with nucelotides found in DNA, so it makes sense to provide a default value for the bases. Almost all of the functions you will use in R run with default values that you may or may not be aware of.
+Notice three things: (1) now any change needed in the primer generation only requires the code to change in one place -- greatly reducing the amount of work, and more importantly, the chance for error; (2) notice how 'bases' is defined in the function with a default value. You can probably imagine how many functions benefit from default parameter values. For the `genPrimer` function above you will most often only generate sequences with nucelotides found in DNA, so it makes sense to provide a default value for the bases. Almost all of the functions you will use in R run with default values that you may or may not be aware of; (3) notice an R function can only return one object. Here, we want to return both the primers and their lenghts. We can return multiple objects by storing them all in one list. 
 
 Similarly, you can functionalize the molecular weight and Tm calculators:
 
 ```{r}
-library(stringr) #This library is required for the function that calculates Tm
 primer_analysis <- function(primers) {
   
-  # create results list
-  res <- list (primer = character(), mw = numeric(), 
-               Tm = numeric(), length = numeric())
+  nprimer <- length(primers$primer)
+  # Create results list
+  res <- list (primer = character(length = nprimer), 
+               mw = numeric(length = nprimer), 
+               Tm = numeric(length = nprimer), 
+               length = numeric(length = nprimer))
   
-  ## For-loop iterating through the 1:(number of fruit)
-  for (p in 1:length(primers$primer)) {
+  # For-loop iterating through the 1:(number of primers)
+  for (p in 1:nprimer) {
     
-    sequence <- primers$primer[p] ## Get the fruit type from the list
-    len <- primers$length[p] ## Get the fruit width from the list
+    sequence <- primers$primer[p] 
+    len <- primers$length[p] 
     
-    ### Get molecular weight
-    pmass <- 0 #set mass of primer equal to zero
-    for (j in 1:len){
-      l <- substr(sequence,j,j) #get jth nucleic acid of ith primer
-      if (l=="C"){
+    # Count bases
+    nA <- 0 # number of A's
+    nC <- 0 # number of C's
+    nG <- 0 # number of G's
+    nT <- 0 # number of T's
+    
+    for (j in 1:len) {
+      l <- substr(sequence, j, j) # Get jth nucleic acid of pth primer
+      if (l == "C") {
+        nC <- nC + 1
         m <- 467.2
-      } else if (l=="A"){
+      } else if (l == "A") {
+        nA <- nA + 1
         m <- 491.2
-      } else if (l=="G"){
+      } else if (l == "G") {
+        nG <- nG + 1
         m <- 507.2
-      } else if (l=="T"){
+      } else if (l == "T") {
+        nT <- nT + 1
         m <- 482.2
-      } #get mass of jth nucleic acid of ith primer
-      pmass <- pmass+m #add mass of jth nucleic acid to the mass of the primer
-    }
+      } 
+    }  # End of count base for-loop
     
-    ### Get Tm
-    nA <- sum(str_count(sequence,"A")) #number of A's
-    nC <- sum(str_count(sequence,"C")) #number of C's
-    nG <- sum(str_count(sequence,"G")) #number of G's
-    nT <- sum(str_count(sequence,"T")) #number of T's
-    if (len<=13){
-      Tm <- (nA+nT)*2 + (nG+nC)*4
+    # Calculate mass
+    pmass <- nC*467.2 + nA*491.2 + nG*507.2 + nT*482.2
+    
+    # Calculate Tm
+    if (len <= 13) {
+      Tm <- (nA + nT)*2 + (nG + nC)*4
     }
     else{
       Tm <- 64.9 +41*(nG+nC-16.4)/(nA+nT+nG+nC)
     }
     
-    # assign values to the results matrix
+    # Assign values to the results matrix
     res$primer[p] <- sequence
     res$mw[p] <- pmass
     res$Tm[p] <- Tm
     res$length[p] <- len
       
-    }
+  } # End of primer for-loop
     
-    return(res)
+  return(res)
+  
 }
 ```
 
@@ -209,10 +224,10 @@ In the `xmpl_func("see what happens")` example, the function returned `TRUE`. (R
 ```{r,error=TRUE}
 xmpl_func <- function(x) {
   
-  ## Test the length of x
+  # Test the length of x
   if (length(x) > 1) stop("'x' must be of length 1.")
   
-  ## Test the class of x
+  # Test the class of x
   if (!is.numeric(x)) stop("'x' must be numeric.")
   
   if (x >= 100) {
@@ -231,7 +246,7 @@ Finally, you may wish to issue a warning if the input can be converted to numeri
 ```{r,error=TRUE}
 xmpl_func <- function(x) {
   
-  ## Test the length of x
+  # Test the length of x
   if (length(x) > 1) stop("'x' must be of length 1.")
   
   if (is.logical(x)) {
