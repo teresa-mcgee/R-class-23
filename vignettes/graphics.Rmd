@@ -83,42 +83,6 @@ par()$mar
 `par()` controls everything from default colors and plotting symbols to the style of the default axes. ***It is important to understand that everytime a new device is created `par()` is reset to the defaults.*** Here we are interested in the drawing regions and how to define them. The figure below illustrates the three regions. 
 
 ```{r,echo=FALSE}
-line2user <- function(line, side, outer = FALSE) {
-  unit <- if (outer) "nic" else "npc"
-  lh <- par('cin')[2] * par('cex') * par('lheight')
-  x_off <- diff(grconvertX(c(0, lh), 'inches', unit))
-  y_off <- diff(grconvertY(c(0, lh), 'inches', unit))
-  switch(side,
-         `1` = grconvertY(-line * y_off, unit, 'user'),
-         `2` = grconvertX(-line * x_off, unit, 'user'),
-         `3` = grconvertY(1 + line * y_off, unit, 'user'),
-         `4` = grconvertX(1 + line * x_off, unit, 'user'),
-         stop("Side must be 1, 2, 3, or 4", call.=FALSE))
-}
-col2alpha <- function(col, alpha = 0.5) {
-  tmp <- col2rgb(col)
-  rgb(tmp[1]/255, tmp[2]/255, tmp[3]/255, alpha)  
-}
-labelLines <- function(outer = FALSE, alpha = 1) {
-  if (outer) {
-    col <- col2alpha("darkgreen", alpha)
-    p <- "oma"
-  } else {
-    col <- col2alpha("darkred", alpha)
-    p <- "mar"
-  }
-  nline <- par()[[p]]
-  side <- unlist(mapply(rep, 1:4, each = nline))
-  line <- unlist(sapply(nline, seq)) - 1
-  txt <- paste0("Line", line)
-  mtext(txt, side, line, outer = outer, col = col)
-  mtext(paste0("Side", 1:4), 1:4, -1, col = col2alpha("gray40", alpha))
-  xpd <- if (outer) NA else TRUE
-  abline(h = line2user(0:nline[1], 1, outer), xpd = xpd, lty = 3, col = col)
-  abline(v = line2user(0:nline[2], 2, outer), xpd = xpd, lty = 3, col = col)
-  abline(h = line2user(0:nline[3], 3, outer), xpd = xpd, lty = 3, col = col)
-  abline(v = line2user(0:nline[4], 4, outer), xpd = xpd, lty = 3, col = col)
-}
 setupPlot <- function(label.lines = FALSE) {
   par(mar = c(2, 5, 2, 2), oma = c(2, 5, 2, 2))
   plot.new()
