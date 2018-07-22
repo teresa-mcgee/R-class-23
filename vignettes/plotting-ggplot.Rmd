@@ -23,7 +23,7 @@ library(here)
 
 ### Goals
 1. Know how to import data from a csv file format
-2. Understand all of the arguments of the `plot` function
+2. Understand the basics of the ggplot command
 3. Be able to make basic plots 
 
 ### Importing data from a csv file 
@@ -51,8 +51,9 @@ Using the `class()` function we can tell that `yeast` is a data.frame. This mean
 Now we have imported some data, so how can we visualize it? R has several different methods for making plots, they are generally refered to as base graphics and ggplot. We will be focusing on the ggplot system in these lectures. The gg in ggplot stands for the Grammar of Graphics, a system for understanding how graphs are composed and understood, but ggplot can still be effectively used without a through understanding of the theoretical underpinings. In this session we will slowly build up a single plot from it's constituent components.
 
 Nearly all plots made using ggplot start with the function `ggplot`, this function allows you to specify a data frame that you want to use for your plot. You can also specify what you want to appear on each axis using the aes function, which stands for aesthetics. In this example, we want:
-*Time to appear along the X-axis
-*Reading to appear along the Y-axis
+
+* Time to appear along the X-axis
+* Reading to appear along the Y-axis
 
 ```{r}
 yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg))
@@ -67,7 +68,7 @@ yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg)) +
 yeast_plot
 ```
 
-This last example also introduces the system ggplot uses for building up plots, namely the `+` sign. Also note that R realizes that the call to `geom_point` is connected to the call to ggplot. We will use multiple `+` symbols to build plots using ggplot often over multiple lines to make it easier to read and understand how the plot is constructed.
+This last example also introduces the system ggplot uses for building up plots, namely the `+` sign. Also note that R realizes that the call to `geom_point` is connected to the call to ggplot. We will use multiple `+` symbols to build plots often over multiple lines to make it easier to read and understand how the plot is constructed.
 
 You may remember from the data description that we have three types of Yeast Strain represented in this data set (stored in the Strain column), but we haven't told ggplot how we want to differentiate the strains. One method to do this is to assign color to differentiate each stain:
 
@@ -87,7 +88,7 @@ yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) +
 yeast_plot
 ```
 
-###Adding/Modifying Labels
+### Adding/Modifying Labels
 
 By default, ggplot uses the column headings as the axis labels, but these column headings often don't match exactly the desired axis labels. They can be modified using the labs command:
 
@@ -117,7 +118,7 @@ yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) +
 yeast_plot
 ```
 
-###Modifying Visual Properties of Plots
+### Modifying Visual Properties of Plots
 
 The default visual styling of the plots can also be modified using a set of built in themes or built to your own preferences. There are several different themes built into ggplot and in general they start with "theme_", here is one example:
 
@@ -141,7 +142,7 @@ yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) +
 yeast_plot
 ```
 
-###Saving Plots
+### Saving Plots
 
 Plots can be saved to a file on your computer using `ggsave`. The most common output formats are PNG, PDF and SVG. PNG files are not easy to edit, but can be easily inserted into powerpoint slides. SVG and PDF can edited using other software including Adobe Illustrator. `ggsave` defaults to saving the last plot made, but can be used to save any plot you have produced. Here's an example:
 
