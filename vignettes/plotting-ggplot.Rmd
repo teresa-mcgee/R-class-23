@@ -165,6 +165,7 @@ The following questions are to be worked on in a small group. Always make sure t
 \pagebreak
 
 ### Exercises
+
 The following questions are to be done for homework. They require the data in the file "heights.csv" which includes the gender, height, handedness, and eye color. To answer these questions you will use different types of plots including histograms, bar plots, and box plots. You can learn about all the required arguments by using the help section. 
 
 1. Make a histogram of height using the `hist()` function. Include an appropriate title and axis labels.
