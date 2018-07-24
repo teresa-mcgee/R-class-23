@@ -13,6 +13,10 @@ library(tidyverse)
 library(here)
 ```
 
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=7, fig.height = 5)
+```
+
 ### Using this document
 
 * Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
