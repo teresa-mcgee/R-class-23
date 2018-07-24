@@ -32,7 +32,7 @@ A csv is a comma separated values file, which allows data to be saved in a table
 
 You have been provided with the data set "yeast_tidy.csv". This data set includes data on the response of budding yeast to mating pheromone over time for following three cell types: wildtype (wt), an sst2 mutant (sst2), and a gpa1 mutant (gpa1). For each mutant there is data on the mean response of a population (avg) as well as the standard deviation of the response (stdev). The data set also includes the time for each data point. Let's import it into R and store it as `yeast_data` using the `read.csv` function. Here the argument `header` is set to `TRUE` because the data set has a header labeling each column. 
 
-```{r,eval=FALSE}
+```{r}
 yeast_data <- read.csv(here('data/yeast_tidy.csv'), header = TRUE)
 ```
 
