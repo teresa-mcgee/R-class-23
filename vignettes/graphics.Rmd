@@ -441,7 +441,7 @@ box(which = "figure", col = "darkred", lwd = 2)
 box(which = "outer", col = "darkgreen", lwd = 4)
 mtext(text = "text for x axis", side = 1, line = 1)
 mtext(text = "text for y axis", side = 2, line = 1)
-mtext(text = "text for outer title", side = 3, line = 2)
+mtext(text = "text for outer title", side = 3, line = 1, outer = TRUE)
 ```
 
 For scientific plotting, you should read `?plotmath` which describes how to add special symbols and forumulae to your plots.  
@@ -552,7 +552,7 @@ The following gives a mostly complete list of other the functions for drawing in
 |------------|-----------------------------------------------------|
 | `lines`    | Draw lines between the given coordinates            | 
 | `polygon`  | Draw polygon with vertices at the given coordinates | 
-| `abline`   | Draw lines according to $y = ax + b$                | 
+| `abline`   | Draw lines according to $y = bx + a$                | 
 | `arrows`   | Draw lines with arrow heads                         | 
 | `curve`    | Draw the given expression                           | 
 | `segments` | Draw segments between the given pairs of points     |
