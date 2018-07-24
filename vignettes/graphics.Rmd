@@ -706,7 +706,7 @@ We can convert x and y values between the different coordinate systems using the
 
 ```{r,fig.width=6,fig.height=4.5,fig.align='center'}
 plot(1:4)
-for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+for(tp in c("inches", "device", "ndc", "nfc", "npc", "nic")) {
   newX <- grconvertX(c(1.0, 4.0), "user", tp)
   print(paste(tp, paste(round(newX, 3), collapse = ", "), sep = ": "))
 }
@@ -721,7 +721,7 @@ plot(1:4)
 ```{r,echo=-c(1,2),fig.show='hide'}
 par(oma = c(1, 1, 4, 1), mfrow = c(1, 2))
 plot(1:4)
-for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+for(tp in c("inches", "device", "ndc", "nfc", "npc", "nic")) {
   newX <- grconvertX(c(1.0, 4.0), "user", tp)
   print(paste(tp, paste(round(newX, 3), collapse = ", "), sep = ": "))
 }
@@ -736,7 +736,7 @@ box(col = "gray40")
 box(which = "figure", col = "darkred")
 box(which = "inner", col = "darkblue")
 box(which = "outer", col = "darkgreen")
-for(tp in c("in", "dev", "ndc", "nfc", "npc", "nic")) {
+for(tp in c("inches", "device", "ndc", "nfc", "npc", "nic")) {
   mcol <- switch(tp,
                  `in` = "darkorange2",
                  `dev` = "purple3",
