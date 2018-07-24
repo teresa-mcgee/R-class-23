@@ -161,14 +161,36 @@ ggsave('yeast_growth.png',yeast_plot)
 
 ### Exercises
 
-The following questions are to be done for homework. They require the data in the file "heights.csv" which includes the gender, height, handedness, and eye color. To answer these questions you will use different types of plots including histograms, bar plots, and box plots. You can learn about all the required arguments by using the help section. 
+The following questions are to be done for homework. They require the use of the mtcars data set, which is built into R and be accessed throught the mtcars variable. Additional information about the data set can be found with `?mtcars`
 
-1. Make a histogram of height using the `hist()` function. Include an appropriate title and axis labels.
+1. Make a histogram of the mpg (miles per gallon) column. Hint: check the help on geom_histogram
 
-2. Now make the same histogram but include 20 bins and make it your favorite color. 
+```{r,eval=FALSE,include=FALSE}
+#Possible solution:
 
-3. Make a bar chart of how many people are left or right handed using the `barplot()` function. Hint: `yeast$Handedness[yeast$Handedness=="Left"]` will return a vector including on those entries where `yeast$Handedness` is `"Left"` and `length()` will return the length of a vector. 
+ggplot(mtcars, aes(x=mpg)) + geom_histogram()
+```
 
-4. Make a bar chart of how many people have the following eye colors: blue, brown, other. Make the color of each bar correspond to the eye color (you can choose any color for other). 
+2. Now make the same histogram but with a bin width of 5 and make it your favorite color. 
 
-5. Make a box plot of the height using the `boxplot()` function. 
+```{r,eval=FALSE,include=FALSE}
+#Possible solution:
+
+ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5, color = "green")
+```
+
+3. Make a bar chart of the number of cars in each of the cylinder classes (identified by the cyl column). Also check out the help for geom_bar.
+
+```{r,eval=FALSE,include=FALSE}
+#Possible solution:
+
+ggplot(mtcars, aes(x=cyl,y=mpg)) + geom_bar()
+```
+
+4. Make a box plot of the number of cylinders vs the car's total horsepower
+
+```{r,eval=FALSE,include=FALSE}
+#Possible solution:
+
+ggplot(mtcars, aes(group=cyl,y=hp,x=cyl)) + geom_boxplot()
+```
