@@ -54,7 +54,7 @@ Using the `class()` function we can tell that `yeast` is a data.frame. This mean
 
 Now we have imported some data, so how can we visualize it? R has several different methods for making plots, they are generally refered to as base graphics and ggplot. We will be focusing on the ggplot system in these lectures. The gg in ggplot stands for the Grammar of Graphics, a system for understanding how graphs are composed and understood, but ggplot can still be effectively used without a through understanding of the theoretical underpinings. In this session we will slowly build up a single plot from it's constituent components.
 
-Nearly all plots made using ggplot start with the function `ggplot`, this function allows you to specify a data frame that you want to use for your plot. You can also specify what you want to appear on each axis using the aes function, which stands for aesthetics. In this example, we want:
+Nearly all plots made using ggplot start with the function `ggplot`, this function allows you to specify a data frame that you want to use for your plot. You can also specify what you want to appear on each axis using the aes function. In this example, we want:
 
 * Time to appear along the X-axis
 * Reading to appear along the Y-axis
