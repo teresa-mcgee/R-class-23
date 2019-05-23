@@ -22,7 +22,7 @@ set.seed(1234)
 ### Goals
 1. Write and run a basic function in R
 2. Understand function environments and how functions find things
-3. Understand the "do not repeat yourself" (DRY) principle
+3. Apply the "do not repeat yourself" (DRY) principle
 
 ### Basic functions
 So far we've used a lot of functions that already exist in R. Now you will learn how to write your own functions. User-written functions take the following structure:

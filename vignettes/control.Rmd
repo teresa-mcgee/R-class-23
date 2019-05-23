@@ -105,6 +105,12 @@ for (i in 1:length(primers$V1)) {
   len[i] <- nchar(primers[i, 1])
 }
 ```
+***
+#### In class exercises
+
+Write a for-loop that prints each primer.
+
+***
 
 ### If/else statements
 In R, you create an if/else statement with the following syntax:
@@ -209,53 +215,21 @@ while (val < 10) {
 
 If you omit the second part that updates `val` R would have printed `3` until you manually killed the process.
 
-### Repeat and break
-
-Repeat-statements are very similar to while-statements, but do not include the termination criteria in in the statement call. This amounts to a difference of when the criteria are checked. `while` always checks the criteria at the beginning of each call, but `repeat` allows the user to define when to check the criteria. `break` provides the necessary ability to terminate the repeat. 
-
-The repeat syntax in R is:
-
-```{r,eval=FALSE}
-repeat {
-  do something 
-  if (condition) break
-  update condition
-}
-```
-
-Suppose we want to find the first primer starting with C, and return it. 
-
-```{r}
-i <- 1
-repeat {
-  startBase <- substr(x = primers$V1[i], start = 1, stop = 1)
-  if (startBase == "C") break
-  i <- i + 1
-}
-i
-```
-
-Somtimes using a repeat-statement greatly simplifies the syntax over a while-statement. See exercise 5. Repeat statements also allow for much more complicated termination criteria, eg. there could be multiple break points, each with their own multivariable criteria. 
-
-### Next
-
-Sometimes it is useful to skip iterations in loops without exiting the loop; `next` provides this functionality. The following shows how to use both `next` and `break` in a for-loop. 
-
-```{r}
-set.seed(1234)
-letterJumble <- sample(letters)
-for (i in letterJumble) {
-  if (i == "r") break
-  if (i > "r") next
-  print(i)
-}
-```
-
-First, we randomized the order of the letters using `sample` (setting the seed using `set.seed` just ensures the "random" sample is the same every time). Then we look loop through the letters printing the letters that come before "r" until we find "r". 
-
 ### Combining control statements
 
-The following example combines for loops and if/else statements. Let's revisit our primer list example. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively.
+Let's start with a simple example of combining for-loops and if/else statments. We want to print just those primers that are longer than .. 
+
+```{r}
+# loop through all primers 
+for (i in 1:length(primers$V1)) {
+  # print primer if it is longer than ..
+  if (nchar(primers[i, 1]) > 45){
+    print(primers[i,1])
+  }
+}
+```
+
+The following example is more complicated and combines for-loops and if/else statements. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively.
 
 ```{r}
 # make empty numeric vector with the same length as the primers vector

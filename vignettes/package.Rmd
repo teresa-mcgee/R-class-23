@@ -23,7 +23,7 @@ set.seed(1234)
 ### Goals
 
 1. Install and load R packages
-2. Consider some principles of reproducible research
+2. Discuss how reproducible research applies to programming
 3. Know the basic components of an R package
 4. Create a simple R package using RStudio and roxygen2
 

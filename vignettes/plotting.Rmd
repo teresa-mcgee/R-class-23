@@ -23,13 +23,9 @@ dat <- yeast
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Goals
-1. Know how to import data from a csv file format
-2. Understand all of the arguments of the `plot` function
-3. Be able to make basic plots 
+1. Make basic plots
 
 ### Importing data from a csv file 
-
-A csv is a comma separated values file, which allows data to be saved in a table structured format. Excel files can often be saved as csv files. R has a function to read these files called `read.csv`. We will use this function to read in data from a csv file.
 
 You have been provided with the data set "yeastmutants.csv". This data set includes data on the response of budding yeast to mating pheromone over time for following three cell types: wildtype (wt), an sst2 mutant (sst2), and a gpa1 mutant (gpa1). For each mutant there is data on the mean response of a population (avg) as well as the standard deviation of the response (stdev). The data set also includes the time for each data point. Let's import it into R and store it as `dat` using the `read.csv` function. Here the argument `header` is set to `TRUE` because the data set has a header labeling each column. 
 
@@ -57,7 +53,6 @@ Now let's do a basic plotting example. We want to plot the average response of w
 plot(x = dat$Time, y = dat$wt.avg)
 ```
 
-\pagebreak
 We also want to give the plot an appropriate title and axis labels.
 
 ```{r}
@@ -68,7 +63,6 @@ plot(x = dat$Time,
      ylab = "Mean pheromone response")
 ```
 
-\pagebreak
 In order to add more data sets to the existing plot we need to use the `lines` or the `points` functions. The use of the `points` function to compare the response of wildtype to the gpa1 mutant is shown below. 
 
 ```{r}
@@ -96,17 +90,17 @@ legend(x = "bottomright",
        col = c("black","red"))
 ```
 
-### Small group activities
+***
+#### In class activities 
 
 The following questions are to be worked on in a small group. Always make sure that your plots have proper titles and axis labels. 
 
 1. Plot the average pheromone response for all three cell types. Plot them as lines, not points (remember: the argument `type` for `plot` and the function `lines` which is similar to `points`). Make each cell type a different color and create a legend to match. 
 
-2. Plot the standard deviation of the pheromone response for all three cell types. Plot them as points making each cell type a different color. Create a legend to match.
+2. Noise in cellular response is often quantified by the coefficient of variation (CV) because it normalizes the standard deviation for differences in the mean. CV is defined as $CV=\sigma/\mu$ where $\sigma$ is the standard deviation and $\mu$ is mean. Create new variables in the data frame for the CV for each cell type. (Rememeber: you can use subsetting to assign new variables). Then create a plot of the CV for all cell types following the same guidelines as in question 1.
 
-3. Noise in cellular response is often quantified by the coefficient of variation (CV) because it normalizes the standard deviation for differences in the mean. CV is defined as $CV=\sigma/\mu$ where $\sigma$ is the standard deviation and $\mu$ is mean. Create new variables in the data frame for the CV for each cell type. (Rememeber: you can use subsetting to assign new variables). Then create a plot of the CV for all cell types following the same guidelines as in questions 1 and 2.
-
-\pagebreak
+***
+There are many things you can do with plotting in R. The following problems will give you a chance to explore some of the many plotting functions available including `hist()`, `barplot()`, and `boxplot()`
 
 ### Exercises
 The following questions are to be done for homework. They require the data in the file "heights.csv" which includes the gender, height, handedness, and eye color. To answer these questions you will use different types of plots including histograms, bar plots, and box plots. You can learn about all the required arguments by using the help section. 

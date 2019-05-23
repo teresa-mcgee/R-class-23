@@ -20,8 +20,8 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 * Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!). 
 
 ### Goals
-1. Understand the basic R data structures (vector, matrix, list, data.frame)
-2. Know how to subset the four basic data structures
+1. Use the basic R data structures (vector, matrix, list, data.frame)
+2. Subset the four basic data structures
 
 ### Introduction to data structures 
 
@@ -43,6 +43,17 @@ y <- c(3, 4, 6)
 z <- c(x, y)
 z
 ```
+
+***
+#### In class exercises
+Predict the results for the following vectors. Use R to check your answers.
+
+`a <- c("1","2","3")`
+
+`b <- c(4,5,6)`
+
+`c <- c(a,b)`
+***
 
 #### Matrices
 
@@ -86,6 +97,16 @@ is.matrix(mat1)
 as.vector(mat1)
 ```
 
+***
+#### In class exercises
+Make a matrix that looks like this table: 
+
+| 1 | 1 |
+|:-:|:-:|
+| 2 | 4 |
+| 3 | 9 |
+***
+
 #### Lists
 
 Lists allow users to store multiple elements (like vectors and matrices) under a single object. You can use the `list` function to create a list:
@@ -113,6 +134,12 @@ names(l2)
 ```
 
 Above the list has two elements, named "vec" and "mat," a vector and matrix, resepcively.
+
+***
+#### In class exercises
+Make a list with appopriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
+
+***
 
 #### Data frames
 
@@ -147,6 +174,12 @@ str(df3)
 
 Now the "y" column is a character. As mentioned above, each "column" of a data frame must have the same length. Trying to create a data.frame from vectors with different lengths will result in an error. (Try running `data.frame(x = 1:3, y = 1:4)` to see the resulting error.)
 
+***
+#### In class exercises
+Make a data frame with appopriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
+
+***
+
 ### Subsetting objects 
 
 We will discuss three subsetting operators: `[`, `[[`, and `$`.
@@ -166,6 +199,11 @@ The `[` operator can also take a vector as the argument. For example you can sel
 v1 <- c("a", "b", "c", "d")
 v1[c(1, 3)]
 ```
+***
+#### In class exercises
+Subset "c", "a", and "b" from `v1` in that order. 
+
+***
 
 #### Lists
 
@@ -184,6 +222,12 @@ l1[["vector1"]]
 ```
 
 Note, you can also provide a vector of names to the `[` operator.
+
+***
+#### In class exercises
+Subset your hair color from the list you made in a previous exercise.  
+
+***
 
 #### Matrices 
 
@@ -213,6 +257,12 @@ When subsetting, R attempts to simplify the data structure. As you see in the ex
 mat1[c("Row 1"), c("Col 1", "Col 3")] ## Can be simplified to a vector
 mat1[1:2, 2:3] ## Cannot be simplified to a vector
 ```
+
+***
+#### In class exercises
+Subset the second column from `mat2`.  
+
+***
 
 The other subsetting operator you need to know for this course is `$`. The `$` operator allows you to select list elements by name. For example, consider `l1` again. `l1` has two elements, named "vector1" and "vector2," and you can select one or the other with the `$` operator.
 
@@ -244,6 +294,12 @@ df3[ , 1]
 ```
 
 Notice how subsetting by `i` and `j` alone differ. Every column of a data frame is essentially a vector in a list. So when you select one column, the data structure is simplified to a vector. However, selecting 1 row does not simplify, because different columns may have different data classes and it does not make sense to coerce all of the columns to one data type.
+
+***
+#### In class exercises
+Subset your hair color from the data frame you made in a previous exercise using each of the operators (`[`, `[[`, and `$`).  
+
+***
 
 ### Modifying a subset
 
