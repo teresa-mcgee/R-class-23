@@ -2,7 +2,7 @@
 title: "HLC-R: Reading, writing, and regular expressions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Reading, writing, and regular expressions}
+  %\VignetteIndexEntry{HTLTC-R: Reading, writing, and regular expressions (simplified)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
