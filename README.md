@@ -6,7 +6,7 @@ To install the package from github run:
 
 ```
 library(devtools)
-install_github("How-to-Learn-to-Code/rclass", build_vignettes = TRUE)
+devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "")
 library(htltcR)
 ```
 Then you can load vignettes for each lecture. For example, to run load the lecture for class1 simply run:
