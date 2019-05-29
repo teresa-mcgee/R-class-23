@@ -23,12 +23,14 @@ Appropriate vignettes are in parentheses. For some there are two options. The fi
 * Class 1: Set up, introduction to R and RStudio, and operators (operators)
 * Class 2: Data structures and subsetting (structures)
 * Class 3: File input/output (io or simple_io)
-* Class 4: Plotting (graphics or plotting)
+* Class 4: Plotting (graphics** or plotting)
 * Class 5: Control statements (control)
 * Class 6: Functions (functions)
 * Class 7: Reproducible research and packages (packages)
 
-We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don't worry if a lesson takes a little longer 
+We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don't worry if a lesson takes a little longer.
+
+** if using the 'graphics' vignette, see below for modified class schedule. 
 
 ## Notes for teachers
 This section contains recommendations for teachers from previous teachers. If you encounter something that you think could help other teachers, please add it here.
