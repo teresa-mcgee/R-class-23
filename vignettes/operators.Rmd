@@ -21,12 +21,12 @@ knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 
 
 ### Goals
-1. Know and understand the basic math operators (`+`, `-`, `*`, `/`, `^`)
-2. Know the assignment operator and how to use it
-3. Understand what a function is, how to use a function, and understand some basic functions 
-4. Understand the three most common data classes (character, numeric, logical)
-5. Know and understand the basic comparison operators (`>`, `<`, `==`, `>=`, `<=`)
-6. Understand how to compare objects, and predict the data classes and how they change when comparing or combining objects
+1. Use the basic math operators (`+`, `-`, `*`, `/`, `^`)
+2. Correctly use the assignment operator
+3. Use and understand basic functions 
+4. Compare and contrast three most common data classes (character, numeric, logical)
+5. Predict results using the basic comparison operators (`>`, `<`, `==`, `>=`, `<=`)
+6. Predict the data classes and how they change when comparing or combining objects
 
 ### Introduction to R
 
@@ -72,6 +72,20 @@ ls()
 
 Running `ls()` returns `[1] "x" "y"`, indicating there are two variables, `x` and `y`, in the global environment.
 
+***
+
+#### In class exercises
+
+Use R to calculate assign the following values (remember to use the assignment operator!):
+
+`a <- 1 + 5*2`
+
+`b <- 2/4*32`
+
+`c <- 2^^4 - 12`
+
+***
+
 #### Data types
 
 Programming languages include different data classes. While R includes many different types, we will discuss the three most common: (1) numeric, (2) character, and (3) logical. We can check the data class with the `class` function. 
@@ -110,6 +124,20 @@ Even though `var2` could be interpreted as numeric, adding the quotation marks c
 
 Although we won't discuss all of the data classes listed above, it provides a nice reference for future use.
 
+***
+
+#### In class exercises
+
+Predict the data type of the following vectors, then use `class()` to check your answers:  
+
+`var4 <- c("coding", "is", "fun")`
+
+`var5 <- c(2, 4, 6, 8)`
+
+`var6 <- c("2", "4", "6", "8")`
+
+***
+
 #### Comparison Operators
 
 In addition to the algebraic operators discussed at the beginning of the class, R includes the comparison operators. We will illustrate how R interprets data classes and introduce the logical class using the comparison operators. `<` & `>` behave as you might expect:
@@ -143,6 +171,20 @@ class(c(var1, var2))
 ```
 
 The code above has two nested function calls. Look for the innermost parentheses and work outward. First, the expression called `c` to create a vector, made up of `var1` and `var2`. Then the resulting vector was passed to `class`. If this is confusing, come back and run the two steps separately (hint: you can store that resulting vector as a new variable, then check the data class of the new variable with `class`).
+
+***
+
+#### In class exercises
+
+Predict the answers to the following comparisons. Use R to check your answers.
+
+`2 >= 0`
+
+`2 < 0`
+
+`"2" == 2`
+
+***
 
 To make checking and manipulating data classes R provides the `as` and `is` functions. `is` will check whether the input is a specific data class and `as` will coerce the input to the given data class. Let's use these functions to explore how `TRUE` and `FALSE` are converted to other data classes.
 

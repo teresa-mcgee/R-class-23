@@ -106,6 +106,13 @@ for (i in 1:length(primers$V1)) {
 }
 ```
 
+***
+#### In class exercises
+
+Write a for-loop that prints each primer.
+
+***
+
 ### If/else statements
 In R, you create an if/else statement with the following syntax:
 
@@ -255,7 +262,19 @@ First, we randomized the order of the letters using `sample` (setting the seed u
 
 ### Combining control statements
 
-The following example combines for loops and if/else statements. Let's revisit our primer list example. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively.
+Let's start with a simple example of combining for-loops and if/else statments. We want to print just those primers that are longer than 45 basepairs. 
+
+```{r}
+# loop through all primers 
+for (i in 1:length(primers$V1)) {
+  # print primer if it is longer than ..
+  if (nchar(primers[i, 1]) > 45){
+    print(primers[i, 1])
+  }
+}
+```
+
+The following example is more complicated and combines for-loops and if/else statements. We now want to calculate the molecular weight of each of our primers. We know that the molecular weights dCTP, dATP, dGTP, and dTTP are 467.2, 491.2, 507.2, and 482.2 g/mol respectively.
 
 ```{r}
 # make empty numeric vector with the same length as the primers vector
