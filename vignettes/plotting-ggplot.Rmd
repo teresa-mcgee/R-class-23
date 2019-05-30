@@ -14,7 +14,7 @@ library(here)
 ```
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width=7, fig.height = 5)
+knitr::opts_chunk$set(fig.width = 7, fig.height = 5)
 ```
 
 ### Using this document
@@ -30,107 +30,111 @@ knitr::opts_chunk$set(fig.width=7, fig.height = 5)
 2. Understand the basics of the ggplot command
 3. Be able to make basic plots 
 
-### Importing data from a csv file 
+### Quick data introduction 
 
-A csv is a comma separated values file, which allows data to be saved in a table structured format. Excel files can often be saved as csv files. R has a function to read these files called `read.csv`. We will use this function to read in data from a csv file.
-
-You have been provided with the data set "yeast_tidy.csv". This data set includes data on the response of budding yeast to mating pheromone over time for following three cell types: wildtype (wt), an sst2 mutant (sst2), and a gpa1 mutant (gpa1). For each mutant there is data on the mean response of a population (avg) as well as the standard deviation of the response (stdev). The data set also includes the time for each data point. Let's import it into R and store it as `yeast_data` using the `read.csv` function. Here the argument `header` is set to `TRUE` because the data set has a header labeling each column. 
+We will use the data set `yeast_long`. This data set includes data on the response of budding yeast to mating pheromone over time for following three cell types: wildtype (wt), an sst2 mutant (sst2), and a gpa1 mutant (gpa1). For each mutant there is data on the mean response of a population (avg) as well as the standard deviation of the response (stdev). The data set also includes the time for each data point. The dataset can be loaded into the workspace using `data`. 
 
 ```{r}
-yeast_data <- read.csv(here('data/yeast_tidy.csv'), header = TRUE)
+data("yeast_long")
 ```
 
 Now we can take a look at our data.
  
 ```{r}
-class(yeast_data)
-names(yeast_data)
-summary(yeast_data)
+class(yeast_long)
+names(yeast_long)
+summary(yeast_long)
 ```
 
-Using the `class()` function we can tell that `yeast` is a data.frame. This means it is a list of vectors each with the same length. Now, let's look closer at the data itself; we see it looks like a table with 4 columns (each with a header) and 51 rows. We can also look at the structure of this data frame using the `summary` function. It gives us an idea of the data ranges for each of our variables, as well as a count for the number of data points for each strain.
+Using the `class` function we can tell that `yeast` is a data.frame. This means it is a list of vectors each with the same length. Now, let's look closer at the data itself; we see it looks like a table with 4 columns (each with a header) and 51 rows. We can also look at the structure of this data frame using the `summary` function. It gives us an idea of the data ranges for each of our variables, as well as a count for the number of data points for each strain.
 
 ### Basic plotting
 
-Now we have imported some data, so how can we visualize it? R has several different methods for making plots, they are generally refered to as base graphics and ggplot. We will be focusing on the ggplot system in these lectures. The gg in ggplot stands for the Grammar of Graphics, a system for understanding how graphs are composed and understood, but ggplot can still be effectively used without a through understanding of the theoretical underpinings. In this session we will slowly build up a single plot from it's constituent components.
+Now we have imported some data, so how can we visualize it? R has several different methods for making plots, they are generally refered to as base graphics and ggplot. We will be focusing on the ggplot2 system in these lectures. The gg in ggplot2 stands for the Grammar of Graphics, a system for understanding how graphs are composed and understood, but ggplot2 can still be effectively used without a through understanding of the theoretical underpinings. In this session we will slowly build up a single plot from it's constituent components.
 
-Nearly all plots made using ggplot start with the function `ggplot`, this function allows you to specify a data frame that you want to use for your plot. You can also specify what you want to appear on each axis using the aes function. In this example, we want:
+Nearly all plots made using ggplot2 start with the function `ggplot`, this function allows you to specify a data frame that you want to use for your plot. You can also specify what you want to appear on each axis using the `aes` function. In this example, we want:
 
 * Time to appear along the X-axis
 * Reading to appear along the Y-axis
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg))
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg))
 yeast_plot
 ```
 
-Now as you can see, none of our points have appeared on this plot. This is due to the fact that ggplot is waiting for us to tell it how we want to represent these data points. In this case, we want to represent the points as a scatterplot, so we will use `geom_point` to display the values.
+Now as you can see, none of our points have appeared on this plot. This is due to the fact that `ggplot` is waiting for us to tell it how we want to represent these data points. In this case, we want to represent the points as a scatterplot, so we will use `geom_point` to display the values.
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg)) + 
   geom_point()
 yeast_plot
 ```
 
-This last example also introduces the system ggplot uses for building up plots, namely the `+` sign. Also note that R realizes that the call to `geom_point` is connected to the call to ggplot. We will use multiple `+` symbols to build plots often over multiple lines to make it easier to read and understand how the plot is constructed.
+This last example also introduces the system ggplot2 uses for building up plots, namely the `+` sign. Also note that R realizes that the call to `geom_point` is connected to the call to `ggplot`. We will use multiple `+` symbols to build plots often over multiple lines to make it easier to read and understand how the plot is constructed.
 
-You may remember from the data description that we have three types of Yeast Strain represented in this data set (stored in the Strain column), but we haven't told ggplot how we want to differentiate the strains. One method to do this is to assign color to differentiate each stain:
+You may remember from the data description that we have three types of Yeast Strain represented in this data set (stored in the Strain column), but we haven't told ggplot2 how we want to differentiate the strains. One method to do this is to assign color to differentiate each stain:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point()
 yeast_plot
 ```
 
-Notice that the only thing we have changed is adding `color=Strain` to the ggplot function call, ggplot took care of the rest of the color assignment and producing a legend for us. We will look at ways to modify these colors in another lesson.
+Notice that the only thing we have changed is adding `color = Strain` to the `ggplot` function call, ggplot2 took care of the rest of the color assignment and producing a legend for us. We will look at ways to modify these colors in another lesson.
 
-`geom_point` is not the only way to represent this data, an alternative would be to use a line graph. This can be accomplished using `geom_line`
+`geom_point` is not the only way to represent this data, an alternative would be to use a line graph. This can be accomplished using `geom_line`:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_line()
 yeast_plot
 ```
 
 ### Adding/Modifying Labels
 
-By default, ggplot uses the column headings as the axis labels, but these column headings often don't match exactly the desired axis labels. They can be modified using the labs command:
+By default, ggplot2 uses the column headings as the axis labels, but these column headings often don't match exactly the desired axis labels. They can be modified using the labs command:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce")
+  labs(x = "Time (Minutes)", y = "Mean Pheromone Responce")
 yeast_plot
 ```
 
-Modifying the legend title is a bit more complicated as ggplot can use multiple different visual properties to build a legend, which in our case is color:
+Modifying the legend title is a bit more complicated as ggplot2 can use multiple different visual properties to build a legend, which in our case is color:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce", color="Yeast Strain")
+  labs(x = "Time (Minutes)", 
+       y = "Mean Pheromone Responce", 
+       color = "Yeast Strain")
 yeast_plot
 ```
 
 Titles can also be added to plots using the ggtitle function:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce (Fold Change)", color="Yeast Strain") +
-  ggtitle('Yeast Pheromone Response')
+  labs(x = "Time (Minutes)",
+       y = "Mean Pheromone Responce (Fold Change)", 
+       color = "Yeast Strain") +
+  ggtitle("Yeast Pheromone Response")
 yeast_plot
 ```
 
 ### Modifying Visual Properties of Plots
 
-The default visual styling of the plots can also be modified using a set of built in themes or built to your own preferences. There are several different themes built into ggplot and in general they start with "theme_", here is one example:
+The default visual styling of the plots can also be modified using a set of built in themes or built to your own preferences. There are several different themes built into ggplot2 and in general they start with "theme_", here is one example:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce (Fold Change)", color="Yeast Strain") +
-  ggtitle('Yeast Pheromone Response') +
+  labs(x = "Time (Minutes)",
+       y = "Mean Pheromone Responce (Fold Change)", 
+       color = "Yeast Strain") +
+  ggtitle("Yeast Pheromone Response") +
   theme_minimal()
 yeast_plot
 ```
@@ -138,11 +142,13 @@ yeast_plot
 A full list of the built-in themes is available [here](http://ggplot2.tidyverse.org/reference/ggtheme.html). There are also an extensive list of plot visuals that can be modified using the `theme` [command](http://ggplot2.tidyverse.org/reference/theme.html). For example, let's suppose we don't like the internal grid lines or the gray background:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce (Fold Change)", color="Yeast Strain") +
+  labs(x = "Time (Minutes)",
+       y = "Mean Pheromone Responce (Fold Change)", 
+       color = "Yeast Strain") +
   ggtitle('Yeast Pheromone Response') +
-  theme(panel.grid=element_blank(),panel.background=element_blank())
+  theme(panel.grid = element_blank(), panel.background = element_blank())
 yeast_plot
 ```
 
@@ -151,12 +157,14 @@ yeast_plot
 Plots can be saved to a file on your computer using `ggsave`. The most common output formats are PNG, PDF and SVG. PNG files are not easy to edit, but can be easily inserted into powerpoint slides. SVG and PDF can edited using other software including Adobe Illustrator. `ggsave` defaults to saving the last plot made, but can be used to save any plot you have produced. Here's an example:
 
 ```{r}
-yeast_plot = ggplot(yeast_data, aes(x=Time,y=Avg,color=Strain)) + 
+yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x="Time (Minutes)",y="Mean Pheromone Responce (Fold Change)", color="Yeast Strain") +
-  ggtitle('Yeast Pheromone Response') +
-  theme(panel.grid=element_blank(),panel.background=element_blank())
-ggsave('yeast_growth.png',yeast_plot)
+  labs(x = "Time (Minutes)",
+       y = "Mean Pheromone Responce (Fold Change)", 
+       color = "Yeast Strain") +
+  ggtitle("Yeast Pheromone Response") +
+  theme(panel.grid = element_blank(), panel.background = element_blank())
+ggsave("yeast_growth.png", yeast_plot)
 ```
 
 ### Exercises
@@ -176,7 +184,7 @@ ggplot(mtcars, aes(x=mpg)) + geom_histogram()
 ```{r,eval=FALSE,include=FALSE}
 #Possible solution:
 
-ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5, color = "green")
+ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth = 5, color = "green")
 ```
 
 3. Make a bar chart of the number of cars in each of the cylinder classes (identified by the cyl column). Also check out the help for geom_bar.
@@ -184,7 +192,7 @@ ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5, color = "green")
 ```{r,eval=FALSE,include=FALSE}
 #Possible solution:
 
-ggplot(mtcars, aes(x=cyl,y=mpg)) + geom_bar()
+ggplot(mtcars, aes(x = cyl, y = mpg)) + geom_bar()
 ```
 
 4. Make a box plot of the number of cylinders vs the car's total horsepower
@@ -192,5 +200,5 @@ ggplot(mtcars, aes(x=cyl,y=mpg)) + geom_bar()
 ```{r,eval=FALSE,include=FALSE}
 #Possible solution:
 
-ggplot(mtcars, aes(group=cyl,y=hp,x=cyl)) + geom_boxplot()
+ggplot(mtcars, aes(group = cyl, y = hp, x = cyl)) + geom_boxplot()
 ```
