@@ -13,6 +13,8 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Spencer Nystrom",
                     role = c("aut")),
              person("Siyao Liu",
+                    role = c("aut")),
+             person("Matthew Berginski",
                     role = c("aut"))) 
 Description: Add later
 Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer, tidyverse, here
