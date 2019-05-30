@@ -15,7 +15,7 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Siyao Liu",
                     role = c("aut"))) 
 Description: Add later
-Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer
+Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer, tidyverse, here
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 LazyData: true
