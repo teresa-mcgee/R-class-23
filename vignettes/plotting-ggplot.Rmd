@@ -1,8 +1,8 @@
 ---
-title: "HTLTC-R: Plotting with ggplot"
+title: "HTLTC-R: Plotting with ggplot2"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{HTLTC-R: Plotting}
+  %\VignetteIndexEntry{HTLTC-R: Plotting (ggplot2)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
