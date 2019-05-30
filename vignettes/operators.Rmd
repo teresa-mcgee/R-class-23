@@ -1,5 +1,5 @@
 ---
-title: "HLC-R: Operators"
+title: "HTLTC-R: Operators"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HTLTC-R: Operators}
@@ -78,11 +78,11 @@ Running `ls()` returns `[1] "x" "y"`, indicating there are two variables, `x` an
 
 Use R to calculate assign the following values (remember to use the assignment operator!):
 
-a = 1+5*2
+`a <- 1 + 5*2`
 
-b = 2/4*32
+`b <- 2/4*32`
 
-c = 2^^4-12
+`c <- 2^^4 - 12`
 
 ***
 
@@ -130,11 +130,11 @@ Although we won't discuss all of the data classes listed above, it provides a ni
 
 Predict the data type of the following vectors, then use `class()` to check your answers:  
 
-`var4 <- c("coding","is","fun")`
+`var4 <- c("coding", "is", "fun")`
 
-`var5 <- c(2,4,6,8)`
+`var5 <- c(2, 4, 6, 8)`
 
-`var6 <- c("2","4","6","8")`
+`var6 <- c("2", "4", "6", "8")`
 
 ***
 
