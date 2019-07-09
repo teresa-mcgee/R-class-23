@@ -82,7 +82,7 @@ Use R to calculate assign the following values (remember to use the assignment o
 
 `b <- 2/4*32`
 
-`c <- 2^^4 - 12`
+`c <- 2^4 - 12`
 
 ***
 
