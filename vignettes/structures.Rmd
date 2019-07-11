@@ -137,7 +137,7 @@ Above the list has two elements, named "vec" and "mat," a vector and matrix, res
 
 ***
 #### In class exercises
-Make a list with appopriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
+Make a list with appropriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
 
 ***
 
@@ -176,7 +176,7 @@ Now the "y" column is a character. As mentioned above, each "column" of a data f
 
 ***
 #### In class exercises
-Make a data frame with appopriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
+Make a data frame with appropriate list names that includes the following information about you: age, height (in inches), eye color, and hair color. 
 
 ***
 
