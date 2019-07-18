@@ -36,7 +36,7 @@ We have only seven lessons planned, but eight class periods. We expect that some
 This section contains recommendations for teachers from previous teachers. If you encounter something that you think could help other teachers, please add it here.
 
 * **Giving context:** As you go through the lessons, make sure to highlight how this can be useful to your target audience (biological and biomedical scientists). 
-* **Introduction to RStudio:** Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opporunities to highlight some of the features.
+* **Introduction to RStudio:** Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opportunities to highlight some of the features.
 
 ## Contributing
 
