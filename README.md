@@ -26,7 +26,7 @@ Appropriate vignettes are in parentheses. For some there are two options. The fi
 * Class 4: Plotting (graphics** or plotting)
 * Class 5: Control statements (control)
 * Class 6: Functions (functions)
-* Class 7: Reproducible research and packages (packages)
+* Class 7: Reproducible research and packages (package)
 
 We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don't worry if a lesson takes a little longer.
 
