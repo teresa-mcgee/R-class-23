@@ -114,7 +114,7 @@ Now imagine you have to create 100 sets of primers. After you fininsh you realiz
 genPrimer <- function(minlen, maxlen, nprimers, bases = c('A', 'T', 'C', 'G')) {
   
   l <- sample(minlen:maxlen, nprimers, replace = TRUE)
-  p <- character(length = length(l1))
+  p <- character(length = length(l))
   for (i in 1:length(p)) {
     p[i] <- paste(sample(bases, l[i], replace = TRUE), collapse = "")
   }
@@ -174,8 +174,7 @@ primer_analysis <- function(primers) {
     # Calculate Tm
     if (len <= 13) {
       Tm <- (nA + nT)*2 + (nG + nC)*4
-    }
-    else{
+    } else {
       Tm <- 64.9 +41*(nG+nC-16.4)/(nA+nT+nG+nC)
     }
     
