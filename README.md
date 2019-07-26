@@ -26,7 +26,7 @@ Appropriate vignettes are in parentheses. For some there are two options. The fi
 * Class 4: Plotting (graphics** or plotting)
 * Class 5: Control statements (control)
 * Class 6: Functions (functions)
-* Class 7: Reproducible research and packages (packages)
+* Class 7: Reproducible research and packages (package)
 
 We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don't worry if a lesson takes a little longer.
 
@@ -36,7 +36,7 @@ We have only seven lessons planned, but eight class periods. We expect that some
 This section contains recommendations for teachers from previous teachers. If you encounter something that you think could help other teachers, please add it here.
 
 * **Giving context:** As you go through the lessons, make sure to highlight how this can be useful to your target audience (biological and biomedical scientists). 
-* **Introduction to RStudio:** Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opporunities to highlight some of the features.
+* **Introduction to RStudio:** Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opportunities to highlight some of the features.
 
 ## Contributing
 
