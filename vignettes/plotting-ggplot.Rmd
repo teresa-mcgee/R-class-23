@@ -97,7 +97,7 @@ By default, ggplot2 uses the column headings as the axis labels, but these colum
 ```{r}
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
-  labs(x = "Time (Minutes)", y = "Mean Pheromone Responce")
+  labs(x = "Time (Minutes)", y = "Mean Pheromone Response")
 yeast_plot
 ```
 
@@ -107,7 +107,7 @@ Modifying the legend title is a bit more complicated as ggplot2 can use multiple
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
   labs(x = "Time (Minutes)", 
-       y = "Mean Pheromone Responce", 
+       y = "Mean Pheromone Response", 
        color = "Yeast Strain")
 yeast_plot
 ```
@@ -118,7 +118,7 @@ Titles can also be added to plots using the ggtitle function:
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
   labs(x = "Time (Minutes)",
-       y = "Mean Pheromone Responce (Fold Change)", 
+       y = "Mean Pheromone Response (Fold Change)", 
        color = "Yeast Strain") +
   ggtitle("Yeast Pheromone Response")
 yeast_plot
@@ -132,7 +132,7 @@ The default visual styling of the plots can also be modified using a set of buil
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
   labs(x = "Time (Minutes)",
-       y = "Mean Pheromone Responce (Fold Change)", 
+       y = "Mean Pheromone Response (Fold Change)", 
        color = "Yeast Strain") +
   ggtitle("Yeast Pheromone Response") +
   theme_minimal()
@@ -145,7 +145,7 @@ A full list of the built-in themes is available [here](http://ggplot2.tidyverse.
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
   labs(x = "Time (Minutes)",
-       y = "Mean Pheromone Responce (Fold Change)", 
+       y = "Mean Pheromone Response (Fold Change)", 
        color = "Yeast Strain") +
   ggtitle('Yeast Pheromone Response') +
   theme(panel.grid = element_blank(), panel.background = element_blank())
@@ -160,7 +160,7 @@ Plots can be saved to a file on your computer using `ggsave`. The most common ou
 yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) + 
   geom_point() +
   labs(x = "Time (Minutes)",
-       y = "Mean Pheromone Responce (Fold Change)", 
+       y = "Mean Pheromone Response (Fold Change)", 
        color = "Yeast Strain") +
   ggtitle("Yeast Pheromone Response") +
   theme(panel.grid = element_blank(), panel.background = element_blank())
