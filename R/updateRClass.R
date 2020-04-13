@@ -7,7 +7,8 @@
 
 updateRClass <- function(ref = "master") {
   install_github("How-to-Learn-to-Code/rclass", 
-                 build_opts = "", 
+                 build_opts = "",
                  dependencies = TRUE,
-                 ref = ref)
+                 ref = ref,
+                 force = TRUE)
 }
