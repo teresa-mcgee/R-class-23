@@ -3,3 +3,5 @@
 export(col2alpha)
 export(labelLines)
 export(line2user)
+export(updateRClass)
+importFrom(devtools,install_github)

@@ -11,3 +11,6 @@ labelLines(outer = FALSE, alpha = 1)
 
 \item{alpha}{Length 1 numeric, 0 to 1 (the transparency level)}
 }
+\description{
+Label the line positions on a plot
+}
