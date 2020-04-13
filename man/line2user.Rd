@@ -11,3 +11,6 @@ line2user(line, side, outer = FALSE)
 
 \item{side}{Integer, the side}
 }
+\description{
+Convert the line location to user coordinates
+}

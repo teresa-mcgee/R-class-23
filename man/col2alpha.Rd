@@ -11,3 +11,6 @@ col2alpha(col, alpha = 0.5)
 
 \item{line}{Character, the color}
 }
+\description{
+Convert color to transparent color
+}
