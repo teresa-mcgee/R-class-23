@@ -216,8 +216,6 @@ This function simply returns the input, 'x'
 cat("export(returnInput)", file = file.path("firstpackage", "NAMESPACE"), append = FALSE)
 devtools::install(file.path("firstpackage"))
 library(firstpackage)
-unloadNamespace("devtools")
-unloadNamespace("roxygen2")
 ```
 
 
