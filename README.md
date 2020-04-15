@@ -6,7 +6,7 @@ To install the package from github run:
 
 ```
 library(devtools)
-devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "")
+devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "", dependencies = TRUE)
 library(htltcR)
 ```
 Then you can load vignettes for each lecture. For example, to run load the lecture for class1 simply run:
@@ -18,6 +18,9 @@ One of the biggest advantages of using a package is that students can easily loa
 ```
 data(primers)
 ```
+
+Once the package is installed once, users can easily grab the most recent version by running `updateRClass()`.
+
 ## Class sequence
 Appropriate vignettes are in parentheses. For some there are two options. The first one is more in-depth. You should use your best judgement when deciding which lesson is most appropriate for your class. 
 * Class 1: Set up, introduction to R and RStudio, and operators (operators)
