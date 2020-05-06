@@ -1,0 +1,16 @@
+pandoc: 2.7.3
+pkgdown: 1.5.1.9000
+pkgdown_sha: c181e5c9ac09b28974a97f5e32deddc36690fcf2
+articles:
+  control: control.html
+  functions: functions.html
+  graphics: graphics.html
+  io: io.html
+  operators: operators.html
+  package: package.html
+  palettes: palettes.html
+  plotting-ggplot: plotting-ggplot.html
+  plotting: plotting.html
+  structures: structures.html
+last_built: 2020-05-06T20:24Z
+
