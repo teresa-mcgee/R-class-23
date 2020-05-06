@@ -1,7 +1,6 @@
 #' @name updateRClass
 #' @title Pull & build/rebuild package from GitHub
 #' @param ref Passed to \code{install_github 'ref'}
-#' @param 
 #' @importFrom devtools install_github
 #' @export
 
