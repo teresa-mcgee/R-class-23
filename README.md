@@ -1,6 +1,9 @@
 # UNC How-to-Learn-to-Code: R Course
 
-[![Build Status](https://travis-ci.org/How-to-Learn-to-Code/rclass.svg?branch=master)](https://travis-ci.org/How-to-Learn-to-Code/rclass)
+<!-- badges: start -->
+[![R build status](https://github.com/How-to-Learn-to-Code/rclass/workflows/R-CMD-check/badge.svg)](https://github.com/How-to-Learn-to-Code/rclass/actions)
+[![Codecov test coverage](https://codecov.io/gh/How-to-Learn-to-Code/rclass/branch/master/graph/badge.svg)](https://codecov.io/gh/How-to-Learn-to-Code/rclass?branch=master)
+<!-- badges: end -->
 
 ## Instructions for use
 
