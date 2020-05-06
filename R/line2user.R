@@ -7,7 +7,9 @@
 #' 
 #' @param line Integer, the line 
 #' @param side Integer, the side
+#' @param outer Logical, should the outer margin be used?
 #' 
+#' @importFrom graphics par grconvertX grconvertY
 #' @export 
 
 line2user <- function(line, side, outer = FALSE) {

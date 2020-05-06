@@ -8,6 +8,7 @@
 #' @param outer Logical of length 1, should the outer lines be drawn? 
 #' @param alpha Length 1 numeric, 0 to 1 (the transparency level)
 #' 
+#' @importFrom graphics abline mtext par
 #' @export 
 
 labelLines <- function(outer = FALSE, alpha = 1) {

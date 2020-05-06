@@ -7,9 +7,9 @@
 col2alpha(col, alpha = 0.5)
 }
 \arguments{
-\item{alpha}{Length 1 numeric, 0 to 1 (the transparency level)}
+\item{col}{Character, the color}
 
-\item{line}{Character, the color}
+\item{alpha}{Length 1 numeric, 0 to 1 (the transparency level)}
 }
 \description{
 Convert color to transparent color

@@ -5,6 +5,7 @@ inst/hwsolutions
 ^docs$
 ^pkgdown$
 ^LICENSE\.md$
-^\.travis\.yml$
 ^\.github$
 ^codecov\.yml$
+^doc$
+^Meta$

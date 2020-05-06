@@ -10,6 +10,8 @@ line2user(line, side, outer = FALSE)
 \item{line}{Integer, the line}
 
 \item{side}{Integer, the side}
+
+\item{outer}{Logical, should the outer margin be used?}
 }
 \description{
 Convert the line location to user coordinates

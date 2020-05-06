@@ -183,10 +183,11 @@ Now delete the R/hello.R and man/hello.Rmd files. Finally, build the package by 
 # install.packages("devtools", dependencies = TRUE, repos = "http://cran.us.r-project.org")
 library(devtools)
 library(roxygen2)
-unlink("firstpackage", recursive = TRUE)
-dir.create("firstpackage")
-dir.create(file.path("firstpackage", "R"))
-dir.create(file.path("firstpackage", "man"))
+pkg <- file.path(tempdir(), "firstpackage")
+unlink(pkg, recursive = TRUE)
+dir.create(pkg)
+dir.create(file.path(pkg, "R"))
+dir.create(file.path(pkg, "man"))
 cat("Package: firstpackage
 Type: Package
 Title: My first package
@@ -196,10 +197,10 @@ Maintainer: Dayne Filer <dayne_filer@med.unc.edu>
 Description: This package has one function and was created to show how to build a package.
 License: GPL-2
 LazyData: TRUE
-", file = file.path("firstpackage", "DESCRIPTION"), append = FALSE)
+", file = file.path(pkg, "DESCRIPTION"), append = FALSE)
 cat("returnInput <- function(x) {
 return(x)
-}", file = file.path("firstpackage", "R", "returnInput.R"), append = FALSE)
+}", file = file.path(pkg, "R", "returnInput.R"), append = FALSE)
 cat("\\name{returnInput}
 \\alias{returnInput}
 \\title{Return the input}
@@ -212,9 +213,9 @@ returnInput(x)
 \\description{
 This function simply returns the input, 'x'
 }
-", file = file.path("firstpackage", "man", "returnInput.Rd"), append = FALSE)
-cat("export(returnInput)", file = file.path("firstpackage", "NAMESPACE"), append = FALSE)
-devtools::install(file.path("firstpackage"))
+", file = file.path(pkg, "man", "returnInput.Rd"), append = FALSE)
+cat("export(returnInput)", file = file.path(pkg, "NAMESPACE"), append = FALSE)
+devtools::install(file.path(pkg))
 library(firstpackage)
 ```
 
@@ -232,9 +233,9 @@ As you can see your package is loaded into your search path, you can use your fu
 Finally, you will add some data to your package. First create a new folder called "data" in your "firstpackage" folder. Then create an object, `mydata` and use the `save` function to save it to the "data" folder you just created.
 
 ```{r,include=FALSE}
-dir.create(file.path("firstpackage", "data"))
+dir.create(file.path(pkg, "data"))
 mydata <- matrix(1:25, ncol = 5)
-save(mydata, file = file.path("firstpackage", "data", "mydata.RData"))
+save(mydata, file = file.path(pkg, "data", "mydata.RData"))
 rm(mydata)
 ```
 
@@ -248,8 +249,8 @@ rm(mydata)
 ```{r,include=FALSE}
 library(devtools)
 library(roxygen2)
-roxygenize(file.path("firstpackage"), clean = TRUE)
-devtools::install(file.path("firstpackage"), local = TRUE)
+roxygenize(file.path(pkg), clean = TRUE)
+devtools::install(file.path(pkg), local = TRUE)
 library(firstpackage)
 ```
 
@@ -276,9 +277,9 @@ cat("#' @name mydata
 #' @description This is an example dataset to illustrate how to add data to packages
 #' @details Not much to say here
 
-NULL", file = file.path("firstpackage", "R", "mydata.R"), append = FALSE)
-roxygenise(file.path("firstpackage"), clean = TRUE)
-devtools::install(file.path("firstpackage"), local = TRUE)
+NULL", file = file.path(pkg, "R", "mydata.R"), append = FALSE)
+roxygenise(file.path(pkg), clean = TRUE)
+devtools::install(file.path(pkg), local = TRUE)
 library(firstpackage)
 ```
 
@@ -298,7 +299,7 @@ Build and reload again, then look at the help file for `mydata`:
 
 
 ```{r,include=FALSE}
-unlink(file.path("firstpackage"), recursive = TRUE, force = TRUE)
+unlink(file.path(pkg), recursive = TRUE, force = TRUE)
 unloadNamespace("firstpackage")
 remove.packages("firstpackage")
 ```
