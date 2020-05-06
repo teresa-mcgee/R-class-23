@@ -39,7 +39,7 @@ The `plot` function will take many data types and structures, and will produce d
 ```{r,fig.show='hold',fig.width=3.4}
 plot(matrix(1:10, ncol = 2)) # scatterplot
 # boxplot
-plot(data.frame(rep(letters[1:5], each = 2), 1:10), stringsAsFactors = TRUE)
+plot(data.frame(rep(letters[1:5], each = 2), 1:10, stringsAsFactors = TRUE))
 ```
 
 There are many guides on how to change the parameters of `plot`, as well as other high-level functions like `barplot`, `boxplot`, `hist`, etc. A good first step is to read through `?plot`. Rather than belabor lists of arguments, we will discuss the fundamentals of the grahics system. 
