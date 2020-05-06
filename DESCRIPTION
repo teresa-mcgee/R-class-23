@@ -18,7 +18,7 @@ Authors@R: c(person("Dayne L", "Filer",
                     role = c("ctb"))) 
 Description: Add later
 Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer, 
-    tidyverse, here
+    tidyverse, here, graphics
 Depends: R (>= 3.5.0)
 Imports: devtools
 VignetteBuilder: knitr
