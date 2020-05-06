@@ -6,7 +6,7 @@ Date: 2018-06-01
 Authors@R: c(person("Dayne L", "Filer", 
                     role = c("aut", "cre"), 
                     email = "dayne.filer@gmail.com"), 
-             person("Amy Pomperoy",
+             person("Amy Pomeroy",
                     role = c("aut")),
              person("Sarah Taylor",
                     role = c("ctb")),
