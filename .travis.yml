@@ -6,12 +6,4 @@ before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
     provider: script
     script: Rscript -e 'pkgdown::deploy_site_github()'
     skip_cleanup: true
-cache:
-  - $HOME/.ccache
-addons:
-  apt:
-    packages:
-      - ccache
-before_install:
-  - mkdir $HOME/.R && echo -e 'CXX_STD = CXX14\n\nVER=\nCCACHE=ccache\nCC=$(CCACHE) gcc$(VER) -std=gnu99\nCXX=$(CCACHE) g++$(VER)\nC11=$(CCACHE) g++$(VER)\nC14=$(CCACHE) g++$(VER)\nFC=$(CCACHE) gfortran$(VER)\nF77=$(CCACHE) gfortran$(VER)' > $HOME/.R/Makevars
-  - echo -e 'max_size = 5.0G\nsloppiness = include_file_ctime\nhash_dir=false' > $HOME/.ccache/ccache.conf
+cache: packages
