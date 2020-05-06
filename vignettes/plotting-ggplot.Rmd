@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
 library(tidyverse)
 library(here)
+library(htltcR)
 ```
 
 ```{r global_options, include=FALSE}
@@ -164,7 +165,7 @@ yeast_plot = ggplot(yeast_long, aes(x = Time, y = Avg, color = Strain)) +
        color = "Yeast Strain") +
   ggtitle("Yeast Pheromone Response") +
   theme(panel.grid = element_blank(), panel.background = element_blank())
-ggsave("yeast_growth.png", yeast_plot)
+ggsave(file.path(tempdir(), "yeast_growth.png"), yeast_plot)
 ```
 
 ### Exercises

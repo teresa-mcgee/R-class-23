@@ -1,6 +1,6 @@
-The MIT License (MIT)
+# MIT License
 
-Copyright (c) 2016-2018 Amy Pomeroy and How to Learn to Code contributors
+Copyright (c) 2020 Dayne Filer, Amy Pomeroy, & How to Learn to Code Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

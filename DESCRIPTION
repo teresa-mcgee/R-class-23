@@ -9,13 +9,13 @@ Authors@R: c(person("Dayne L", "Filer",
              person("Amy Pomperoy",
                     role = c("aut")),
              person("Sarah Taylor",
-                    role = c("aut")),
+                    role = c("ctb")),
              person("Spencer Nystrom",
-                    role = c("aut")),
+                    role = c("ctb")),
              person("Siyao Liu",
-                    role = c("aut")),
+                    role = c("ctb")),
              person("Matthew Berginski",
-                    role = c("aut"))) 
+                    role = c("ctb"))) 
 Description: Add later
 Suggests: knitr, rmarkdown, VennDiagram, roxygen2, colorspace, RColorBrewer, 
     tidyverse, here
@@ -23,3 +23,4 @@ Imports: devtools
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2
 LazyData: true
+License: MIT + file LICENSE

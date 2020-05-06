@@ -1,4 +1,4 @@
-# rclass
+# UNC How-to-Learn-to-Code: R Course
 
 ## Instructions for use
 

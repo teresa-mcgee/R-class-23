@@ -52,10 +52,10 @@ invisible(dev.off(2))
 # We start with no open devices
 dev.list()
 dev.cur() # lists the active device, here null because no device open
-pdf() # open a new pdf device
+pdf(tempfile()) # open a new pdf device
 dev.list() # 1 is not shown, but always represents the null device
 dev.cur()
-pdf()
+pdf(tempfile())
 dev.list()
 dev.cur()
 dev.set(2)
