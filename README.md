@@ -1,5 +1,7 @@
 # UNC How-to-Learn-to-Code: R Course
 
+[![Build Status](https://travis-ci.org/How-to-Learn-to-Code/rclass.svg?branch=master)](https://travis-ci.org/How-to-Learn-to-Code/rclass)
+
 ## Instructions for use
 
 To install the package from github run:
