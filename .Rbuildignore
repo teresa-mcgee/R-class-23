@@ -9,3 +9,5 @@ inst/hwsolutions
 ^codecov\.yml$
 ^doc$
 ^Meta$
+^README\.md$
+^CONTRIBUTING\.md$
