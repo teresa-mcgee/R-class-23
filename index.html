@@ -98,39 +98,83 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="unc-how-to-learn-to-code-r-course" class="section level1">
+<div id="unc-how-to-learn-to-code-r-course-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#unc-how-to-learn-to-code-r-course" class="anchor"></a>UNC How to Learn to Code: R Course</h1></div>
+<a href="#unc-how-to-learn-to-code-r-course-" class="anchor"></a>UNC How to Learn to Code: R Course <img src="htltcR.svg" width="150" align="right">
+</h1></div>
 <!-- badges: start -->
 
-<div id="instructions-for-use" class="section level2">
+<p>This package was developed for the graduate student developed and led How to Learn to Code initiative at the University of North Carolina at Chapel Hill. It is intended to give a fundamentals-focused introduction to programming R.</p>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#instructions-for-use" class="anchor"></a>Instructions for use</h2>
-<p>To install the package from github run:</p>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>To install the package from GitHub run:</p>
 <pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
 devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "", dependencies = TRUE)
 library(htltcR)</a></code></pre>
-<p>Then you can load vignettes for each lecture. For example, to run load the lecture for class1 simply run:</p>
+<p>Once the package is installed once, users can easily grab the most recent version by running <code><a href="reference/updateRClass.html">updateRClass()</a></code>.</p>
+</div>
+<div id="using-the-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-the-package" class="anchor"></a>Using the package</h2>
+<p>Each lecture is included in the package as a vignette. Once the package is installed and loaded (above), class lectures can be accessed with the <code>vignette()</code> function. For example:</p>
 <pre><code><a href="articles/operators.html">vignette("operators")</a></code></pre>
 <p>One of the biggest advantages of using a package is that students can easily load the data used in the examples and homeworks from the package. For example, to load the data used in control run:</p>
 <pre><code><a href="https://rdrr.io/r/utils/data.html">data(primers)</a></code></pre>
-<p>Once the package is installed once, users can easily grab the most recent version by running <code><a href="reference/updateRClass.html">updateRClass()</a></code>.</p>
 </div>
 <div id="class-sequence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#class-sequence" class="anchor"></a>Class sequence</h2>
-<p>Appropriate vignettes are in parentheses. For some there are two options. The first one is more in-depth. You should use your best judgement when deciding which lesson is most appropriate for your class.</p>
-<ul>
-<li>Class 1: Set up, introduction to R and RStudio, and operators (operators)</li>
-<li>Class 2: Data structures and subsetting (structures)</li>
-<li>Class 3: File input/output (io or simple_io)</li>
-<li>Class 4: Plotting (graphics** or plotting)</li>
-<li>Class 5: Control statements (control)</li>
-<li>Class 6: Functions (functions)</li>
-<li>Class 7: Reproducible research and packages (package)</li>
-</ul>
-<p>We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don’t worry if a lesson takes a little longer.</p>
-<p>** if using the ‘graphics’ vignette, see below for modified class schedule.</p>
+<p>The class is roughly intended for eight 90-minute sessions, ideally with the last 30 minutes reserved for students to ask questions and work collaboratively on the given exercises.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Class</th>
+<th align="left">Title</th>
+<th align="right">Command</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Class 1</td>
+<td align="left">HTLTC-R: Operators</td>
+<td align="right"><code><a href="articles/operators.html">vignette("operators")</a></code></td>
+</tr>
+<tr class="even">
+<td align="left">Class 2</td>
+<td align="left">HTLTC-R: Data structures &amp; subsetting</td>
+<td align="right"><code><a href="articles/structures.html">vignette("structures")</a></code></td>
+</tr>
+<tr class="odd">
+<td align="left">Class 3</td>
+<td align="left">HTLTC-R: Control statements</td>
+<td align="right"><code><a href="articles/control.html">vignette("control")</a></code></td>
+</tr>
+<tr class="even">
+<td align="left">Class 4</td>
+<td align="left">HTLTC-R: Functions</td>
+<td align="right"><code><a href="articles/functions.html">vignette("functions")</a></code></td>
+</tr>
+<tr class="odd">
+<td align="left">Class 5</td>
+<td align="left">HTLTC-R: Reading, writing, and regular expressions</td>
+<td align="right"><code><a href="articles/io.html">vignette("io")</a></code></td>
+</tr>
+<tr class="even">
+<td align="left">Class 6</td>
+<td align="left">HTLTC-R: Graphics</td>
+<td align="right"><code><a href="articles/graphics.html">vignette("graphics")</a></code></td>
+</tr>
+<tr class="odd">
+<td align="left">Class 7</td>
+<td align="left">HTLTC-R: Graphics</td>
+<td align="right"><code><a href="articles/graphics.html">vignette("graphics")</a></code></td>
+</tr>
+<tr class="even">
+<td align="left">Class 8</td>
+<td align="left">HTLTC-R: Reproducible research &amp; packages</td>
+<td align="right"><code><a href="articles/package.html">vignette("package")</a></code></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="notes-for-teachers" class="section level2">
 <h2 class="hasAnchor">
@@ -141,27 +185,14 @@ library(htltcR)</a></code></pre>
 <strong>Giving context:</strong> As you go through the lessons, make sure to highlight how this can be useful to your target audience (biological and biomedical scientists).</li>
 <li>
 <strong>Introduction to RStudio:</strong> Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opportunities to highlight some of the features.</li>
+<li>
+<strong>Alternate lectures</strong> There are alternate versions of a couple of the vignettes; the above sequence gives the most complete picture, but some teachers may prefer the simplified lectures, e.g. <code><a href="articles/plotting.html">vignette("plotting")</a></code>. Read through both and use your discretion.</li>
 </ul>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h2>
 <p>See <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> for instructions.</p>
-</div>
-<div id="plotting-lectures" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plotting-lectures" class="anchor"></a>Plotting lectures</h2>
-<p>Different small groups have used different methods for teaching plotting. Here is the list of available plotting lectures with a summary of each.</p>
-<div id="plotting" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotting" class="anchor"></a>plotting</h3>
-<p>This is a very basic plotting lecture. It jumps right into base plot and focuses on <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>, <code><a href="https://rdrr.io/r/graphics/points.html">points()</a></code>, and <code><a href="https://rdrr.io/r/graphics/legend.html">legend()</a></code>. The homework activities use a different data set and also teach <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> and <code><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot()</a></code>.</p>
-</div>
-<div id="graphics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#graphics" class="anchor"></a>graphics</h3>
-<p>This lecture dives into the fundamentals of the graphics engine. It is recommended to put this lecture after the functions lecture, because the lecture includes information about how to write a few helpful functions. The recommened sequence would be operators, structures, control, functions, io, graphics, package.</p>
-</div>
 </div>
 </div>
   </div>
