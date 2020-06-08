@@ -1,4 +1,4 @@
-# UNC How to Learn to Code: R Course <img src="htltcR.svg" width="150" align="right" />
+# UNC How to Learn to Code: R Course <img src="man/figures/htltcR.png" width="150" align="right" />
 
 <!-- badges: start -->
 [![R build status](https://github.com/How-to-Learn-to-Code/rclass/workflows/R-CMD-check/badge.svg)](https://github.com/How-to-Learn-to-Code/rclass/actions)
