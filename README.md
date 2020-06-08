@@ -37,7 +37,7 @@ data(primers)
 The class is roughly intended for eight 90-minute sessions, ideally with the last 30 minutes reserved for students to ask questions and work collaboratively on the given exercises.
 
 | Class        | Title                                              | Command                  |
-| :---         | :---                                               |                     ---: |
+| :---         | :---                                               | :---                     |
 | Class 1      | HTLTC-R: Operators                                 | `vignette("operators")`  |
 | Class 2      | HTLTC-R: Data structures & subsetting              | `vignette("structures")` |
 | Class 3      | HTLTC-R: Control statements                        | `vignette("control")`    |
