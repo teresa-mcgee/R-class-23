@@ -1,59 +1,59 @@
-# UNC How to Learn to Code: R Course
+# UNC How to Learn to Code: R Course <img src="htltcR.svg" width="150" align="right" />
 
 <!-- badges: start -->
 [![R build status](https://github.com/How-to-Learn-to-Code/rclass/workflows/R-CMD-check/badge.svg)](https://github.com/How-to-Learn-to-Code/rclass/actions)
 <!-- badges: end -->
 
-## Instructions for use
+This package was developed for the graduate student developed and led How to Learn to Code initiative at the University of North Carolina at Chapel Hill. It is intended to give a fundamentals-focused introduction to programming R. 
 
-To install the package from github run:
+## Installation
+
+To install the package from GitHub run:
 
 ```
 library(devtools)
 devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "", dependencies = TRUE)
 library(htltcR)
 ```
-Then you can load vignettes for each lecture. For example, to run load the lecture for class1 simply run:
+
+Once the package is installed once, users can easily grab the most recent version by running `updateRClass()`.
+
+## Using the package
+
+Each lecture is included in the package as a vignette. Once the package is installed and loaded (above), class lectures can be accessed with the `vignette()` function. For example:
 
 ```
 vignette("operators")
 ```
+
 One of the biggest advantages of using a package is that students can easily load the data used in the examples and homeworks from the package. For example, to load the data used in control run: 
+
 ```
 data(primers)
 ```
 
-Once the package is installed once, users can easily grab the most recent version by running `updateRClass()`.
-
 ## Class sequence
-Appropriate vignettes are in parentheses. For some there are two options. The first one is more in-depth. You should use your best judgement when deciding which lesson is most appropriate for your class. 
-* Class 1: Set up, introduction to R and RStudio, and operators (operators)
-* Class 2: Data structures and subsetting (structures)
-* Class 3: File input/output (io or simple_io)
-* Class 4: Plotting (graphics** or plotting)
-* Class 5: Control statements (control)
-* Class 6: Functions (functions)
-* Class 7: Reproducible research and packages (package)
 
-We have only seven lessons planned, but eight class periods. We expect that some of these lessons may take longer than a single class session, so don't worry if a lesson takes a little longer.
+The class is roughly intended for eight 90-minute sessions, ideally with the last 30 minutes reserved for students to ask questions and work collaboratively on the given exercises.
 
-** if using the 'graphics' vignette, see below for modified class schedule. 
+| Class        | Title                                              | Command                  |
+| :---         | :---                                               |                     ---: |
+| Class 1      | HTLTC-R: Operators                                 | `vignette("operators")`  |
+| Class 2      | HTLTC-R: Data structures & subsetting              | `vignette("structures")` |
+| Class 3      | HTLTC-R: Control statements                        | `vignette("control")`    |
+| Class 4      | HTLTC-R: Functions                                 | `vignette("functions")`  |
+| Class 5      | HTLTC-R: Reading, writing, and regular expressions | `vignette("io")`         |
+| Class 6      | HTLTC-R: Graphics                                  | `vignette("graphics")`   |
+| Class 7      | HTLTC-R: Graphics                                  | `vignette("graphics")`   |
+| Class 8      | HTLTC-R: Reproducible research & packages          | `vignette("package")`    |
 
 ## Notes for teachers
 This section contains recommendations for teachers from previous teachers. If you encounter something that you think could help other teachers, please add it here.
 
 * **Giving context:** As you go through the lessons, make sure to highlight how this can be useful to your target audience (biological and biomedical scientists). 
 * **Introduction to RStudio:** Take the time to explain what each of the windows is. As you go through the operators lesson there will be good opportunities to highlight some of the features.
+* **Alternate lectures** There are alternate versions of a couple of the vignettes; the above sequence gives the most complete picture, but some teachers may prefer the simplified lectures, e.g. `vignette("plotting")`. Read through both and use your discretion. 
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
-
-## Plotting lectures
-Different small groups have used different methods for teaching plotting. Here is the list of available plotting lectures with a summary of each. 
-
-### plotting
-This is a very basic plotting lecture. It jumps right into base plot and focuses on `plot()`, `points()`, and `legend()`. The homework activities use a different data set and also teach `hist()` and `boxplot()`. 
-
-### graphics
-This lecture dives into the fundamentals of the graphics engine. It is recommended to put this lecture after the functions lecture, because the lecture includes information about how to write a few helpful functions. The recommened sequence would be operators, structures, control, functions, io, graphics, package.
