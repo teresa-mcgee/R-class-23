@@ -6,6 +6,8 @@ Date: 2018-06-01
 Authors@R: c(person("Dayne L", "Filer", 
                     role = c("aut", "cre"), 
                     email = "dayne.filer@gmail.com"), 
+             person("Teresa McGee",
+                    role = c("aut")) 
              person("Amy Pomeroy",
                     role = c("aut")),
              person("Sarah Taylor",
@@ -18,7 +20,7 @@ Authors@R: c(person("Dayne L", "Filer",
                     role = c("ctb"))) 
              person("Teresa McGee",
                     role = c("aut")) 
-Maintainer: 'Teresa McGee <tmcgee@unc.edu>'
+
 Description: Add later
 Suggests: 
     knitr,
