@@ -1,0 +1,174 @@
+---
+title: "HTLTC-R: Intro to Coding in R"
+author: "Teresa McGee"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HTLTC-R: Intro to Coding in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+    knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+    library(htltcR)
+```
+
+### Using this document
+
+-   Code blocks and R code have a grey background (note, code nested in the text is not highlighted in the pdf version of this document but is a different font).
+-   \# indicates a comment, and anything after a comment will not be evaluated in R
+-   The comments beginning with \## under the code in the grey code boxes are the output from the code directly above; any comments added by us will start with a single \#
+-   While you can copy and paste code into R, you will learn faster if you type out the commands yourself.
+-   Read through the document after class. This is meant to be a reference, and ideally, you should be able to understand every line of code. If there is something you do not understand please email us with questions or ask in the following class (you're probably not the only one with the same question!).
+
+### Goals
+
+1.  Access RStudio Cloud or RStudio Desktop.
+2.  Learn to apply coding standards
+3.  Set up a project file structure.
+4.  Learn the different file types in R and choose from them.
+
+### Introduction to R
+
+R is a programming language that was developed for data maniulation, calculation, and figure generation.
+
+For this class, we will be using a virtual "environment" for our R programming. An environment is a workspace for you to work in that contains all the information (packages, code, data, settings) that you need for your project. The most common user interface/ software used to create and manage your environment is RStudio. RStudio is developed and maintained by the company Posit - so we will be using Posit's virtual RStudio now. This account has a storage limit of 5GB, you won't need more than that for the class, and we will show you at the end of class how to get more storage.
+
+1.  Go to <https://login.posit.cloud/register>
+
+2.  Sign up for a free account. You can use your UNC email or a personal email - it is up to you!
+
+3.  You will click Posit Cloud to be directed to your workspace.
+
+4.  The "Spaces" tab to the left show you the workspaces you have access to. You can share workspaces here with collaborators.
+
+5.  On the right you can crate a new project. A project is a contained environment where you can save all your code, data, and figures together. Try starting a new project to go to the RStudio user interface. Name the project HLC-23.
+
+#### RStudio
+
+On this virtual environment, I have two files. One history file that will track your work, and a Rproj file which will hold a virtual "screenshot" of your project the last time you used it.
+
+```{r echo=FALSE, fig.cap = "RSudio_interface",dpi=300}
+knitr::include_graphics("~/Documents/GitHub/R-class-23/images/rstudio_interface.png")
+```
+
+-   [Console]{.underline} window is for running one line of code at a time. **This will not be saved anywhere**, so don't do any work in the console.
+
+-   [Terminal]{.underline} window is like using the terminal in your computer. This uses Bash script and can be used to access the file space you're working in. You probably won't need this for the class.
+
+-   [Background Jobs]{.underline} window is to run an Rscript (we will talk about that in a second) outside of your environment.
+
+-   [Environment]{.underline} tab will tall you any data, objects, or functions that you have in your
+
+-   [History]{.underline} will keep track of everything you have run in the environment.
+
+-   [Connections]{.underline} is a new system to directly access public data repositories. You wont need it for your class but check out this resource for learning more and adding connections (like your desktop). <https://support.posit.co/hc/en-us/articles/115010915687>
+
+-   [Files]{.underline} will show you the file directory that you are working in (aka your **working directory**).
+
+-   [Plots]{.underline} will be where the graphics you make are displayed. You can save the graphics from this tab too.
+
+-   [Packages]{.underline} Shows you any R packages (a, usually published, collection of code, functions, and data with specific jobs). Packages in this tab are all installed on your virtual system, and packages with a checked box on the left are loaded into your current environment.
+
+-   [Help]{.underline} will give you tutorials on any code that you need help with. To access this type ? in your console.
+
+-   [Viewer]{.underline} and [Presentation]{.underline} will let you see pdfs and slideshows that you are developing using a **markdown** or **quarto** **document** (we will cover that below).
+
+### Class Coding Guidelines
+
+One of the key pieces of rigor and reproducibility in code is coding style. By sticking to a specific style, we make our code more readable, and more reproducible for others. Styles are a requirement for any code repository that publishes packages (ie Bioconductor, CRAN, ect). Think of it like a style guide for a journal - if you want to publish to Nature, you would structure your drafts in Nature's style.
+
+For this class, we will be using Google's Style guide for both classes: <https://google.github.io/styleguide/Rguide.html>. This style guide is a branch from Posit's style guide, so it will be similar to any other code published with R tutorials, or in the CRAN package library. You can find the extended Posit style guide here: <https://style.tidyverse.org/>.
+
+This style guide includes conventions for naming, spacing, and commenting. In this class, we will begin every new file with a descriptor, like this
+
+```{r}
+
+# file name : practicing_styles.R
+# Goal :  This script is a practice from HowToLearnToCode to work through naming and 
+#         syntax standards
+# Input : NA
+# Output : NA
+# Libraries : devtools
+# Required : NA
+
+```
+
+#### Guide for commenting code
+
+```{r}
+
+# testing PEMDAS math in R
+-7 * 4 + 2 / 3
+-7 * (4 + 2) / 3
+```
+
+and separate parts of your code like this
+
+```{r}
+
+# Math -------------------------------
+
+# testing PEMDAS math in R
+-7 * 4 + 2 / 3
+-7 * (4 + 2) / 3
+
+# Logic ------------------------------
+
+# testing == and !=
+-7 == 2
+-7 != 2
+```
+
+We add code breaks to make reading your code, and finding important sections much easier. In the above code, we have told the reader that we are transitioning from practicing calculator functions in R, to testing logical functions.
+
+#### Guide for naming
+
+In your class, you will learn more about "variables". For now, we are just going to say that variables should be named in what programmers call "snake case". In snake case, you start the name of a new variable with a lower case letter and separate words with an underscore. See an example here :
+
+```{r}
+# Good
+day_one <- 1
+day_1 <- 1
+
+# Bad
+DayOne <- 1
+dayone <- 1
+first_day_of_the_month <- 1
+djm1 <- 1
+```
+
+Make sure your names are always as concise and meaningful!
+
+#### Guide through the rest of your class:
+
+As you go through the class, make sure to check back into the syntax guide <https://style.tidyverse.org/syntax.html>. You want to try to keep the correct style throughout all your code - trust us, it may be inconvenient now but it will make coding much easier in the future!
+
+### R Files:
+
+Finally, we will introduce the files that you will use in your class.
+
+#### Rscript (.R)
+
+An Rscript is a standard file type for R programming. The Rscript cannot have any non-R formatting in it (everything written needs to be R code or commented).
+
+When would you use an Rscript? All the time! These scripts should hold all the code you need to run your analysis.
+
+#### Markdown file (.Rmd)
+
+A markdown file can be used as a notebook with code blocks. This allows you to type up notes about your analysis, embed photos, type up equations, and so much more. This vignette was made with a markdown file. You will be using markdown files in your class a lot. The output of this file is an html or a pdf document.
+
+#### Quarto documents (.Qmd)
+
+Posit (the company that manages Rstudio) is transitioning to the quarto documentation. These are great for creating slide shows, pdfs, websites, ect. with code blocks. When using quarto you can view your work in the presentation tab of Rstudio.
+
+### File Structure
+
+For rigor and reproducibility, you want to keep a consistent file structure for any R project. You have already started a new project called HLC-23. Copy the following code (line by line) and paste it into your terminal window, then delete the "\#" and click enter. This code will create files for you to organize your code, figures, and data. Try to set up a similar file structure for every project you start.
+
+```{r}
+# dir.create("figures")
+# dir.create("R")
+# dir.create("data")
+```

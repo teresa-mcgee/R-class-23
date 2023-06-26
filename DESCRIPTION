@@ -16,6 +16,8 @@ Authors@R: c(person("Dayne L", "Filer",
                     role = c("ctb")),
              person("Matthew Berginski",
                     role = c("ctb"))) 
+             person("Teresa McGee",
+                    role = c("aut"))) 
 Description: Add later
 Suggests: 
     knitr,

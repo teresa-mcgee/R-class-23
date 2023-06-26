@@ -5,7 +5,7 @@
 #' @export
 
 updateRClass <- function(ref = "master") {
-  install_github("How-to-Learn-to-Code/rclass", 
+  install_github("teresa-mcgee/R-class-23", 
                  build_opts = "",
                  dependencies = TRUE,
                  ref = ref,

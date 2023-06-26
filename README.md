@@ -12,7 +12,7 @@ To install the package from GitHub run:
 
 ```
 library(devtools)
-devtools::install_github("How-to-Learn-to-Code/rclass", build_opts = "", dependencies = TRUE)
+devtools::install_github("teresa-mcgee/R-class-23", build_opts = "", dependencies = TRUE)
 library(htltcR)
 ```
 
@@ -34,18 +34,19 @@ data(primers)
 
 ## Class sequence
 
-The class is roughly intended for eight 90-minute sessions, ideally with the last 30 minutes reserved for students to ask questions and work collaboratively on the given exercises.
+The class is roughly intended for eight 90-minute sessions, with one pre-class set up worksheet, ideally with the last 30 minutes reserved for students to ask questions and work collaboratively on the given exercises.
 
-| Class        | Title                                              | Command                  |
-| :---         | :---                                               | :---                     |
-| Class 1      | HTLTC-R: Operators                                 | `vignette("operators")`  |
-| Class 2      | HTLTC-R: Data structures & subsetting              | `vignette("structures")` |
-| Class 3      | HTLTC-R: Control statements                        | `vignette("control")`    |
-| Class 4      | HTLTC-R: Functions                                 | `vignette("functions")`  |
-| Class 5      | HTLTC-R: Reading, writing, and regular expressions | `vignette("io")`         |
-| Class 6      | HTLTC-R: Graphics                                  | `vignette("graphics")`   |
-| Class 7      | HTLTC-R: Graphics                                  | `vignette("graphics")`   |
-| Class 8      | HTLTC-R: Reproducible research & packages          | `vignette("package")`    |
+| Class        | Title                                              | Command                   |
+| :---         | :---                                               | :---                      |
+| Class 0      | HTLTC-R: Intro to Coding in R                      | `vignette("introduction")`|
+| Class 1      | HTLTC-R: Operators                                 | `vignette("operators")`   |
+| Class 2      | HTLTC-R: Data structures & subsetting              | `vignette("structures")`  |
+| Class 3      | HTLTC-R: Control statements                        | `vignette("control")`     |
+| Class 4      | HTLTC-R: Functions                                 | `vignette("functions")`   |
+| Class 5      | HTLTC-R: Reading, writing, and regular expressions | `vignette("io")`          |
+| Class 6      | HTLTC-R: Graphics                                  | `vignette("graphics")`    |
+| Class 7      | HTLTC-R: Graphics                                  | `vignette("graphics")`    |
+| Class 8      | HTLTC-R: Reproducible research & packages          | `vignette("package")`     |
 
 ## Notes for teachers
 This section contains recommendations for teachers from previous teachers. If you encounter something that you think could help other teachers, please add it here.
