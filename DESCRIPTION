@@ -18,6 +18,7 @@ Authors@R: c(person("Dayne L", "Filer",
                     role = c("ctb"))) 
              person("Teresa McGee",
                     role = c("aut")) 
+Maintainer: 'Teresa McGee <tmcgee@unc.edu>'
 Description: Add later
 Suggests: 
     knitr,
