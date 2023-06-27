@@ -50,7 +50,7 @@ For this class, we will be using a virtual "environment" for our R programming. 
 On this virtual environment, I have two files. One history file that will track your work, and a Rproj file which will hold a virtual "screenshot" of your project the last time you used it.
 
 ```{r echo=FALSE, fig.cap = "RSudio_interface",dpi=300}
-knitr::include_graphics("~/Documents/GitHub/R-class-23/images/rstudio_interface.png")
+knitr::include_graphics("images/rstudio_interface.png")
 ```
 
 -   [Console]{.underline} window is for running one line of code at a time. **This will not be saved anywhere**, so don't do any work in the console.
