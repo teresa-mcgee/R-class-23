@@ -49,11 +49,6 @@ For this class, we will be using a virtual "environment" for our R programming. 
 
 On this virtual environment, I have two files. One history file that will track your work, and a Rproj file which will hold a virtual "screenshot" of your project the last time you used it.
 
-```{r echo=FALSE, fig.cap = "RSudio_interface",dpi=300}
-
-knitr::include_graphics(paste0(getwd(),"/man/figures/rstudio_interface.png"))
-```
-
 -   [Console]{.underline} window is for running one line of code at a time. **This will not be saved anywhere**, so don't do any work in the console.
 
 -   [Terminal]{.underline} window is like using the terminal in your computer. This uses Bash script and can be used to access the file space you're working in. You probably won't need this for the class.
@@ -166,7 +161,7 @@ Posit (the company that manages Rstudio) is transitioning to the quarto document
 
 ### File Structure
 
-For rigor and reproducibility, you want to keep a consistent file structure for any R project. You have already started a new project called HLC-23. Copy the following code (line by line) and paste it into your terminal window, then delete the "\#" and click enter. This code will create files for you to organize your code, figures, and data. Try to set up a similar file structure for every project you start.
+For rigor and reproducibility, you want to keep a consistent file structure for any R project. You have already started a new project called HLC-23. Copy the following code (line by line) and paste it into your console window, then delete the "\#" and click enter. This code will create files for you to organize your code, figures, and data. Try to set up a similar file structure for every project you start.
 
 ```{r}
 # dir.create("figures")

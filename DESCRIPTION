@@ -33,7 +33,7 @@ Suggests:
 Depends: R (>= 3.5.0)
 Imports: devtools, graphics, grDevices
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
 LazyData: true
 License: MIT + file LICENSE
 Encoding: UTF-8
