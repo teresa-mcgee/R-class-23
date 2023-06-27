@@ -169,8 +169,8 @@ The double-character operators (`&&` and `||`) will only return a single `TRUE` 
 1 > 0 && 10 < 100
 1 > 0 && FALSE
 1 > 0 || FALSE
-1 > 0 && c(TRUE, FALSE)
-1 > 0 && c(FALSE, TRUE)
+#1 > 0 && c(TRUE, FALSE)
+#1 > 0 && c(FALSE, TRUE)
 ```
 
 Notice in the last two statements above the order of the vector matters. The double-character operators are lazy -- they only check as much as they need to. If you give a double-character operator a vector, it only checks the first element. 
