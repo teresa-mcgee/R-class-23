@@ -12,7 +12,7 @@ To install the package from GitHub run:
 
 ```
 library(devtools)
-devtools::install_github("teresa-mcgee/R-class-23", build_opts = "", dependencies = TRUE)
+devtools::install_github("teresa-mcgee/R-class-23", build_opts = "", dependencies = TRUE, force = TRUE)
 library(htltcR-23)
 ```
 
