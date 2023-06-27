@@ -51,7 +51,7 @@ On this virtual environment, I have two files. One history file that will track 
 
 ```{r echo=FALSE, fig.cap = "RSudio_interface",dpi=300}
 
-knitr::include_graphics("/images/rstudio_interface.png")
+knitr::include_graphics(paste0(getwd(),"/images/rstudio_interface.png"))
 ```
 
 -   [Console]{.underline} window is for running one line of code at a time. **This will not be saved anywhere**, so don't do any work in the console.
