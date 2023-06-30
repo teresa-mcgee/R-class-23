@@ -11,9 +11,10 @@ This package was developed for the graduate student developed and led How to Lea
 To install the package from GitHub run:
 
 ```
+install.packages("devtools")
 library(devtools)
 devtools::install_github("teresa-mcgee/R-class-23", build_opts = "", dependencies = TRUE, force = TRUE)
-library(htltcR-23)
+library("htltcR")
 ```
 
 Once the package is installed once, users can easily grab the most recent version by running `updateRClass()`.
